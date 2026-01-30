@@ -1,0 +1,160 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@pine.com",
+            "password": "admin123",
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "email": "trainer1@pine.com",
+            "password": "trainer123",
+            "role": "trainer",
+            "trainerId": 1
+        },
+        {
+            "id": 3,
+            "email": "trainer2@pine.com",
+            "password": "trainer123",
+            "role": "trainer",
+            "trainerId": 2
+        }
+    ],
+    "companies": [
+        {
+            "id": 1,
+            "name": "TechCorp Inc.",
+            "email": "hr@techcorp.com",
+            "industry": "Technology"
+        },
+        {
+            "id": 2,
+            "name": "InnovateLabs",
+            "email": "training@innovatelabs.com",
+            "industry": "Software Development"
+        },
+        {
+            "id": 3,
+            "name": "GlobalSoft Solutions",
+            "email": "learning@globalsoft.com",
+            "industry": "IT Services"
+        }
+    ],
+    "trainers": [
+        {
+            "id": 1,
+            "name": "John Davis",
+            "email": "trainer1@pine.com",
+            "technologies": [
+                "Angular",
+                "React",
+                "TypeScript",
+                "Node.js"
+            ],
+            "paymentType": "daily",
+            "rate": 800
+        },
+        {
+            "id": 2,
+            "name": "Emily Thompson",
+            "email": "trainer2@pine.com",
+            "technologies": [
+                "AWS",
+                "Docker",
+                "Kubernetes",
+                "DevOps"
+            ],
+            "paymentType": "daily",
+            "rate": 1000
+        }
+    ],
+    "enrollments": [
+        {
+            "id": 1,
+            "companyId": 1,
+            "trainerId": 1,
+            "technology": "Angular",
+            "startDate": "2026-02-15",
+            "endDate": "2026-02-19",
+            "budget": 20000,
+            "status": "APPROVED"
+        },
+        {
+            "id": 2,
+            "companyId": 2,
+            "trainerId": 2,
+            "technology": "AWS",
+            "startDate": "2026-03-01",
+            "endDate": "2026-03-10",
+            "budget": 35000,
+            "status": "REQUESTED"
+        },
+        {
+            "id": 3,
+            "companyId": 3,
+            "trainerId": 1,
+            "technology": "React",
+            "startDate": "2026-04-10",
+            "endDate": "2026-04-14",
+            "budget": 18000,
+            "status": "ONGOING"
+        }
+    ],
+    "purchaseOrders": [
+        {
+            "id": 1,
+            "enrollmentId": 1,
+            "type": "CLIENT",
+            "totalAmount": 20000,
+            "paymentTerms": "Net 30",
+            "status": "SENT"
+        },
+        {
+            "id": 2,
+            "enrollmentId": 1,
+            "type": "TRAINER",
+            "paymentType": "daily",
+            "rate": 800,
+            "totalAmount": 4000,
+            "paymentTerms": "Upon completion",
+            "status": "ACCEPTED"
+        },
+        {
+            "id": 3,
+            "enrollmentId": 3,
+            "type": "CLIENT",
+            "totalAmount": 18000,
+            "paymentTerms": "Net 15",
+            "status": "ACCEPTED"
+        }
+    ],
+    "invoices": [
+        {
+            "id": 1,
+            "poId": 1,
+            "issuedBy": "ADMIN",
+            "amount": 20000,
+            "tax": 2000,
+            "invoiceDate": "2026-02-20",
+            "status": "SENT"
+        },
+        {
+            "id": 2,
+            "poId": 2,
+            "issuedBy": "TRAINER",
+            "amount": 4000,
+            "invoiceDate": "2026-02-21",
+            "status": "PENDING"
+        },
+        {
+            "id": 3,
+            "poId": 3,
+            "issuedBy": "ADMIN",
+            "amount": 18000,
+            "tax": 1800,
+            "invoiceDate": "2026-04-15",
+            "status": "APPROVED"
+        }
+    ]
+}

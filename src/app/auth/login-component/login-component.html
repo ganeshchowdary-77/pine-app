@@ -1,0 +1,93 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <text x="50%" y="50%" font-size="48" text-anchor="middle" dominant-baseline="middle">🍍</text>
+        </svg>
+      </div>
+      <h1>Welcome to Pine App</h1>
+      <p>Financial & Training Management System</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      @if (errorMessage()) {
+      <div class="error-alert" role="alert">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+            clip-rule="evenodd" />
+        </svg>
+        <span>{{ errorMessage() }}</span>
+      </div>
+      }
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+            <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+          </svg>
+          <input id="email" type="email" formControlName="email" placeholder="admin@pine.com"
+            [class.invalid]="emailControl.invalid && emailControl.touched" />
+        </div>
+        @if (emailControl.invalid && emailControl.touched) {
+        <div class="error-message">
+          @if (emailControl.hasError('required')) {
+          <span>Email is required</span>
+          } @else if (emailControl.hasError('email')) {
+          <span>Please enter a valid email address</span>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+              clip-rule="evenodd" />
+          </svg>
+          <input id="password" type="password" formControlName="password" placeholder="Enter your password"
+            [class.invalid]="
+              passwordControl.invalid && passwordControl.touched
+            " />
+        </div>
+        @if (passwordControl.invalid && passwordControl.touched) {
+        <div class="error-message">
+          @if (passwordControl.hasError('required')) {
+          <span>Password is required</span>
+          } @else if (passwordControl.hasError('minlength')) {
+          <span>Password must be at least 6 characters</span>
+          }
+        </div>
+        }
+      </div>
+
+      <button type="submit" class="login-button" [disabled]="isLoading()">
+        @if (isLoading()) {
+        <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-opacity="0.25" />
+          <path d="M12 2a10 10 0 0110 10" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+        </svg>
+        <span>Signing in...</span>
+        } @else {
+        <span>Sign In</span>
+        }
+      </button>
+    </form>
+
+    <div class="demo-credentials">
+      <p class="demo-title">Demo Credentials:</p>
+      <div class="demo-item">
+        <strong>Admin:</strong> admin@pine.com / admin123
+      </div>
+      <div class="demo-item">
+        <strong>Trainer:</strong> trainer1@pine.com / trainer123
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,419 @@
-/* You can add global styles to this file, and also import other style files */
+/* Pine App - Global Pineapple Theme System */
+/* All teams should use these CSS variables for consistent branding */
 
 @import "tailwindcss";
+
+/* ========================================
+   PINEAPPLE THEME - CSS VARIABLES
+   ======================================== */
+
+:root {
+    /* Primary Pineapple Colors */
+    --pine-yellow: #ffd93d;
+    --pine-yellow-light: #ffe771;
+    --pine-yellow-dark: #f2c119;
+    --pine-green: #6bcf63;
+    --pine-green-light: #8fdb88;
+    --pine-green-dark: #4caf50;
+    --pine-brown: #8b6f47;
+    --pine-orange: #ff9f40;
+
+    /* Semantic Colors */
+    --pine-primary: var(--pine-yellow);
+    --pine-secondary: var(--pine-green);
+    --pine-accent: var(--pine-orange);
+
+    /* Gradients */
+    --pine-gradient-primary: linear-gradient(135deg, #ffd93d 0%, #ff9f40 100%);
+    --pine-gradient-secondary: linear-gradient(135deg, #6bcf63 0%, #4caf50 100%);
+    --pine-gradient-tropical: linear-gradient(135deg,
+            #ffd93d 0%,
+            #ff9f40 50%,
+            #6bcf63 100%);
+
+    /* Neutral Colors */
+    --pine-white: #ffffff;
+    --pine-black: #1a1a1a;
+    --pine-gray-50: #fafafa;
+    --pine-gray-100: #f5f5f5;
+    --pine-gray-200: #e5e5e5;
+    --pine-gray-300: #d4d4d4;
+    --pine-gray-400: #a3a3a3;
+    --pine-gray-500: #737373;
+    --pine-gray-600: #525252;
+    --pine-gray-700: #404040;
+    --pine-gray-800: #262626;
+    --pine-gray-900: #171717;
+
+    /* Status Colors */
+    --pine-success: #22c55e;
+    --pine-warning: #f59e0b;
+    --pine-error: #ef4444;
+    --pine-info: #3b82f6;
+
+    /* Shadows */
+    --pine-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --pine-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --pine-shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+    --pine-shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.2);
+    --pine-shadow-xl: 0 20px 40px -5px rgba(0, 0, 0, 0.25);
+    --pine-shadow-glow: 0 0 20px rgba(255, 217, 61, 0.4);
+
+    /* Border Radius */
+    --pine-radius-sm: 6px;
+    --pine-radius: 12px;
+    --pine-radius-lg: 16px;
+    --pine-radius-xl: 24px;
+    --pine-radius-full: 9999px;
+
+    /* Spacing */
+    --pine-space-xs: 0.25rem;
+    --pine-space-sm: 0.5rem;
+    --pine-space-md: 1rem;
+    --pine-space-lg: 1.5rem;
+    --pine-space-xl: 2rem;
+    --pine-space-2xl: 3rem;
+
+    /* Typography */
+    --pine-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+    --pine-font-mono: 'Courier New', Courier, monospace;
+
+    /* Transitions */
+    --pine-transition-fast: 150ms ease-in-out;
+    --pine-transition: 300ms ease-in-out;
+    --pine-transition-slow: 500ms ease-in-out;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--pine-font-sans);
+    color: var(--pine-gray-900);
+    background-color: var(--pine-gray-50);
+    line-height: 1.6;
+}
+
+/* ========================================
+   UTILITY CLASSES FOR TEAMS
+   ======================================== */
+
+/* Background Utilities */
+.pine-bg-primary {
+    background: var(--pine-gradient-primary);
+}
+
+.pine-bg-secondary {
+    background: var(--pine-gradient-secondary);
+}
+
+.pine-bg-tropical {
+    background: var(--pine-gradient-tropical);
+}
+
+.pine-bg-white {
+    background-color: var(--pine-white);
+}
+
+.pine-bg-gray-50 {
+    background-color: var(--pine-gray-50);
+}
+
+/* Text Utilities */
+.pine-text-primary {
+    background: var(--pine-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pine-text-secondary {
+    color: var(--pine-green);
+}
+
+/* Button Styles */
+.pine-btn {
+    padding: var(--pine-space-sm) var(--pine-space-lg);
+    border-radius: var(--pine-radius);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all var(--pine-transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pine-space-sm);
+}
+
+.pine-btn-primary {
+    background: var(--pine-gradient-primary);
+    color: var(--pine-black);
+    box-shadow: var(--pine-shadow);
+}
+
+.pine-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pine-shadow-lg);
+}
+
+.pine-btn-secondary {
+    background: var(--pine-gradient-secondary);
+    color: var(--pine-white);
+    box-shadow: var(--pine-shadow);
+}
+
+.pine-btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pine-shadow-lg);
+}
+
+.pine-btn-outline {
+    background: transparent;
+    border: 2px solid var(--pine-yellow);
+    color: var(--pine-yellow-dark);
+}
+
+.pine-btn-outline:hover {
+    background: var(--pine-yellow);
+    color: var(--pine-black);
+}
+
+/* Card Styles */
+.pine-card {
+    background: var(--pine-white);
+    border-radius: var(--pine-radius-lg);
+    padding: var(--pine-space-xl);
+    box-shadow: var(--pine-shadow-md);
+    transition: all var(--pine-transition);
+}
+
+.pine-card:hover {
+    box-shadow: var(--pine-shadow-lg);
+    transform: translateY(-4px);
+}
+
+.pine-card-tropical {
+    background: linear-gradient(135deg, #ffd93d15 0%, #6bcf6315 100%);
+    border: 2px solid var(--pine-yellow);
+}
+
+/* Input Styles */
+.pine-input {
+    width: 100%;
+    padding: var(--pine-space-md);
+    border: 2px solid var(--pine-gray-300);
+    border-radius: var(--pine-radius);
+    font-size: 1rem;
+    transition: all var(--pine-transition);
+    background: var(--pine-white);
+}
+
+.pine-input:focus {
+    outline: none;
+    border-color: var(--pine-yellow);
+    box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.2);
+}
+
+/* Badge Styles */
+.pine-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--pine-radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.pine-badge-success {
+    background: var(--pine-success);
+    color: var(--pine-white);
+}
+
+.pine-badge-warning {
+    background: var(--pine-warning);
+    color: var(--pine-white);
+}
+
+.pine-badge-error {
+    background: var(--pine-error);
+    color: var(--pine-white);
+}
+
+.pine-badge-info {
+    background: var(--pine-info);
+    color: var(--pine-white);
+}
+
+.pine-badge-primary {
+    background: var(--pine-yellow);
+    color: var(--pine-black);
+}
+
+/* Status Indicators */
+.pine-status-requested {
+    color: var(--pine-info);
+}
+
+.pine-status-approved {
+    color: var(--pine-success);
+}
+
+.pine-status-ongoing {
+    color: var(--pine-warning);
+}
+
+.pine-status-completed {
+    color: var(--pine-green);
+}
+
+/* Layout Utilities */
+.pine-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--pine-space-lg);
+}
+
+.pine-section {
+    padding: var(--pine-space-2xl) 0;
+}
+
+/* Animations */
+@keyframes pine-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes pine-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pine-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.pine-animate-pulse {
+    animation: pine-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pine-animate-spin {
+    animation: pine-spin 1s linear infinite;
+}
+
+.pine-animate-bounce {
+    animation: pine-bounce 1s ease-in-out infinite;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 640px) {
+    :root {
+        font-size: 14px;
+    }
+
+    .pine-card {
+        padding: var(--pine-space-lg);
+    }
+
+    .pine-container {
+        padding: 0 var(--pine-space-md);
+    }
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pine-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pine-yellow);
+    border-radius: var(--pine-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pine-yellow-dark);
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 3px solid var(--pine-yellow);
+    outline-offset: 2px;
+}
+
+/* Screen reader only */
+.pine-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .pine-card {
+        box-shadow: none;
+        border: 1px solid black;
+    }
+}
