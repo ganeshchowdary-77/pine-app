@@ -1,0 +1,71 @@
+<div class="payment-status">
+  <div class="page-header">
+    <h2>Payment Status</h2>
+    <p>Track your earnings and payment history</p>
+  </div>
+  
+  <div class="payment-summary">
+    <div class="summary-card">
+      <div class="summary-icon">💰</div>
+      <h3>Total Paid</h3>
+      <p class="amount paid">${{ paymentSummary().totalPaid }}</p>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">⏳</div>
+      <h3>Pending Payment</h3>
+      <p class="amount pending">${{ paymentSummary().totalPending }}</p>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">📅</div>
+      <h3>Last Payment</h3>
+      <p class="date">{{ paymentSummary().lastPaymentDate || 'No payments yet' }}</p>
+    </div>
+  </div>
+  
+  <div class="invoice-list" *ngIf="invoices().length > 0; else noInvoices">
+    <h3>Invoice Payment History</h3>
+    <div class="invoice-card" *ngFor="let invoice of invoices()">
+      <div class="invoice-header">
+        <div class="invoice-info">
+          <h4>Invoice #{{ invoice.id }}</h4>
+          <p class="invoice-date">{{ invoice.invoiceDate }}</p>
+        </div>
+        <div class="invoice-amount">
+          <p class="amount">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</p>
+          <span class="status {{ invoice.status.toLowerCase() }}">{{ invoice.status }}</span>
+        </div>
+      </div>
+      
+      <div class="invoice-details">
+        <div class="detail-row">
+          <span class="label">PO ID:</span>
+          <span class="value">#{{ invoice.poId }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Base Amount:</span>
+          <span class="value">${{ invoice.amount }}</span>
+        </div>
+        <div class="detail-row" *ngIf="invoice.tax">
+          <span class="label">Tax:</span>
+          <span class="value">${{ invoice.tax }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Total:</span>
+          <span class="value total">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noInvoices>
+    <div class="empty-state">
+      <div class="empty-icon">💳</div>
+      <h3>No Invoices Found</h3>
+      <p>You don't have any invoices yet.</p>
+    </div>
+  </ng-template>
+  
+  <div class="back-link">
+    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
+  </div>
+</div>

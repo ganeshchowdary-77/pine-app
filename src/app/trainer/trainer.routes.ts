@@ -1,4 +1,10 @@
 import { Routes } from '@angular/router';
+import { TrainerDashboardComponent } from './dashboard/dashboard.component';
+import { AssignedTrainingsComponent } from './assigned-trainings/assigned-trainings.component';
+import { PoDetailsComponent } from './po-details/po-details.component';
+import { InvoiceUploadComponent } from './invoice-upload/invoice-upload.component';
+import { PaymentStatusComponent } from './payment-status/payment-status.component';
+import { InvoiceHistoryComponent } from './invoice-history/invoice-history.component';
 
 /**
  * TRAINER MODULE ROUTES
@@ -65,28 +71,20 @@ export const TRAINER_ROUTES: Routes = [
     {
         path: '',
         children: [
-            // TODO (Team 4 - Training & PO): Add training routes here
-            // Example: { path: 'trainings', component: TrainingListComponent }
-            // Example: { path: 'trainings/:id', component: TrainingDetailComponent }
-            // Use: EnrollmentService.getByTrainerId(user.trainerId!)
-
-            // TODO (Team 4 - Training & PO): Add trainer PO routes here
-            // Example: { path: 'purchase-orders', component: TrainerPOListComponent }
-            // Example: { path: 'purchase-orders/:id', component: TrainerPODetailComponent }
-            // Use: PurchaseOrderService.getByType('TRAINER') then filter by trainer
-
-            // TODO (Team 5 - Invoice & Dashboard): Add dashboard route here
-            // Example: { path: 'dashboard', component: TrainerDashboardComponent }
-            // Use: EnrollmentService.getByTrainerId(), InvoiceService.getTrainerInvoices()
-
-            // TODO (Team 5 - Invoice & Dashboard): Add invoice routes here
-            // Example: { path: 'invoices', component: InvoiceListComponent }
-            // Example: { path: 'invoices/upload', component: InvoiceUploadComponent }
-            // Example: { path: 'invoices/history', component: InvoiceHistoryComponent }
-            // Use: InvoiceService.getTrainerInvoices(), create(invoice)
-
-            // TODO: After adding dashboard component, set it as default:
-            // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+            // Trainer Dashboard (Team 5 - Invoice & Dashboard)
+            { path: 'dashboard', component: TrainerDashboardComponent },
+            
+            // Training & PO Routes (Team 4 - Training & PO)
+            { path: 'assigned-trainings', component: AssignedTrainingsComponent },
+            { path: 'po-details', component: PoDetailsComponent },
+            
+            // Invoice Routes (Team 5 - Invoice & Dashboard)
+            { path: 'invoice-upload', component: InvoiceUploadComponent },
+            { path: 'payment-status', component: PaymentStatusComponent },
+            { path: 'invoice-history', component: InvoiceHistoryComponent },
+            
+            // Default route redirects to dashboard
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ],
     },
 ];

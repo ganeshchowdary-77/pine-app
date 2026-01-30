@@ -1,0 +1,73 @@
+<div class="trainer-dashboard">
+  <div class="dashboard-header">
+    <h2>Trainer Dashboard</h2>
+    <p class="welcome-message">Welcome back! Here's your training overview.</p>
+  </div>
+  
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+      <h3>{{ stats().totalTrainings }}</h3>
+      <p>Total Trainings</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🚀</div>
+      <h3>{{ stats().ongoingTrainings }}</h3>
+      <p>Ongoing Trainings</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <h3>{{ stats().completedTrainings }}</h3>
+      <p>Completed Trainings</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <h3>\${{ stats().totalEarnings }}</h3>
+      <p>Total Earnings</p>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <div class="action-grid">
+      <a routerLink="/trainer/assigned-trainings" class="action-btn">
+        <div class="btn-icon">📋</div>
+        <div class="btn-content">
+          <h4>Assigned Trainings</h4>
+          <p>View your scheduled training sessions</p>
+        </div>
+      </a>
+      
+      <a routerLink="/trainer/po-details" class="action-btn">
+        <div class="btn-icon">📄</div>
+        <div class="btn-content">
+          <h4>PO Details</h4>
+          <p>View purchase order information</p>
+        </div>
+      </a>
+      
+      <a routerLink="/trainer/invoice-upload" class="action-btn">
+        <div class="btn-icon">📤</div>
+        <div class="btn-content">
+          <h4>Upload Invoice</h4>
+          <p>Submit new invoices for payment</p>
+        </div>
+      </a>
+      
+      <a routerLink="/trainer/payment-status" class="action-btn">
+        <div class="btn-icon">💳</div>
+        <div class="btn-content">
+          <h4>Payment Status</h4>
+          <p>Track your payment history</p>
+        </div>
+      </a>
+      
+      <a routerLink="/trainer/invoice-history" class="action-btn">
+        <div class="btn-icon">📊</div>
+        <div class="btn-content">
+          <h4>Invoice History</h4>
+          <p>View all your past invoices</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
