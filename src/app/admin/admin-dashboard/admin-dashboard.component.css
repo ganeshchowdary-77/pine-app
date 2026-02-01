@@ -1,0 +1,242 @@
+/* Use global Pineapple theme classes for layout and style */
+.admin-dashboard {
+  /* Uses .pine-container and .pine-section for layout */
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem !important;
+}
+
+.stat-label {
+  color: var(--pine-gray-600);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--pine-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-value.pending {
+  color: var(--pine-warning);
+}
+
+.stat-value.paid {
+  color: var(--pine-success);
+}
+
+/* Trainers Grid */
+.trainers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.trainer-card {
+  background: linear-gradient(135deg, var(--pine-yellow-light) 0%, var(--pine-green-light) 100%);
+  padding: 1.5rem;
+  border-radius: var(--pine-radius-lg);
+  box-shadow: var(--pine-shadow);
+  transition: all var(--pine-transition);
+}
+
+.trainer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pine-shadow-lg);
+}
+
+.trainer-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--pine-black);
+  margin-bottom: 0.5rem;
+}
+
+.trainer-email {
+  font-size: 0.9rem;
+  color: var(--pine-gray-700);
+  margin-bottom: 0.75rem;
+}
+
+.trainer-tech,
+.trainer-rate {
+  font-size: 0.9rem;
+  color: var(--pine-gray-700);
+  margin-bottom: 0.5rem;
+}
+
+/* Invoice Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+table.invoice-table th, table.invoice-table td {
+  border: 1px solid var(--pine-gray-200);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+table.invoice-table th {
+  background: var(--pine-yellow-light);
+  color: var(--pine-black);
+  font-weight: 600;
+}
+
+table.invoice-table tbody tr:hover {
+  background-color: var(--pine-gray-50);
+}
+
+/* Status Badges */
+.pine-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--pine-radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pine-badge-warning {
+  background: var(--pine-warning);
+  color: var(--pine-white);
+}
+
+.pine-badge-success {
+  background: var(--pine-success);
+  color: var(--pine-white);
+}
+
+.pine-badge-info {
+  background: var(--pine-info);
+  color: var(--pine-white);
+}
+
+.pine-badge-primary {
+  background: var(--pine-yellow);
+  color: var(--pine-black);
+}
+
+.pine-badge-error {
+  background: var(--pine-error);
+  color: var(--pine-white);
+}
+
+/* Messages */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--pine-gray-600);
+  font-style: italic;
+}
+
+.error {
+  color: var(--pine-error);
+  padding: 1rem;
+  border-radius: var(--pine-radius);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: var(--pine-gray-600);
+}
+
+/* Buttons */
+.pine-btn {
+  padding: var(--pine-space-sm) var(--pine-space-lg);
+  border-radius: var(--pine-radius);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--pine-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pine-space-sm);
+}
+
+.pine-btn-primary {
+  background: var(--pine-gradient-primary);
+  color: var(--pine-black);
+  box-shadow: var(--pine-shadow);
+}
+
+.pine-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pine-shadow-lg);
+}
+
+.pine-btn-secondary {
+  background: var(--pine-gradient-secondary);
+  color: var(--pine-white);
+  box-shadow: var(--pine-shadow);
+}
+
+.pine-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pine-shadow-lg);
+}
+
+.pine-btn-outline {
+  background: transparent;
+  border: 2px solid var(--pine-yellow);
+  color: var(--pine-yellow-dark);
+}
+
+.pine-btn-outline:hover {
+  background: var(--pine-yellow);
+  color: var(--pine-black);
+}
+
+/* Input */
+.pine-input {
+  width: 100%;
+  padding: var(--pine-space-md);
+  border: 2px solid var(--pine-gray-300);
+  border-radius: var(--pine-radius);
+  font-size: 1rem;
+  transition: all var(--pine-transition);
+  background: var(--pine-white);
+}
+
+.pine-input:focus {
+  outline: none;
+  border-color: var(--pine-yellow);
+  box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.2);
+}
+
+/* Card */
+.pine-card {
+  background: var(--pine-white);
+  border-radius: var(--pine-radius-lg);
+  padding: var(--pine-space-xl);
+  box-shadow: var(--pine-shadow-md);
+  transition: all var(--pine-transition);
+}
+
+.pine-card:hover {
+  box-shadow: var(--pine-shadow-lg);
+  transform: translateY(-4px);
+}
