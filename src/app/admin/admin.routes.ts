@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 /**
  * ADMIN MODULE ROUTES
@@ -69,7 +70,7 @@ export const ADMIN_ROUTES: Routes = [
             // Use: PurchaseOrderService.getAll(), create(), getByType('CLIENT'), getByType('TRAINER')
 
             // TODO (Team 3 - Invoice & Dashboard): Add dashboard route here
-            // Example: { path: 'dashboard', component: AdminDashboardComponent }
+            { path: 'dashboard', component: AdminDashboardComponent },
             // Use: EnrollmentService.getByStatus(), PurchaseOrderService.getAll(), InvoiceService.getPendingInvoices()
 
             // TODO (Team 3 - Invoice & Dashboard): Add invoice routes here
@@ -78,7 +79,7 @@ export const ADMIN_ROUTES: Routes = [
             // Use: InvoiceService.getAll(), getPendingInvoices(), approve(id)
 
             // TODO: After adding dashboard component, set it as default:
-            // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ],
     },
 ];
