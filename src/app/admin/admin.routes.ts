@@ -1,4 +1,9 @@
 import { Routes } from '@angular/router';
+import { EnrollmentList } from './enrollment/enrollment-list/enrollment-list';
+import { EnrollmentForm } from './enrollment/enrollment-form/enrollment-form';
+import { ClientPo } from './purchase-order/client-po/client-po';
+import { TrainerPo } from './purchase-order/trainer-po/trainer-po';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 /**
  * ADMIN MODULE ROUTES
@@ -67,9 +72,26 @@ export const ADMIN_ROUTES: Routes = [
             // Example: { path: 'purchase-orders/client/new', component: ClientPOFormComponent }
             // Example: { path: 'purchase-orders/trainer/new', component: TrainerPOFormComponent }
             // Use: PurchaseOrderService.getAll(), create(), getByType('CLIENT'), getByType('TRAINER')
+             // ✅ Default admin page
 
+      /* ------------------------------
+         Enrollment Management
+      ------------------------------ */
+      { path: 'enrollments', component: EnrollmentList },
+      { path: 'enrollments/new', component: EnrollmentForm },
+      { path: 'enrollments/edit/:id', component: EnrollmentForm },
+
+      /* ------------------------------
+         Purchase Order Management
+      ------------------------------ */
+
+      // Client PO entry
+      { path: 'purchase-orders/client/new', component: ClientPo },
+
+      // Trainer PO generation
+      { path: 'purchase-orders/trainer/new', component: TrainerPo },
             // TODO (Team 3 - Invoice & Dashboard): Add dashboard route here
-            // Example: { path: 'dashboard', component: AdminDashboardComponent }
+            { path: 'dashboard', component: AdminDashboardComponent },
             // Use: EnrollmentService.getByStatus(), PurchaseOrderService.getAll(), InvoiceService.getPendingInvoices()
 
             // TODO (Team 3 - Invoice & Dashboard): Add invoice routes here
@@ -78,7 +100,7 @@ export const ADMIN_ROUTES: Routes = [
             // Use: InvoiceService.getAll(), getPendingInvoices(), approve(id)
 
             // TODO: After adding dashboard component, set it as default:
-            // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ],
     },
 ];
