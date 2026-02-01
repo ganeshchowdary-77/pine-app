@@ -1,0 +1,34 @@
+<h2>Enrollments</h2>
+
+<a routerLink="/admin/enrollments/new">Create Enrollment</a>
+
+<table class="min-w-full bg-white border border-gray-300">
+    <thead>
+        <tr>
+            <th class="py-2 px-4 border-b">ID</th>
+            <th class="py-2 px-4 border-b">Company ID</th>
+            <th class="py-2 px-4 border-b">Technology</th>
+            <th class="py-2 px-4 border-b">Status</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (enrollment of enrollments(); track enrollment.id) {
+        <tr>
+            <td class="py-2 px-4 border-b">{{ enrollment.id }}</td>
+            <td class="py-2 px-4 border-b">{{ enrollment.companyId }}</td>
+            <td class="py-2 px-4 border-b">{{ enrollment.technology }}</td>
+            <td class="py-2 px-4 border-b">{{ enrollment.status }}</td>
+            <td class="py-2 px-4 border-b">
+                <a [routerLink]="['/admin/enrollments', enrollment.id, 'edit']"
+                    class="text-blue-500 hover:underline mr-2">Edit</a>
+                <button (click)="deleteEnrollment(enrollment.id)" class="text-red-500 hover:underline">Delete</button>
+            </td>
+        </tr>
+        } @empty {
+        <tr>
+            <td colspan="5" class="py-2 px-4 border-b text-center">No enrollments found.</td>
+        </tr>
+        }
+    </tbody>
+</table>
