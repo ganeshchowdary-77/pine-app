@@ -1,0 +1,48 @@
+<div class="po-details">
+  <div class="page-header">
+    <h2>PO Details</h2>
+    <p>View your purchase order information and status</p>
+  </div>
+  
+  <div class="po-list" *ngIf="purchaseOrders().length > 0; else noPOs">
+    <div class="po-card" *ngFor="let po of purchaseOrders()">
+      <div class="card-header">
+        <h3>PO #{{ po.id }}</h3>
+        <span class="status {{ po.status.toLowerCase() }}">{{ po.status }}</span>
+      </div>
+      
+      <div class="card-content">
+        <div class="po-details">
+          <div class="detail-item">
+            <span class="label">Type:</span>
+            <span class="value">{{ po.type }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Total Amount:</span>
+            <span class="value">\${{ po.totalAmount }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Payment Terms:</span>
+            <span class="value">{{ po.paymentTerms }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Training:</span>
+            <span class="value">{{ getTrainingDetails(po.enrollmentId) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noPOs>
+    <div class="empty-state">
+      <div class="empty-icon">📄</div>
+      <h3>No Purchase Orders Found</h3>
+      <p>You don't have any purchase orders at the moment.</p>
+    </div>
+  </ng-template>
+  
+  <div class="back-link">
+    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
+  </div>
+</div>
