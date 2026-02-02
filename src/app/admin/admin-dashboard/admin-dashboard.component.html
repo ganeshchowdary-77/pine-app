@@ -1,7 +1,16 @@
+<div class="stars-background">
+  <div *ngFor="let star of stars"
+       class="star"
+       [style.left]="star.left"
+       [style.top]="star.top"
+       [style.animation-duration]="star.duration"
+       [style.animation-delay]="star.delay">
+  </div>
+</div>
+
 <div class="admin-dashboard pine-container pine-section">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <div style="display: flex; align-items: center; margin-bottom: 2rem; gap: 1rem;">
     <h1 class="pine-text-primary">{{ title }}</h1>
-    <button class="pine-btn pine-btn-secondary" (click)="refreshData()" style="font-size:0.9rem;">🔄 Refresh</button>
   </div>
 
   <!-- Global Loading State -->
@@ -38,7 +47,7 @@
     </div>
     <div class="stat-card pine-card">
       <div class="stat-label">Total Revenue</div>
-      <div class="stat-value">${{ totalRevenue | number:'1.0-0' }}</div>
+      <div class="stat-value">₹{{ totalRevenue | number:'1.0-0' }}</div>
     </div>
     <div class="stat-card pine-card">
       <div class="stat-label">Pending Invoices</div>
@@ -67,7 +76,7 @@
           <strong>Tech:</strong> {{ trainer.technologies?.join(', ') }}
         </div>
         <div class="trainer-rate">
-          <strong>Rate:</strong> ${{ trainer.rate }}/{{ trainer.paymentType }}
+          <strong>Rate:</strong> ₹{{ trainer.rate }}/{{ trainer.paymentType }}
         </div>
       </div>
     </div>
@@ -75,12 +84,32 @@
   </div>
 
   <!-- ADD INVOICE SECTION -->
-  <div class="pine-card" style="margin-bottom:2rem;">
-    <h2 style="margin-bottom:1rem;">💰 Add Invoice</h2>
-    <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
-      <input class="pine-input" style="max-width:150px;" type="number" placeholder="PO ID" [(ngModel)]="newPoId">
-      <input class="pine-input" style="max-width:150px;" type="number" placeholder="Amount" [(ngModel)]="newAmount">
-      <button class="pine-btn pine-btn-primary" (click)="addInvoice()">➕ Add Invoice</button>
+  <div class="pine-card mb-2rem">
+    <h2 class="gold-text" style="margin-bottom:1rem;">💰 Add Invoice</h2>
+    
+    <div *ngIf="poError" class="pine-badge pine-badge-error mb-1rem">
+      {{ poError }}
+    </div>
+
+    <div class="add-invoice-form">
+      <div class="form-field-large">
+        <label class="label-style">Select Purchase Order</label>
+        <select class="pine-input full-width" title="Select Purchase Order" [(ngModel)]="selectedPoId" (change)="onPoSelected()">
+          <option value="" disabled>Choose PO ID...</option>
+          <option *ngFor="let po of purchaseOrders" [value]="po.id">
+            PO #{{po.id}} (Limit: ₹{{po.totalAmount}})
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field-medium">
+        <label class="label-style">Invoice Amount (₹)</label>
+        <input class="pine-input full-width" type="number" placeholder="Amount" [(ngModel)]="newAmount">
+      </div>
+
+      <button class="pine-btn pine-btn-primary" style="height: 42px; min-width: 150px;" (click)="addInvoice()">
+        ➕ Add Invoice
+      </button>
     </div>
   </div>
 
@@ -107,7 +136,7 @@
               <td>#{{ invoice.id }}</td>
               <td>{{ invoice.poId }}</td>
               <td>{{ invoice.issuedBy }}</td>
-              <td><strong>${{ invoice.amount }}</strong></td>
+              <td><strong>₹{{ invoice.amount }}</strong></td>
               <td>{{ invoice.invoiceDate | date:'MMM d, yyyy' }}</td>
               <td>
                 <span [ngClass]="'pine-badge ' + getStatusColor(invoice.status)">
