@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Invoice, Trainer } from '../../shared/models';
-import { InvoiceService, TrainerService } from '../../shared/services';
+import { forkJoin, of } from 'rxjs';
+import { catchError, finalize, timeout } from 'rxjs/operators';
+import { Invoice, Trainer, PurchaseOrder } from '../../shared/models';
+import { InvoiceService, TrainerService, PurchaseOrderService } from '../../shared/services';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,22 +16,28 @@ import { InvoiceService, TrainerService } from '../../shared/services';
 export class AdminDashboardComponent implements OnInit {
   private invoiceService = inject(InvoiceService);
   private trainerService = inject(TrainerService);
+  private poService = inject(PurchaseOrderService);
+  private cdr = inject(ChangeDetectorRef);
   
   // Title
   title = 'Admin Dashboard';
   
-  // Invoices
+  // Data
   invoices: Invoice[] = [];
+  trainers: Trainer[] = [];
+  purchaseOrders: PurchaseOrder[] = [];
+
+  // Form State
+  newAmount: number = 0;
+  selectedPoId: number | string = '';
+  
+  // Loading & Error states
   invoicesLoading = false;
   invoicesError: string | null = null;
-  newAmount: number = 1000;
-  newPoId: number = 1;
   invoicesSuccess: string | null = null;
-  
-  // Trainers
-  trainers: Trainer[] = [];
   trainersLoading = false;
   trainersError: string | null = null;
+  poError: string | null = null;
   
   // Stats
   totalInvoices = 0;
@@ -40,11 +48,28 @@ export class AdminDashboardComponent implements OnInit {
   
   // Global loading state
   isLoading = true;
+
+  // Stars animation
+  stars: any[] = [];
   
   ngOnInit() {
     console.log('🚀 AdminDashboardComponent initialized');
-    console.log('📋 Starting data load...');
-    this.loadData();
+    this.generateStars();
+    // Use a small timeout to ensure the component is fully ready before starting load
+    setTimeout(() => {
+      this.loadData();
+    }, 100);
+  }
+
+  generateStars() {
+    for (let i = 0; i < 80; i++) {
+      this.stars.push({
+        left: Math.random() * 100 + '%',
+        top: Math.random() * 100 + '%',
+        duration: Math.random() * 3 + 2 + 's',
+        delay: Math.random() * 5 + 's'
+      });
+    }
   }
 
   loadData() {
@@ -52,166 +77,131 @@ export class AdminDashboardComponent implements OnInit {
     this.isLoading = true;
     this.invoicesError = null;
     this.trainersError = null;
-    
-    // Load both data sources
-    this.fetchInvoices();
-    this.fetchTrainers();
-  }
-
-  refreshData() {
-    console.log('🔄 Refreshing data...');
-    this.loadData();
-  }
-
-  fetchInvoices() {
+    this.poError = null;
     this.invoicesLoading = true;
-    this.invoicesError = null;
-    console.log('📊 Fetching invoices from service...');
-    console.log('🔗 API URL: http://localhost:3000/invoices');
+    this.trainersLoading = true;
+    this.cdr.detectChanges(); 
     
-    this.invoiceService.getAll().subscribe({
-      next: (data) => {
-        console.log('✅ Invoices loaded successfully:', data);
-        console.log('📈 Total invoices:', data.length);
-        this.invoices = data || [];
+    console.log('📊 Fetching dashboard data (Invoices, Trainers, POs)...');
+
+    forkJoin({
+      invoices: this.invoiceService.getAll().pipe(
+        timeout(8000),
+        catchError((err) => {
+          console.error('❌ Invoices load failed:', err);
+          this.invoicesError = this.humanizeError(err, 'invoices');
+          return of([] as Invoice[]);
+        })
+      ),
+      trainers: this.trainerService.getAll().pipe(
+        timeout(8000),
+        catchError((err) => {
+          console.error('❌ Trainers load failed:', err);
+          this.trainersError = this.humanizeError(err, 'trainers');
+          return of([] as Trainer[]);
+        })
+      ),
+      pos: this.poService.getAll().pipe(
+        timeout(8000),
+        catchError((err) => {
+          console.error('❌ POs load failed:', err);
+          this.poError = 'Failed to load POs';
+          return of([] as PurchaseOrder[]);
+        })
+      )
+    })
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.invoicesLoading = false;
+          this.trainersLoading = false;
+          this.cdr.detectChanges(); 
+        })
+      )
+      .subscribe((result) => {
+        console.log('✅ Dashboard data received');
+
+        this.invoices = result.invoices || [];
         this.calculateStats();
-        this.invoicesLoading = false;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('❌ Error loading invoices:', err);
-        console.error('Status:', err?.status);
-        console.error('Status Text:', err?.statusText);
-        console.error('Message:', err?.message);
-        console.error('Error object:', err);
-        
-        let errorMsg = 'Failed to load invoices';
-        if (err?.status === 0) {
-          errorMsg = 'Cannot connect to server. Make sure json-server is running on http://localhost:3000';
-        } else if (err?.status === 404) {
-          errorMsg = 'Invoices endpoint not found (404)';
-        } else if (err?.status === 500) {
-          errorMsg = 'Server error (500)';
-        }
-        
-        this.invoicesError = errorMsg;
-        this.invoicesLoading = false;
-        this.isLoading = false;
-        this.invoices = [];
-      }
-    });
+
+        this.trainers = result.trainers || [];
+        this.totalTrainers = this.trainers.length;
+
+        this.purchaseOrders = result.pos || [];
+
+        console.log('📈 Dashboard ready');
+      });
   }
 
-  fetchTrainers() {
-    this.trainersLoading = true;
-    this.trainersError = null;
-    console.log('👥 Fetching trainers from service...');
-    console.log('🔗 API URL: http://localhost:3000/trainers');
-    
-    this.trainerService.getAll().subscribe({
-      next: (data) => {
-        console.log('✅ Trainers loaded successfully:', data);
-        console.log('📈 Total trainers:', data.length);
-        this.trainers = data || [];
-        this.totalTrainers = this.trainers.length;
-        this.trainersLoading = false;
-      },
-      error: (err) => {
-        console.error('❌ Error loading trainers:', err);
-        console.error('Status:', err?.status);
-        console.error('Status Text:', err?.statusText);
-        console.error('Message:', err?.message);
-        console.error('Error object:', err);
-        
-        let errorMsg = 'Failed to load trainers';
-        if (err?.status === 0) {
-          errorMsg = 'Cannot connect to server. Make sure json-server is running on http://localhost:3000';
-        } else if (err?.status === 404) {
-          errorMsg = 'Trainers endpoint not found (404)';
-        } else if (err?.status === 500) {
-          errorMsg = 'Server error (500)';
-        }
-        
-        this.trainersError = errorMsg;
-        this.trainersLoading = false;
-        this.trainers = [];
-      }
-    });
+  onPoSelected() {
+    const selectedPo = this.purchaseOrders.find(p => p.id === Number(this.selectedPoId));
+    if (selectedPo) {
+      this.newAmount = selectedPo.totalAmount;
+    } else {
+      this.newAmount = 0;
+    }
+  }
+
+  private humanizeError(err: any, domain: string): string {
+    if (err?.name === 'TimeoutError') {
+      return `Timed out loading ${domain}. Is json-server running?`;
+    }
+    if (err?.status === 0) return 'Cannot connect to server. Start backend.';
+    return `Failed to load ${domain}`;
   }
 
   calculateStats() {
-    console.log('📊 Calculating stats from invoices...');
     this.totalInvoices = this.invoices.length;
     this.totalRevenue = this.invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0);
     this.pendingInvoices = this.invoices.filter(inv => inv.status === 'PENDING').length;
     this.paidInvoices = this.invoices.filter(inv => inv.status === 'PAID').length;
-    console.log('📈 Stats calculated:', {
-      total: this.totalInvoices,
-      revenue: this.totalRevenue,
-      pending: this.pendingInvoices,
-      paid: this.paidInvoices
-    });
   }
 
   addInvoice() {
-    if (!this.newAmount || !this.newPoId) {
-      this.invoicesError = 'Amount and PO ID are required.';
+    if (!this.newAmount || !this.selectedPoId) {
+      this.invoicesError = 'Please select a PO and specify amount.';
       return;
     }
-    console.log('Adding invoice:', { poId: this.newPoId, amount: this.newAmount });
+
     const newInvoice: Partial<Invoice> = {
-      poId: this.newPoId,
+      poId: Number(this.selectedPoId),
       issuedBy: 'ADMIN',
       amount: this.newAmount,
       invoiceDate: new Date().toISOString(),
       status: 'PENDING'
     };
+
     this.invoiceService.create(newInvoice).subscribe({
-      next: (result) => {
-        console.log('Invoice added successfully:', result);
+      next: () => {
         this.invoicesSuccess = 'Invoice added successfully!';
-        this.invoicesError = null;
-        this.newAmount = 1000;
-        this.newPoId = 1;
+        this.selectedPoId = '';
+        this.newAmount = 0;
         setTimeout(() => this.invoicesSuccess = null, 3000);
-        this.fetchInvoices();
+        this.loadData();
       },
       error: (err) => {
-        console.error('Error adding invoice:', err);
-        this.invoicesError = 'Failed to add invoice: ' + (err?.message || 'Unknown error');
+        this.invoicesError = 'Failed to add invoice: ' + (err?.message || 'Error');
       }
     });
   }
 
   deleteInvoice(id: number) {
     if (!confirm('Delete this invoice?')) return;
-    console.log('Deleting invoice:', id);
     this.invoiceService.delete(id).subscribe({
       next: () => {
-        console.log('Invoice deleted successfully');
-        this.invoicesSuccess = 'Invoice deleted successfully!';
+        this.invoicesSuccess = 'Invoice deleted!';
         setTimeout(() => this.invoicesSuccess = null, 3000);
-        this.fetchInvoices();
-      },
-      error: (err) => {
-        console.error('Error deleting invoice:', err);
-        this.invoicesError = 'Failed to delete invoice: ' + (err?.message || 'Unknown error');
+        this.loadData();
       }
     });
   }
 
   approveInvoice(id: number) {
-    console.log('Approving invoice:', id);
     this.invoiceService.approve(id).subscribe({
-      next: (result) => {
-        console.log('Invoice approved:', result);
+      next: () => {
         this.invoicesSuccess = 'Invoice approved!';
         setTimeout(() => this.invoicesSuccess = null, 3000);
-        this.fetchInvoices();
-      },
-      error: (err) => {
-        console.error('Error approving invoice:', err);
-        this.invoicesError = 'Failed to approve invoice';
+        this.loadData();
       }
     });
   }
@@ -219,9 +209,8 @@ export class AdminDashboardComponent implements OnInit {
   getStatusColor(status: string): string {
     switch(status) {
       case 'PENDING': return 'pine-badge-warning';
-      case 'APPROVED': return 'pine-badge-info';
-      case 'SENT': return 'pine-badge-success';
       case 'PAID': return 'pine-badge-success';
+      case 'APPROVED': return 'pine-badge-info';
       default: return 'pine-badge-primary';
     }
   }
