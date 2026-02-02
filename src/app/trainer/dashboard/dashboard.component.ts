@@ -20,9 +20,40 @@ export class TrainerDashboardComponent implements OnInit {
     pendingInvoices: 0
   });
 
+  currentUser = signal<{ name: string; email: string } | null>(null);
+  welcomeMessage = signal<string>('');
+
   ngOnInit() {
-    // Mock data for demo - in real app, this would come from services
+    // Load user data and dashboard data
+    this.loadUserData();
     this.loadDashboardData();
+  }
+
+  private loadUserData() {
+    // Get current user from localStorage
+    const userStr = localStorage.getItem('currentUser');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        this.currentUser.set(user);
+        this.welcomeMessage.set(`Welcome, ${user.name || user.email || 'Trainer'}!`);
+      } catch (e) {
+        // Fallback to mock data
+        this.setMockUser();
+      }
+    } else {
+      // Fallback to mock data
+      this.setMockUser();
+    }
+  }
+
+  private setMockUser() {
+    const mockUser = {
+      name: 'John Davis',
+      email: 'trainer1@pine.com'
+    };
+    this.currentUser.set(mockUser);
+    this.welcomeMessage.set(`Welcome, ${mockUser.name}!`);
   }
 
   private loadDashboardData() {
@@ -34,5 +65,14 @@ export class TrainerDashboardComponent implements OnInit {
       totalEarnings: 15000,
       pendingInvoices: 2
     });
+  }
+
+  logout() {
+    // Clear any stored user data
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    
+    // Navigate to login page
+    this.router.navigate(['/auth/login']);
   }
 }
