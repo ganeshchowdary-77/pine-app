@@ -82,22 +82,9 @@
               </button>
             }
             @if (request.status === 'APPROVED') {
-              <div class="trainer-assignment">
-                <select 
-                  #trainerSelect
-                  class="trainer-select">
-                  <option value="">Select Trainer</option>
-                  @for (trainer of trainers(); track trainer.id) {
-                    <option [value]="trainer.id">{{ trainer.name }} ({{ trainer.technologies.join(', ') }})</option>
-                  }
-                </select>
-                <button 
-                  class="action-btn assign-btn" 
-                  (click)="assignTrainer(request.id, trainerSelect.value ? +trainerSelect.value : null)"
-                  [disabled]="!trainerSelect.value">
-                  🤝 Assign
-                </button>
-              </div>
+              <button class="action-btn assign-btn" (click)="navigateToEnrollment(request.id)">
+                🤝 Assign Trainer
+              </button>
             }
             <button class="action-btn delete-btn" (click)="deleteRequest(request.id)" title="Delete Request">
               🗑️
