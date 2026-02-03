@@ -257,6 +257,7 @@
     {
       "id": "3",
       "enrollmentId": 3,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -275,6 +276,7 @@
     {
       "id": "5",
       "enrollmentId": 4,
+      "trainerId": 2,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 1000,
@@ -293,12 +295,35 @@
     {
       "id": "7",
       "enrollmentId": 5,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
       "totalAmount": 4800,
       "paymentTerms": "Upon completion",
       "status": "ACCEPTED"
+    },
+    {
+      "id": "8",
+      "enrollmentId": "4bc7",
+      "trainerId": 373,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 400000,
+      "paymentTerms": "Upon completion",
+      "status": "SENT"
+    },
+    {
+      "id": "9",
+      "enrollmentId": "ccd0",
+      "trainerId": 373,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 420000,
+      "paymentTerms": "50% Advance, 50% After Training",
+      "status": "SENT"
     }
   ],
   "invoices": [
@@ -326,6 +351,15 @@
       "tax": 0,
       "invoiceDate": "2026-01-12",
       "status": "PAID",
+      "issuedBy": "TRAINER"
+    },
+    {
+      "id": "0f48",
+      "poId": 3,
+      "amount": 5600,
+      "tax": 0,
+      "invoiceDate": "2026-02-12",
+      "status": "PENDING",
       "issuedBy": "TRAINER"
     }
   ]

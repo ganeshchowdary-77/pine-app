@@ -8,7 +8,8 @@
 </div>
 
 <div class="summary-grid" *ngIf="purchaseOrders().length > 0; else noPOsTemplate">
-  <div class="pine-card summary-card" *ngFor="let po of purchaseOrders()">
+  @for(po of purchaseOrders(); track po.id) {
+  <div class="pine-card summary-card">
     <div class="card-header">
       <h3>PO #{{ po.id }}</h3>
       <span class="pine-badge {{ po.status === 'ACCEPTED' ? 'pine-badge-success' : 'pine-badge-info' }}">{{ po.status
@@ -36,6 +37,7 @@
       </div>
     </div>
   </div>
+  }
 </div>
 
 <ng-template #noPOsTemplate>
