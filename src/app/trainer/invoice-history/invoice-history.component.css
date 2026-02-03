@@ -1,105 +1,110 @@
+/* Global Styles */
 .invoice-history {
-  padding: 20px;
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #fff9e6 0%, #ffeb99 100%);
-  min-height: 100vh;
 }
 
 .page-header {
   text-align: center;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .page-header h2 {
-  margin: 0 0 10px 0;
-  color: #2c1810;
-  font-size: 2.5em;
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: 1.875rem;
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.025em;
 }
 
 .page-header p {
   margin: 0;
-  color: #5a3a1a;
-  font-size: 1.2em;
-  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .filter-section {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  border-radius: 10px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+  gap: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .filter-section label {
   font-weight: 600;
-  color: #2c1810;
-  font-size: 1.1em;
+  color: #1e293b;
+  font-size: 0.875rem;
 }
 
 .filter-select {
-  padding: 10px 15px;
-  border: 2px solid #ffd700;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #ffffff;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.625rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: #ffb347;
-  box-shadow: 0 0 0 3px rgba(255, 179, 71, 0.2);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .invoice-list {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .invoice-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  padding: 25px;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  border-left: 5px solid #007bff;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #3b82f6;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
 }
 
 .invoice-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-color: #cbd5e1;
 }
 
 .invoice-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .invoice-info h3 {
-  margin: 0 0 8px 0;
-  color: #2c1810;
-  font-size: 1.5em;
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+  font-size: 1.25rem;
   font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .invoice-date {
   margin: 0;
-  color: #8b6914;
-  font-size: 0.9em;
+  color: #64748b;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -108,57 +113,58 @@
 }
 
 .amount {
-  font-size: 1.8em;
-  font-weight: bold;
-  color: #2c1810;
-  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.025em;
 }
 
 .status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
   text-transform: uppercase;
-  font-size: 0.7em;
-  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
 }
 
 .status.pending {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-  color: #856404;
-  border: 1px solid #ffeeba;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
 }
 
 .status.approved {
-  background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-  color: #004085;
-  border: 1px solid #b3d9ff;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
 }
 
 .status.sent {
-  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
-  color: #0c5460;
-  border: 1px solid #bee5eb;
+  background: #e0e7ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
 }
 
 .status.paid {
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
 
 .invoice-details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .detail-row:last-child {
@@ -166,140 +172,147 @@
 }
 
 .label {
-  color: #8b6914;
+  color: #64748b;
   font-weight: 500;
-  font-size: 0.9em;
+  font-size: 0.875rem;
 }
 
 .value {
-  font-weight: bold;
-  color: #2c1810;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.875rem;
 }
 
 .value.total {
-  color: #007bff;
-  font-size: 1.1em;
+  color: #3b82f6;
+  font-size: 1rem;
 }
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  border-radius: 15px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  margin-bottom: 30px;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
 }
 
 .empty-icon {
-  font-size: 4em;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .empty-state h3 {
-  margin: 0 0 10px 0;
-  color: #2c1810;
-  font-size: 1.8em;
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+  font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .empty-state p {
   margin: 0;
-  color: #8b6914;
-  font-size: 1.1em;
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .summary-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .summary-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  padding: 30px;
-  border-radius: 15px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
   text-align: center;
-  border-left: 5px solid #28a745;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid #10b981;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
 }
 
 .summary-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-color: #cbd5e1;
 }
 
 .summary-icon {
-  font-size: 3em;
-  margin-bottom: 15px;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .summary-card h4 {
-  margin: 0 0 15px 0;
-  color: #2c1810;
-  font-size: 1.3em;
+  margin: 0 0 0.75rem 0;
+  color: #1e293b;
+  font-size: 1.125rem;
   font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .count {
-  font-size: 2.5em;
-  font-weight: bold;
-  color: #007bff;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
   margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .summary-card .amount {
-  font-size: 2em;
-  color: #28a745;
+  font-size: 1.75rem;
+  color: #059669;
   margin: 0;
 }
 
 .back-link {
-  margin-top: 30px;
+  margin-top: 2rem;
   text-align: center;
 }
 
 .back-btn {
   display: inline-block;
-  padding: 12px 25px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  color: #2c1810;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
   text-decoration: none;
-  border-radius: 25px;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid #ffb347;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffb347 0%, #ffd700 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
   .invoice-history {
-    padding: 15px;
+    padding: 1rem;
   }
   
   .page-header {
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   
   .page-header h2 {
-    font-size: 2em;
+    font-size: 1.5rem;
   }
   
   .filter-section {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding: 15px;
+    gap: 0.75rem;
+    padding: 1rem;
   }
   
   .filter-select {
@@ -309,7 +322,7 @@
   .invoice-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    gap: 0.75rem;
   }
   
   .invoice-amount {
@@ -318,47 +331,47 @@
   
   .invoice-details {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 0.5rem;
   }
   
   .detail-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+    gap: 0.25rem;
   }
   
   .summary-section {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .page-header h2 {
-    font-size: 1.8em;
+    font-size: 1.25rem;
   }
   
   .page-header p {
-    font-size: 1em;
+    font-size: 0.875rem;
   }
   
   .invoice-card {
-    padding: 20px;
+    padding: 1rem;
   }
   
   .amount {
-    font-size: 1.5em;
+    font-size: 1.25rem;
   }
   
   .summary-card {
-    padding: 20px;
+    padding: 1rem;
   }
   
   .count {
-    font-size: 2em;
+    font-size: 1.5rem;
   }
   
   .summary-card .amount {
-    font-size: 1.6em;
+    font-size: 1.5rem;
   }
 }
