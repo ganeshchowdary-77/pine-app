@@ -83,7 +83,7 @@ export class InvoiceService {
     }
 
     /**
-     * Get invoices for a specific PO
+     * Get invoices for a specific Purchase Order
      */
     getByPOId(poId: number): Observable<Invoice[]> {
         return this.http.get<Invoice[]>(`${this.apiUrl}?poId=${poId}`);

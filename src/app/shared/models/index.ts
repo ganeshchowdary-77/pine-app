@@ -8,7 +8,6 @@ export * from './auth.model';
 export * from './company.model';
 export * from './trainer.model';
 export * from './enrollment.model';
-export * from './purchase-order.model';
-export * from './invoice.model';
+export * from './training-request.model';
 export * from './purchase-order.model';
 export * from './invoice.model';

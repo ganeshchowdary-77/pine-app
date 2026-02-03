@@ -1,34 +1,266 @@
-<h2>Enrollments</h2>
+<div class="enrollment-list-container">
+    <div class="page-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1>📚 Enrollment Management</h1>
+                <p class="subtitle">Track and manage all training enrollments across different stages</p>
+            </div>
+            <a routerLink="/admin/enrollments/new" class="add-btn" aria-label="Add new enrollment">
+                <span class="btn-icon">➕</span>
+                <span class="btn-text">Add New Enrollment</span>
+            </a>
+        </div>
+    </div>
 
-<a routerLink="/admin/enrollments/new">Create Enrollment</a>
+    <!-- Requested Enrollments -->
+    <section class="status-section">
+        <div class="status-header">
+            <h2>
+                <span class="status-icon requested">📋</span>
+                Requested
+                <span class="count-badge requested">{{ requested().length }}</span>
+            </h2>
+        </div>
 
-<table class="min-w-full bg-white border border-gray-300">
-    <thead>
-        <tr>
-            <th class="py-2 px-4 border-b">ID</th>
-            <th class="py-2 px-4 border-b">Company ID</th>
-            <th class="py-2 px-4 border-b">Technology</th>
-            <th class="py-2 px-4 border-b">Status</th>
-            <th class="py-2 px-4 border-b">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (enrollment of enrollments(); track enrollment.id) {
-        <tr>
-            <td class="py-2 px-4 border-b">{{ enrollment.id }}</td>
-            <td class="py-2 px-4 border-b">{{ enrollment.companyId }}</td>
-            <td class="py-2 px-4 border-b">{{ enrollment.technology }}</td>
-            <td class="py-2 px-4 border-b">{{ enrollment.status }}</td>
-            <td class="py-2 px-4 border-b">
-                <a [routerLink]="['/admin/enrollments', enrollment.id, 'edit']"
-                    class="text-blue-500 hover:underline mr-2">Edit</a>
-                <button (click)="deleteEnrollment(enrollment.id)" class="text-red-500 hover:underline">Delete</button>
-            </td>
-        </tr>
-        } @empty {
-        <tr>
-            <td colspan="5" class="py-2 px-4 border-b text-center">No enrollments found.</td>
-        </tr>
-        }
-    </tbody>
-</table>
+        <div class="enrollments-grid">
+            @for (e of requested(); track e.id) {
+            <div class="enrollment-card requested">
+                <div class="card-header">
+                    <span class="status-badge requested">REQUESTED</span>
+                    <span class="enrollment-id">#{{ e.id }}</span>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="technology">{{ e.technology }}</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Company</span>
+                            <span class="value">ID: {{ e.companyId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Trainer</span>
+                            <span class="value">ID: {{ e.trainerId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Start Date</span>
+                            <span class="value">{{ e.startDate }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">End Date</span>
+                            <span class="value">{{ e.endDate }}</span>
+                        </div>
+                        <div class="info-item budget-item">
+                            <span class="label">Budget</span>
+                            <span class="value budget">${{ e.budget.toLocaleString() }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                        <span>✏️</span> Edit
+                    </button>
+                    <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
+                        aria-label="Delete enrollment">
+                        <span>🗑️</span> Delete
+                    </button>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>No requested enrollments</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- Approved Enrollments -->
+    <section class="status-section">
+        <div class="status-header">
+            <h2>
+                <span class="status-icon approved">✅</span>
+                Approved
+                <span class="count-badge approved">{{ approved().length }}</span>
+            </h2>
+        </div>
+
+        <div class="enrollments-grid">
+            @for (e of approved(); track e.id) {
+            <div class="enrollment-card approved">
+                <div class="card-header">
+                    <span class="status-badge approved">APPROVED</span>
+                    <span class="enrollment-id">#{{ e.id }}</span>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="technology">{{ e.technology }}</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Company</span>
+                            <span class="value">ID: {{ e.companyId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Trainer</span>
+                            <span class="value">ID: {{ e.trainerId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Start Date</span>
+                            <span class="value">{{ e.startDate }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">End Date</span>
+                            <span class="value">{{ e.endDate }}</span>
+                        </div>
+                        <div class="info-item budget-item">
+                            <span class="label">Budget</span>
+                            <span class="value budget">${{ e.budget.toLocaleString() }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                        <span>✏️</span> Edit
+                    </button>
+                    <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
+                        aria-label="Delete enrollment">
+                        <span>🗑️</span> Delete
+                    </button>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>No approved enrollments</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- Ongoing Enrollments -->
+    <section class="status-section">
+        <div class="status-header">
+            <h2>
+                <span class="status-icon ongoing">🚀</span>
+                Ongoing
+                <span class="count-badge ongoing">{{ ongoing().length }}</span>
+            </h2>
+        </div>
+
+        <div class="enrollments-grid">
+            @for (e of ongoing(); track e.id) {
+            <div class="enrollment-card ongoing">
+                <div class="card-header">
+                    <span class="status-badge ongoing">ONGOING</span>
+                    <span class="enrollment-id">#{{ e.id }}</span>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="technology">{{ e.technology }}</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Company</span>
+                            <span class="value">ID: {{ e.companyId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Trainer</span>
+                            <span class="value">ID: {{ e.trainerId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Start Date</span>
+                            <span class="value">{{ e.startDate }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">End Date</span>
+                            <span class="value">{{ e.endDate }}</span>
+                        </div>
+                        <div class="info-item budget-item">
+                            <span class="label">Budget</span>
+                            <span class="value budget">${{ e.budget.toLocaleString() }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                        <span>✏️</span> Edit
+                    </button>
+                    <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
+                        aria-label="Delete enrollment">
+                        <span>🗑️</span> Delete
+                    </button>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>No ongoing enrollments</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- Completed Enrollments -->
+    <section class="status-section">
+        <div class="status-header">
+            <h2>
+                <span class="status-icon completed">🎉</span>
+                Completed
+                <span class="count-badge completed">{{ completed().length }}</span>
+            </h2>
+        </div>
+
+        <div class="enrollments-grid">
+            @for (e of completed(); track e.id) {
+            <div class="enrollment-card completed">
+                <div class="card-header">
+                    <span class="status-badge completed">COMPLETED</span>
+                    <span class="enrollment-id">#{{ e.id }}</span>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="technology">{{ e.technology }}</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Company</span>
+                            <span class="value">ID: {{ e.companyId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Trainer</span>
+                            <span class="value">ID: {{ e.trainerId }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Start Date</span>
+                            <span class="value">{{ e.startDate }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">End Date</span>
+                            <span class="value">{{ e.endDate }}</span>
+                        </div>
+                        <div class="info-item budget-item">
+                            <span class="label">Budget</span>
+                            <span class="value budget">${{ e.budget.toLocaleString() }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                        <span>✏️</span> Edit
+                    </button>
+                    <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
+                        aria-label="Delete enrollment">
+                        <span>🗑️</span> Delete
+                    </button>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>No completed enrollments</p>
+            </div>
+            }
+        </div>
+    </section>
+</div>

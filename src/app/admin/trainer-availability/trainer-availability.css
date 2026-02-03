@@ -1,0 +1,592 @@
+/* Trainer Availability - Professional Dark Theme with Golden Yellow Accents */
+
+:host {
+    --admin-bg: #0f172a;
+    --admin-card-bg: #1e293b;
+    --admin-accent: #fbbf24;
+    --admin-accent-hover: #f59e0b;
+    --admin-text: #f8fafc;
+    --admin-text-muted: #94a3b8;
+    --admin-border: #334155;
+
+    /* Status colors */
+    --status-assigned: #ef4444;
+    --status-available: #22c55e;
+    --status-total: #3b82f6;
+}
+
+/* Container */
+.trainer-availability-container {
+    min-height: 100vh;
+    background-color: var(--admin-bg);
+    padding: 2rem;
+    color: var(--admin-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 2.5rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.header-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--admin-accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+.subtitle {
+    color: var(--admin-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Add Trainer Button */
+.add-trainer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--admin-accent);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.39);
+    white-space: nowrap;
+}
+
+.add-trainer-btn:hover {
+    background: var(--admin-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+}
+
+.add-trainer-btn:active {
+    transform: translateY(0);
+}
+
+.add-trainer-btn .btn-icon {
+    font-size: 1.25rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.stat-card.assigned::before {
+    background: var(--status-assigned);
+}
+
+.stat-card.available::before {
+    background: var(--status-available);
+}
+
+.stat-card.total::before {
+    background: var(--status-total);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    color: var(--admin-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--admin-accent);
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+    line-height: 1;
+}
+
+/* Section */
+.trainers-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--admin-text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.section-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.section-description {
+    color: var(--admin-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Count Badge */
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.count-badge.assigned {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--status-assigned);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.count-badge.available {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--status-available);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+/* Trainers Grid */
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Trainer Card */
+.trainer-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.trainer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.trainer-card.assigned::before {
+    background: var(--status-assigned);
+}
+
+.trainer-card.available::before {
+    background: var(--status-available);
+}
+
+.trainer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(251, 191, 36, 0.15);
+}
+
+.trainer-card.assigned:hover {
+    border-color: var(--status-assigned);
+}
+
+.trainer-card.available:hover {
+    border-color: var(--status-available);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(51, 65, 85, 0.3);
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.trainer-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.trainer-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--admin-accent);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+
+.trainer-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.trainer-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--admin-accent);
+    margin: 0 0 0.25rem 0;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.trainer-email {
+    color: var(--admin-text-muted);
+    font-size: 0.85rem;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+.status-badge.assigned {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--status-assigned);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.status-badge.available {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--status-available);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--admin-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-icon {
+    font-size: 1rem;
+}
+
+/* Technologies List */
+.technologies-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-badge {
+    padding: 0.375rem 0.75rem;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 6px;
+    color: var(--admin-accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.tech-badge:hover {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: var(--admin-accent);
+    transform: translateY(-1px);
+}
+
+/* Rate Display */
+.rate-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--admin-accent);
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+/* Card Actions */
+.card-actions {
+    padding: 1rem 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border-top: 1px solid var(--admin-border);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.action-btn.assign {
+    background: var(--admin-accent);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.action-btn.assign:hover {
+    background: var(--admin-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(251, 191, 36, 0.4);
+}
+
+.action-btn span {
+    font-size: 1rem;
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px dashed var(--admin-border);
+    border-radius: 12px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    color: var(--admin-text-muted);
+    font-size: 1rem;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .trainers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .trainer-availability-container {
+        padding: 1.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header-text {
+        min-width: unset;
+        text-align: center;
+    }
+
+    .add-trainer-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trainers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .status-badge {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .trainer-availability-container {
+        padding: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .card-header,
+    .card-body,
+    .card-actions {
+        padding: 1rem;
+    }
+
+    .trainer-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+
+    .trainer-name {
+        font-size: 1rem;
+    }
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+    outline: 3px solid var(--admin-accent);
+    outline-offset: 2px;
+}
+
+/* Smooth Animations */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
