@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 import { EnrollmentService } from '../../../shared/services/enrollment.service';
 import { CompanyService } from '../../../shared/services/company.service';
@@ -54,14 +55,18 @@ export class EnrollmentForm implements OnInit {
   }
 
   loadFromRequest(requestId: number) {
-    this.requestService.getById(requestId).subscribe(request => {
+    forkJoin({
+      request: this.requestService.getById(requestId),
+      companies: this.companyService.getAll()
+    }).subscribe(({ request, companies }) => {
       // Try to find matching company or at least pre-fill the form
-      const company = this.companies().find(c => 
-        c.name.toLowerCase() === request.companyName.toLowerCase()
+      const company = companies.find(c => 
+        c.name.toLowerCase().includes(request.companyName.toLowerCase()) ||
+        request.companyName.toLowerCase().includes(c.name.toLowerCase())
       );
 
       this.form.patchValue({
-        companyId: company ? company.id : null,
+        companyId: company ? Number(company.id) : null,
         technology: request.technology,
         startDate: request.startDate,
         endDate: request.endDate,
@@ -69,6 +74,7 @@ export class EnrollmentForm implements OnInit {
         requestId: request.id,
         status: 'APPROVED'
       });
+      this.cdr.markForCheck();
     });
   }
 
@@ -88,9 +94,6 @@ export class EnrollmentForm implements OnInit {
 
       this.form.patchValue(patchData);
       this.cdr.markForCheck(); // Required for OnPush
-        requestId: data.requestId || null,
-        status: data.status
-      });
     });
   }
 
@@ -104,25 +107,15 @@ export class EnrollmentForm implements OnInit {
     const formValue = this.form.getRawValue();
 
     // Explicitly construct the payload to ensure types are correct
-    const enrollmentData: Partial<any> = {
+    const enrollmentData: any = {
       companyId: formValue.companyId ? Number(formValue.companyId) : null,
       trainerId: formValue.trainerId ? Number(formValue.trainerId) : null,
       budget: formValue.budget != null ? Number(formValue.budget) : null,
       technology: formValue.technology || '',
       startDate: formValue.startDate || '',
       endDate: formValue.endDate || '',
+      requestId: formValue.requestId || null,
       status: formValue.status || 'REQUESTED'
-    const formValue = this.form.value;
-    const enrollmentData = {
-      ...formValue,
-      companyId: Number(formValue.companyId),
-      trainerId: Number(formValue.trainerId),
-      budget: Number(formValue.budget),
-      technology: formValue.technology || undefined,
-      startDate: formValue.startDate || undefined,
-      endDate: formValue.endDate || undefined,
-      requestId: formValue.requestId || undefined,
-      status: (formValue.status || 'REQUESTED') as 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED'
     };
 
     console.log('Saving enrollment data:', enrollmentData);
