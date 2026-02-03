@@ -1,78 +1,66 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth-service';
+import { InvoiceService } from '../../shared/services';
+import { Invoice } from '../../shared/models';
 
 @Component({
   selector: 'app-payment-status',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './payment-status.component.html',
   styleUrls: ['./payment-status.component.css']
 })
 export class PaymentStatusComponent implements OnInit {
-  invoices = signal<any[]>([]);
-  paymentSummary = signal({
-    totalPaid: 0,
-    totalPending: 0,
-    lastPaymentDate: null as string | null
+  private authService = inject(AuthService);
+  private invoiceService = inject(InvoiceService);
+
+  invoices = signal<Invoice[]>([]);
+  isLoading = signal(false);
+
+  // Computed Summary
+  paymentSummary = computed(() => {
+    const all = this.invoices();
+    let totalPaid = 0;
+    let totalPending = 0;
+    let lastPaymentDate: string | null = null; // YYYY-MM-DD string comparison
+
+    all.forEach(inv => {
+      const total = (inv.amount || 0) + (inv.tax || 0);
+      if (inv.status === 'PAID') {
+        totalPaid += total;
+        // Find latest date of paid invoice (using invoiceDate as proxy for payment date if not available)
+        if (!lastPaymentDate || (inv.invoiceDate > lastPaymentDate)) {
+          lastPaymentDate = inv.invoiceDate;
+        }
+      } else {
+        totalPending += total; // Pending, Sent, Approved all count as pending payment
+      }
+    });
+
+    return { totalPaid, totalPending, lastPaymentDate };
   });
 
   ngOnInit() {
-    // Mock data for demo - in real app, this would come from services
-    this.loadPaymentData();
+    this.loadData();
   }
 
-  private loadPaymentData() {
-    // Mock invoice data
-    const mockInvoices = [
-      {
-        id: 1,
-        poId: 1,
-        amount: 4000,
-        tax: 400,
-        invoiceDate: '2026-01-15',
-        status: 'PAID'
+  private loadData() {
+    const user = this.authService.getUser();
+    if (!user || user.role !== 'trainer') return;
+
+    this.isLoading.set(true);
+
+    this.invoiceService.getTrainerInvoices().subscribe({
+      next: (data) => {
+        this.invoices.set(data);
+        this.isLoading.set(false);
       },
-      {
-        id: 2,
-        poId: 2,
-        amount: 6000,
-        tax: 600,
-        invoiceDate: '2026-01-20',
-        status: 'PENDING'
-      },
-      {
-        id: 3,
-        poId: 3,
-        amount: 3500,
-        tax: 350,
-        invoiceDate: '2026-01-25',
-        status: 'APPROVED'
+      error: (err) => {
+        console.error('Error loading payment data', err);
+        this.isLoading.set(false);
       }
-    ];
-
-    this.invoices.set(mockInvoices);
-    this.calculatePaymentSummary(mockInvoices);
-  }
-
-  private calculatePaymentSummary(invoices: any[]) {
-    const totalPaid = invoices
-      .filter(inv => inv.status === 'PAID')
-      .reduce((sum, inv) => sum + (inv.amount || 0), 0);
-    
-    const totalPending = invoices
-      .filter(inv => inv.status === 'PENDING' || inv.status === 'APPROVED' || inv.status === 'SENT')
-      .reduce((sum, inv) => sum + (inv.amount || 0), 0);
-
-    const paidInvoices = invoices.filter(inv => inv.status === 'PAID');
-    const lastPaymentDate = paidInvoices.length > 0 
-      ? paidInvoices.sort((a, b) => new Date(b.invoiceDate).getTime() - new Date(a.invoiceDate).getTime())[0].invoiceDate
-      : null;
-
-    this.paymentSummary.set({
-      totalPaid,
-      totalPending,
-      lastPaymentDate
     });
   }
 }

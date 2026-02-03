@@ -1,76 +1,83 @@
-<div class="invoice-history">
-  <div class="page-header">
-    <h2>Invoice History</h2>
-    <p>View and filter your complete invoice records</p>
-  </div>
-  
-  <div class="filter-section">
-    <label for="statusFilter">Filter by Status:</label>
-    <select id="statusFilter" (change)="onStatusFilter($event)" class="filter-select">
-      <option value="">All Invoices</option>
-      <option value="PENDING">Pending</option>
-      <option value="APPROVED">Approved</option>
-      <option value="SENT">Sent</option>
-      <option value="PAID">Paid</option>
-    </select>
-  </div>
-  
-  <div class="invoice-list" *ngIf="filteredInvoices().length > 0; else noInvoices">
-    <div class="invoice-card" *ngFor="let invoice of filteredInvoices()">
-      <div class="invoice-header">
-        <div class="invoice-info">
-          <h3>Invoice #{{ invoice.id }}</h3>
-          <p class="invoice-date">{{ invoice.invoiceDate }}</p>
-        </div>
-        <div class="invoice-amount">
-          <p class="amount">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</p>
-          <span class="status {{ invoice.status.toLowerCase() }}">{{ invoice.status }}</span>
-        </div>
-      </div>
-      
-      <div class="invoice-details">
-        <div class="detail-row">
-          <span class="label">PO ID:</span>
-          <span class="value">#{{ invoice.poId }}</span>
-        </div>
-        <div class="detail-row">
-          <span class="label">Base Amount:</span>
-          <span class="value">${{ invoice.amount }}</span>
-        </div>
-        <div class="detail-row" *ngIf="invoice.tax">
-          <span class="label">Tax:</span>
-          <span class="value">${{ invoice.tax }}</span>
-        </div>
-        <div class="detail-row">
-          <span class="label">Total:</span>
-          <span class="value total">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</span>
-        </div>
-      </div>
+<div class="page-header mb-2rem">
+  <h2>Invoice History</h2>
+  <p class="text-muted">View and filter your complete invoice records</p>
+</div>
+
+<div class="pine-card filter-section mb-2rem" style="display:flex; align-items:center; gap:1rem;">
+  <label for="statusFilter" style="color:var(--admin-text); font-weight:600;">Filter by Status:</label>
+  <select id="statusFilter" (change)="onStatusFilter($event)" class="pine-input" style="max-width:200px;">
+    <option value="">All Invoices</option>
+    <option value="PENDING">Pending</option>
+    <option value="APPROVED">Approved</option>
+    <option value="SENT">Sent</option>
+    <option value="PAID">Paid</option>
+  </select>
+</div>
+
+<!-- Summary Cards -->
+<div class="summary-grid">
+  <div class="pine-card summary-card">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <h3>{{ filteredInvoices().length }}</h3>
+      <p>Total Invoices</p>
     </div>
   </div>
-  
-  <ng-template #noInvoices>
-    <div class="empty-state">
-      <div class="empty-icon">📊</div>
-      <h3>No Invoices Found</h3>
-      <p>No invoices match your current filter criteria.</p>
+  <div class="pine-card summary-card">
+    <div class="card-icon">💰</div>
+    <div class="card-content">
+      <h3>${{ totalInvoiceValue() }}</h3>
+      <p>Total Value</p>
     </div>
-  </ng-template>
-  
-  <div class="summary-section">
-    <div class="summary-card">
-      <div class="summary-icon">📋</div>
-      <h4>Total Invoices</h4>
-      <p class="count">{{ filteredInvoices().length }}</p>
-    </div>
-    <div class="summary-card">
-      <div class="summary-icon">💰</div>
-      <h4>Total Value</h4>
-      <p class="amount">${{ totalInvoiceValue() }}</p>
-    </div>
-  </div>
-  
-  <div class="back-link">
-    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
   </div>
 </div>
+
+<div class="invoice-list" *ngIf="filteredInvoices().length > 0; else noInvoicesTemplate">
+  <div class="summary-grid">
+    <div class="pine-card summary-card" *ngFor="let invoice of filteredInvoices()">
+      <div class="invoice-header mb-1rem" style="display:flex; justify-content:space-between; align-items: flex-start;">
+        <div class="invoice-info">
+          <h3 style="margin:0; font-size:1.2rem;">Invoice #{{ invoice.id }}</h3>
+          <p class="invoice-date text-muted" style="margin:0; font-size:0.85rem;">{{ invoice.invoiceDate | date }}</p>
+        </div>
+        <div class="invoice-amount" style="text-align:right;">
+          <p class="amount" style="margin:0; font-size:1.2rem; font-weight:bold; color:var(--admin-accent);">${{
+            (invoice.amount || 0) + (invoice.tax || 0) }}</p>
+          <span class="pine-badge {{ invoice.status === 'PAID' ? 'pine-badge-success' : 'pine-badge-warning' }}">{{
+            invoice.status }}</span>
+        </div>
+      </div>
+
+      <div class="invoice-details" style="font-size:0.9rem;">
+        <div class="detail-row"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">PO ID:</span>
+          <span class="value">#{{ invoice.poId }}</span>
+        </div>
+        <div class="detail-row"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">Base Amount:</span>
+          <span class="value">${{ invoice.amount }}</span>
+        </div>
+        <div class="detail-row" *ngIf="invoice.tax"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">Tax:</span>
+          <span class="value">${{ invoice.tax }}</span>
+        </div>
+        <div class="detail-row" style="display:flex; justify-content:space-between;">
+          <span class="label text-muted">Total:</span>
+          <span class="value total" style="color:var(--admin-accent);">${{ (invoice.amount || 0) + (invoice.tax || 0)
+            }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noInvoicesTemplate>
+  <div class="no-data pine-card">
+    <div class="empty-icon" style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+    <h3>No Invoices Found</h3>
+    <p>No invoices match your current filter criteria.</p>
+  </div>
+</ng-template>

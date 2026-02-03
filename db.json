@@ -260,10 +260,19 @@
       "id": 2,
       "poId": 6,
       "issuedBy": "ADMIN",
-      "amount": 28000,
-      "tax": 2800,
-      "invoiceDate": "2026-01-22",
-      "status": "PAID"
+      "amount": 18000,
+      "tax": 1800,
+      "invoiceDate": "2026-04-15",
+      "status": "APPROVED"
+    },
+    {
+      "id": "3db8",
+      "poId": 2,
+      "amount": 15000,
+      "tax": 0,
+      "invoiceDate": "2026-01-12",
+      "status": "PENDING",
+      "issuedBy": "TRAINER"
     }
   ]
 }

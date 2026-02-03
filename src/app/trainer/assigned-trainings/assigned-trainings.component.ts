@@ -1,6 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth-service';
+import { EnrollmentService, CompanyService } from '../../shared/services';
+import { Enrollment, Company } from '../../shared/models';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-assigned-trainings',
@@ -10,54 +14,44 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./assigned-trainings.component.css']
 })
 export class AssignedTrainingsComponent implements OnInit {
-  trainings = signal<any[]>([]);
-  companies = signal<any[]>([]);
+  private authService = inject(AuthService);
+  private enrollmentService = inject(EnrollmentService);
+  private companyService = inject(CompanyService);
+
+  trainings = signal<Enrollment[]>([]);
+  companyMap = new Map<number, Company>();
+  isLoading = signal(false);
 
   ngOnInit() {
-    // Mock data for demo - in real app, this would come from services
-    this.loadAssignedTrainings();
-    this.loadCompanies();
+    this.loadData();
   }
 
-  private loadAssignedTrainings() {
-    // Mock training data
-    const mockTrainings = [
-      {
-        id: 1,
-        companyId: 1,
-        trainerId: 1,
-        technology: 'Angular',
-        startDate: '2026-02-15',
-        endDate: '2026-02-19',
-        budget: 20000,
-        status: 'APPROVED'
+  private loadData() {
+    const user = this.authService.getUser();
+    if (!user || user.role !== 'trainer' || !user.trainerId) return;
+
+    this.isLoading.set(true);
+
+    forkJoin({
+      enrollments: this.enrollmentService.getByTrainerId(user.trainerId),
+      companies: this.companyService.getAll()
+    }).subscribe({
+      next: ({ enrollments, companies }) => {
+        // Create company map
+        companies.forEach(c => this.companyMap.set(c.id, c));
+
+        this.trainings.set(enrollments);
+        this.isLoading.set(false);
       },
-      {
-        id: 3,
-        companyId: 3,
-        trainerId: 1,
-        technology: 'React',
-        startDate: '2026-04-10',
-        endDate: '2026-04-14',
-        budget: 18000,
-        status: 'ONGOING'
+      error: (err) => {
+        console.error('Error loading training data', err);
+        this.isLoading.set(false);
       }
-    ];
-
-    this.trainings.set(mockTrainings);
-  }
-
-  private loadCompanies() {
-    // Mock company data
-    this.companies.set([
-      { id: 1, name: 'TechCorp Inc.' },
-      { id: 2, name: 'InnovateLabs' },
-      { id: 3, name: 'GlobalSoft Solutions' }
-    ]);
+    });
   }
 
   getCompanyName(companyId: number): string {
-    const company = this.companies().find(c => c.id === companyId);
+    const company = this.companyMap.get(companyId);
     return company ? company.name : 'Unknown Company';
   }
 }

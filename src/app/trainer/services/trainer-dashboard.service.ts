@@ -45,6 +45,14 @@ export class TrainerDashboardService {
         const ongoingTrainings = enrollments.filter(e => e.status === 'ONGOING').length;
         const completedTrainings = enrollments.filter(e => e.status === 'COMPLETED').length;
 
+        // Filter POs for this trainer's enrollments
+        const myEnrollmentIds = enrollments.map(e => e.id);
+        const myPOs = pos.filter(po => myEnrollmentIds.includes(po.enrollmentId));
+        const myPOIds = myPOs.map(po => po.id);
+
+        // Filter invoices for this trainer's POs
+        const trainerInvoices = invoices.filter(invoice =>
+          myPOIds.includes(invoice.poId)
         // Filter invoices for this trainer's POs
         const trainerPOIds = pos.map(po => po.id);
         const trainerInvoices = invoices.filter(invoice =>
@@ -192,6 +200,7 @@ export class TrainerDashboardService {
       map(([invoices, pos, enrollments]) => {
         // Filter invoices for this trainer
         const trainerPOIds = pos.filter(po =>
+          enrollments.some(e => e.id === po.enrollmentId)
           po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
 
@@ -254,6 +263,7 @@ export class TrainerDashboardService {
       map(([invoices, pos, enrollments]) => {
         // Filter invoices for this trainer
         const trainerPOIds = pos.filter(po =>
+          enrollments.some(e => e.id === po.enrollmentId)
           po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
 

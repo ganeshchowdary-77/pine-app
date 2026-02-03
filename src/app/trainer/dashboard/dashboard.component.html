@@ -1,78 +1,58 @@
-<div class="trainer-dashboard">
-  <!-- Navigation Section -->
-  <nav class="dashboard-nav">
-    <div class="nav-brand">
-      <h1>{{ welcomeMessage() }}</h1>
-    </div>
-    <div class="nav-links">
-      <a routerLink="/trainer/assigned-trainings" class="nav-link">
-        <span class="nav-icon">📚</span>
-        <span>Assigned Trainings</span>
-      </a>
-      <a routerLink="/trainer/po-details" class="nav-link">
-        <span class="nav-icon">📄</span>
-        <span>PO Details</span>
-      </a>
-      <a routerLink="/trainer/invoice-upload" class="nav-link">
-        <span class="nav-icon">📤</span>
-        <span>Raise Invoice</span>
-      </a>
-      <a routerLink="/trainer/payment-status" class="nav-link">
-        <span class="nav-icon">💳</span>
-        <span>Payment Status</span>
-      </a>
-      <a routerLink="/trainer/invoice-history" class="nav-link">
-        <span class="nav-icon">📊</span>
-        <span>Invoice History</span>
-      </a>
-    </div>
-    <div class="nav-actions">
-      <button class="logout-btn" (click)="logout()">
-        <span class="logout-icon">🚪</span>
-        <span>Logout</span>
-      </button>
-    </div>
-  </nav>
+<!-- Loading State -->
+<div *ngIf="isLoading()" class="loading-badge">
+  <h3>Loading Dashboard Data...</h3>
+</div>
 
-  <!-- Dashboard Summary Only -->
-  <div class="dashboard-content">
-    <div class="summary-section">
-      <h2>Training Summary</h2>
-      <div class="summary-grid">
-        <div class="summary-card">
-          <div class="card-icon">📚</div>
-          <div class="card-content">
-            <h3>{{ stats().totalTrainings }}</h3>
-            <p>Total Trainings</p>
-          </div>
+<!-- Error State -->
+<div *ngIf="error()" class="pine-badge pine-badge-error"
+  style="display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;">
+  <div>
+    <h3>Error</h3>
+    <p>{{ error() }}</p>
+  </div>
+  <button class="pine-btn pine-btn-secondary" (click)="logout()" style="border-color: white; color: white;">
+    Logout & Retry
+  </button>
+</div>
+
+<!-- Dashboard Content -->
+<div *ngIf="!isLoading() && !error()" class="dashboard-content">
+  <div class="summary-section">
+    <h2 style="margin-bottom: 2rem;">Overview</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-icon">📚</div>
+        <div class="card-content">
+          <h3>{{ stats().totalTrainings }}</h3>
+          <p>Total Trainings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">🚀</div>
-          <div class="card-content">
-            <h3>{{ stats().ongoingTrainings }}</h3>
-            <p>Ongoing Trainings</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">🚀</div>
+        <div class="card-content">
+          <h3>{{ stats().ongoingTrainings }}</h3>
+          <p>Ongoing Trainings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">✅</div>
-          <div class="card-content">
-            <h3>{{ stats().completedTrainings }}</h3>
-            <p>Completed Trainings</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">✅</div>
+        <div class="card-content">
+          <h3>{{ stats().completedTrainings }}</h3>
+          <p>Completed Trainings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">💰</div>
-          <div class="card-content">
-            <h3>${{ stats().totalEarnings }}</h3>
-            <p>Total Earnings</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">💰</div>
+        <div class="card-content">
+          <h3>${{ stats().totalEarnings }}</h3>
+          <p>Total Earnings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">⏳</div>
-          <div class="card-content">
-            <h3>{{ stats().pendingInvoices }}</h3>
-            <p>Pending Invoices</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">⏳</div>
+        <div class="card-content">
+          <h3>{{ stats().pendingInvoices }}</h3>
+          <p>Pending Invoices</p>
         </div>
       </div>
     </div>
