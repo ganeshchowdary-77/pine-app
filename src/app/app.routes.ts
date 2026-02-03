@@ -20,7 +20,6 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full',
+    loadComponent: () => import('./landing/landing.component').then(m => m.LandingPageComponent),
   },
 ];

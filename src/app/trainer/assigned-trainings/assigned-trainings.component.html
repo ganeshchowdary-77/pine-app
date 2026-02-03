@@ -1,48 +1,47 @@
-<div class="assigned-trainings">
-  <div class="page-header">
-    <h2>Assigned Trainings</h2>
-    <p>View and manage your scheduled training sessions</p>
-  </div>
-  
-  <div class="training-list" *ngIf="trainings().length > 0; else noTrainings">
-    <div class="training-card" *ngFor="let training of trainings()">
-      <div class="card-header">
-        <h3>{{ training.technology }}</h3>
-        <span class="status {{ training.status.toLowerCase() }}">{{ training.status }}</span>
-      </div>
-      
-      <div class="card-content">
-        <div class="training-details">
-          <div class="detail-item">
-            <span class="label">Company:</span>
-            <span class="value">{{ getCompanyName(training.companyId) }}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Start Date:</span>
-            <span class="value">{{ training.startDate }}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">End Date:</span>
-            <span class="value">{{ training.endDate }}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Budget:</span>
-            <span class="value">\${{ training.budget }}</span>
-          </div>
+<div class="page-header mb-2rem">
+  <h2>Assigned Trainings</h2>
+  <p class="text-muted">View and manage your scheduled training sessions</p>
+</div>
+
+<div class="loading-badge" *ngIf="isLoading()">
+  Loading...
+</div>
+
+<div class="summary-grid" *ngIf="trainings().length > 0; else noTrainingsTemplate">
+  <div class="pine-card summary-card" *ngFor="let training of trainings()">
+    <div class="card-header">
+      <h3>{{ training.technology }}</h3>
+      <span class="pine-badge {{ training.status === 'ONGOING' ? 'pine-badge-info' : 'pine-badge-success' }}">{{
+        training.status }}</span>
+    </div>
+
+    <div class="card-content">
+      <div class="training-details">
+        <div class="detail-item">
+          <span class="label">Company:</span>
+          <span class="value">{{ getCompanyName(training.companyId) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Start Date:</span>
+          <span class="value">{{ training.startDate }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">End Date:</span>
+          <span class="value">{{ training.endDate }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Budget:</span>
+          <span class="value">\${{ training.budget }}</span>
         </div>
       </div>
     </div>
   </div>
-  
-  <ng-template #noTrainings>
-    <div class="empty-state">
-      <div class="empty-icon">📚</div>
-      <h3>No Assigned Trainings</h3>
-      <p>You don't have any training sessions assigned at the moment.</p>
-    </div>
-  </ng-template>
-  
-  <div class="back-link">
-    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
-  </div>
 </div>
+
+<ng-template #noTrainingsTemplate>
+  <div class="no-data pine-card">
+    <div class="empty-icon" style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
+    <h3>No Assigned Trainings</h3>
+    <p>You don't have any training sessions assigned at the moment.</p>
+  </div>
+</ng-template>

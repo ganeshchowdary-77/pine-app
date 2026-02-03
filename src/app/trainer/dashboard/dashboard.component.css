@@ -1,189 +1,75 @@
-.trainer-dashboard {
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, #fff9e6 0%, #ffeb99 100%);
-  min-height: 100vh;
-}
+@import '../trainer-theme.css';
+/* Component specific styles can go here if needed */
 
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-}
-
-.dashboard-header h2 {
-  margin: 0 0 10px 0;
-  color: #2c1810;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.welcome-message {
-  margin: 0;
-  color: #5a3a1a;
-  font-size: 1.2em;
-  font-weight: 400;
-}
-
-.dashboard-stats {
+/* Summary Grid - Specific to Dashboard logic */
+.summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.stat-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  border: 2px solid #ffd700;
+.summary-card {
+  text-align: left;
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 1.75rem !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-}
-
-.stat-icon {
-  font-size: 3em;
-  margin-bottom: 15px;
-}
-
-.stat-card h3 {
-  margin: 0 0 10px 0;
-  font-size: 2.5em;
-  color: #d4af37;
-  font-weight: 700;
-}
-
-.stat-card p {
-  margin: 0;
-  color: #8b6914;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.9em;
-}
-
-.dashboard-actions {
-  margin-top: 40px;
-}
-
-.action-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.action-btn {
+  position: relative;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  padding: 25px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  color: #2c1810;
-  text-decoration: none;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid #ffb347;
+  flex-direction: column;
 }
 
-.action-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffb347 0%, #ffd700 100%);
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--admin-accent);
+  opacity: 0.7;
 }
 
-.btn-icon {
-  font-size: 2.5em;
-  margin-right: 20px;
-  flex-shrink: 0;
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(251, 191, 36, 0.1);
+  border-color: var(--admin-accent);
 }
 
-.btn-content h4 {
-  margin: 0 0 5px 0;
-  font-size: 1.3em;
-  font-weight: 600;
-  color: #2c1810;
+.card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.btn-content p {
+.card-content h3 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--admin-accent);
   margin: 0;
-  font-size: 0.9em;
-  color: #5a3a1a;
-  opacity: 0.9;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .trainer-dashboard {
-    padding: 15px;
-  }
-  
-  .dashboard-header {
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .dashboard-header h2 {
-    font-size: 2em;
-  }
-  
-  .dashboard-stats {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .stat-card {
-    padding: 20px;
-  }
-  
-  .stat-card h3 {
-    font-size: 2em;
-  }
-  
-  .action-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .action-btn {
-    padding: 20px;
-  }
-  
-  .btn-icon {
-    font-size: 2em;
-    margin-right: 15px;
-  }
+.card-content p {
+  color: var(--admin-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
-@media (max-width: 480px) {
-  .dashboard-header h2 {
-    font-size: 1.8em;
-  }
-  
-  .welcome-message {
-    font-size: 1em;
-  }
-  
-  .stat-card {
-    padding: 15px;
-  }
-  
-  .stat-card h3 {
-    font-size: 1.8em;
-  }
-  
-  .stat-icon {
-    font-size: 2.5em;
-  }
+/* Loading State */
+.loading-badge {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-accent);
+  color: var(--admin-accent);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
 }

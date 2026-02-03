@@ -5,6 +5,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { TrainerAvailability } from './trainer-availability/trainer-availability';
 import { TrainerForm } from './trainer-form/trainer-form';
+import { TrainingRequestsComponent } from './training-requests/training-requests';
+import { TrainerInvoicesComponent } from './trainer-invoices/trainer-invoices';
 
 /**
  * ADMIN MODULE ROUTES
@@ -65,6 +67,10 @@ export const ADMIN_ROUTES: Routes = [
         children: [
             // TEAM 3 - INVOICE & DASHBOARD
             { path: 'dashboard', component: AdminDashboardComponent },
+            { path: 'trainer-invoices', component: TrainerInvoicesComponent },
+
+            // TEAM 1 - Training Requests
+            { path: 'training-requests', component: TrainingRequestsComponent },
 
             // TEAM 2 - Enrollment & PO Management
             /* Enrollment Management */

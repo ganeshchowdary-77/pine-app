@@ -1,118 +1,40 @@
-.assigned-trainings {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, #fff9e6 0%, #ffeb99 100%);
+@import '../trainer-theme.css';
+
+/* Enforce Theme Overrides */
+:host {
+  display: block;
+  background-color: var(--admin-bg);
   min-height: 100vh;
 }
 
+/* Ensure Page Header is transparent/consistent */
 .page-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-bottom: 2rem !important;
+  text-align: left !important;
+  color: var(--admin-text) !important;
 }
 
 .page-header h2 {
-  margin: 0 0 10px 0;
-  color: #2c1810;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--admin-accent) !important;
+  font-size: 1.875rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .page-header p {
-  margin: 0;
-  color: #5a3a1a;
-  font-size: 1.2em;
-  font-weight: 400;
+  color: var(--admin-text-muted) !important;
+  font-size: 1rem !important;
 }
 
-.training-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 25px;
-  margin-bottom: 30px;
-}
-
-.training-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  padding: 25px;
-  border-radius: 15px;
-  border-left: 5px solid #ffd700;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.training-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.card-header h3 {
-  margin: 0;
-  color: #2c1810;
-  font-size: 1.5em;
-  font-weight: 600;
-}
-
-.status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.8em;
-  font-weight: 600;
-}
-
-.status.approved {
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.status.ongoing {
-  background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-  color: #004085;
-  border: 1px solid #b3d9ff;
-}
-
-.status.completed {
-  background: linear-gradient(135deg, #e2e3e5 0%, #d6d8db 100%);
-  color: #383d41;
-  border: 1px solid #d6d8db;
-}
-
-.status.requested {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-  color: #856404;
-  border: 1px solid #ffeeba;
-}
-
-.card-content {
-  margin-top: 15px;
-}
-
-.training-details {
-  display: grid;
-  gap: 12px;
-}
-
+/* Specific Page Styles */
 .detail-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .detail-item:last-child {
@@ -120,115 +42,10 @@
 }
 
 .label {
-  color: #8b6914;
-  font-weight: 500;
-  font-size: 0.9em;
+  color: var(--admin-text-muted);
 }
 
 .value {
-  color: #2c1810;
-  font-weight: 600;
-  font-size: 1em;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-  border-radius: 15px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-}
-
-.empty-icon {
-  font-size: 4em;
-  margin-bottom: 20px;
-}
-
-.empty-state h3 {
-  margin: 0 0 10px 0;
-  color: #2c1810;
-  font-size: 1.8em;
-  font-weight: 600;
-}
-
-.empty-state p {
-  margin: 0;
-  color: #8b6914;
-  font-size: 1.1em;
-}
-
-.back-link {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.back-btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-  color: #2c1810;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: 600;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid #ffb347;
-}
-
-.back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffb347 0%, #ffd700 100%);
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .assigned-trainings {
-    padding: 15px;
-  }
-  
-  .page-header {
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .page-header h2 {
-    font-size: 2em;
-  }
-  
-  .training-list {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .training-card {
-    padding: 20px;
-  }
-  
-  .card-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
-  .detail-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-header h2 {
-    font-size: 1.8em;
-  }
-  
-  .page-header p {
-    font-size: 1em;
-  }
-  
-  .training-card {
-    padding: 15px;
-  }
+  color: var(--admin-text);
+  font-weight: 500;
 }

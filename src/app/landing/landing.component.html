@@ -1,0 +1,107 @@
+<div class="landing-container">
+    <header class="landing-header">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="12" fill="url(#gradient)" />
+                <path d="M24 12L32 20L24 28L16 20L24 12Z" fill="white" opacity="0.9" />
+                <path d="M24 20L32 28L24 36L16 28L24 20Z" fill="white" opacity="0.6" />
+                <defs>
+                    <linearGradient id="gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#6366f1" />
+                        <stop offset="1" stop-color="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="brand-name">Pine App</span>
+        </div>
+        <nav>
+            <a routerLink="/auth/login" class="btn-login">Login</a>
+        </nav>
+    </header>
+
+    <main class="landing-content">
+        <section class="hero-section">
+            <h1>Empowering the Workforce of Tomorrow</h1>
+            <p>We provide world-class technical training solutions to bridge the gap between talent and industry needs.
+            </p>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="achievements-section">
+            <div class="achievement-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3>5000+</h3>
+                <p>Trainees Placed</p>
+            </div>
+            <div class="achievement-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12h20"></path>
+                        <path d="M2 17h20"></path>
+                        <path d="M2 7h20"></path>
+                        <path d="M9 22V2"></path>
+                    </svg>
+                </div>
+                <h3>50+</h3>
+                <p>Corporate Partners</p>
+            </div>
+            <div class="achievement-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
+                </div>
+                <h3>4.9/5</h3>
+                <p>Satisfaction Rate</p>
+            </div>
+        </section>
+
+        <!-- Selection Section -->
+        <section class="selection-section">
+            <div class="selection-card trainee-card" routerLink="/auth/login">
+                <div class="card-content">
+                    <h2>Login as Trainer</h2>
+                    <p>Access your trainer portal, manage schedules, and view payments.</p>
+                    <span class="fake-link">Login to Portal &rarr;</span>
+                </div>
+            </div>
+
+            <div class="selection-card request-card" (click)="scrollToRequest()">
+                <div class="card-content">
+                    <h2>Request Training</h2>
+                    <p>For companies looking to upskill their workforce.</p>
+                    <span class="fake-link">Get a Quote &rarr;</span>
+                </div>
+            </div>
+        </section>
+
+        @if (showRequestForm()) {
+        <section id="request-form-section" class="request-form-section">
+            <div class="form-card">
+                <div class="form-header">
+                    <h2>Direct Training Request</h2>
+                    <button class="btn-close" (click)="toggleRequestForm()" title="Close Form">&times;</button>
+                </div>
+                <p>Fill out the form below to kickstart your training journey.</p>
+                <app-training-request-form></app-training-request-form>
+            </div>
+        </section>
+        }
+    </main>
+
+    <footer class="landing-footer">
+        <p>&copy; 2026 Pine App. All rights reserved.</p>
+    </footer>
+</div>

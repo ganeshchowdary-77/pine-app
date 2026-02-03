@@ -1,0 +1,187 @@
+/* Shared Theme for Trainer Components */
+
+:host {
+    --admin-bg: #0f172a;
+    /* Deep Black/Blue background */
+    --admin-card-bg: #1e293b;
+    /* Dark card background */
+    --admin-accent: #fbbf24;
+    /* Golden Yellow */
+    --admin-accent-hover: #f59e0b;
+    /* Darker Gold for hover */
+    --admin-text: #f8fafc;
+    /* Off-white text */
+    --admin-text-muted: #94a3b8;
+    /* Muted gray text */
+    --admin-border: #334155;
+    /* Subtle dark border */
+}
+
+/* Global Styles if imported in styles.css, otherwise applied to component host */
+.trainer-dashboard {
+    color: var(--admin-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--admin-accent);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+}
+
+/* Utility Classes */
+.mb-2rem {
+    margin-bottom: 2rem;
+}
+
+.mt-2rem {
+    margin-top: 2rem;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Cards */
+.pine-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    padding: 2rem !important;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.pine-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* Tables */
+.table-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--admin-border);
+}
+
+table.pine-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+table.pine-table th {
+    background: rgba(51, 65, 85, 0.5);
+    color: var(--admin-accent);
+    font-weight: 700;
+    text-align: left;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border: none;
+}
+
+table.pine-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--admin-border);
+    color: var(--admin-text);
+}
+
+table.pine-table tr:hover {
+    background: rgba(51, 65, 85, 0.3);
+}
+
+/* Badges */
+.pine-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.pine-badge-warning {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.pine-badge-success {
+    background: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.pine-badge-info {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+.pine-badge-error {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* Buttons */
+.pine-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+}
+
+.pine-btn-primary {
+    background: var(--admin-accent);
+    color: #000;
+    box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.39);
+}
+
+.pine-btn-primary:hover {
+    background: var(--admin-accent-hover);
+    transform: translateY(-2px);
+}
+
+.pine-btn-secondary {
+    background: transparent;
+    border: 1px solid var(--admin-accent);
+    color: var(--admin-accent);
+}
+
+.pine-btn-secondary:hover {
+    background: rgba(251, 191, 36, 0.1);
+}
+
+/* Form Inputs */
+.pine-input {
+    background: var(--admin-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+    color: white !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+    width: 100%;
+}
+
+.pine-input:focus {
+    border-color: var(--admin-accent) !important;
+    outline: none;
+}
+
+/* Loading/Empty States */
+.no-data {
+    color: var(--admin-text-muted);
+    text-align: center;
+    padding: 3rem;
+    font-style: italic;
+}
