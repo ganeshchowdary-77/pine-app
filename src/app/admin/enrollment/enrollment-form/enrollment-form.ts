@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -23,10 +23,11 @@ export class EnrollmentForm implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private cdr = inject(ChangeDetectorRef);
 
   form = this.fb.group({
     companyId: [null as number | null, Validators.required],
-    trainerId: [null as number | null, Validators.required],
+    trainerId: [null as number | null], // Made optional as it might not be assigned yet
     technology: ['', Validators.required],
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
@@ -73,13 +74,20 @@ export class EnrollmentForm implements OnInit {
 
   loadEnrollment(id: number) {
     this.enrollmentService.getById(id).subscribe(data => {
-      this.form.patchValue({
-        companyId: data.companyId,
-        trainerId: data.trainerId,
+      if (!data) return;
+
+      const patchData = {
+        companyId: Number(data.companyId), // Force number type
+        trainerId: data.trainerId ? Number(data.trainerId) : null, // Handle null/undefined
         technology: data.technology,
-        startDate: data.startDate.split('T')[0], // Ensure date format
-        endDate: data.endDate.split('T')[0],
+        startDate: data.startDate ? data.startDate.split('T')[0] : '',
+        endDate: data.endDate ? data.endDate.split('T')[0] : '',
         budget: data.budget,
+        status: data.status as any
+      };
+
+      this.form.patchValue(patchData);
+      this.cdr.markForCheck(); // Required for OnPush
         requestId: data.requestId || null,
         status: data.status
       });
@@ -92,6 +100,18 @@ export class EnrollmentForm implements OnInit {
       return;
     }
 
+    // Use getRawValue() to include any disabled fields if present
+    const formValue = this.form.getRawValue();
+
+    // Explicitly construct the payload to ensure types are correct
+    const enrollmentData: Partial<any> = {
+      companyId: formValue.companyId ? Number(formValue.companyId) : null,
+      trainerId: formValue.trainerId ? Number(formValue.trainerId) : null,
+      budget: formValue.budget != null ? Number(formValue.budget) : null,
+      technology: formValue.technology || '',
+      startDate: formValue.startDate || '',
+      endDate: formValue.endDate || '',
+      status: formValue.status || 'REQUESTED'
     const formValue = this.form.value;
     const enrollmentData = {
       ...formValue,
@@ -105,15 +125,22 @@ export class EnrollmentForm implements OnInit {
       status: (formValue.status || 'REQUESTED') as 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED'
     };
 
+    console.log('Saving enrollment data:', enrollmentData);
+
     if (this.enrollmentId()) {
       this.enrollmentService.update(this.enrollmentId()!, enrollmentData)
-        .subscribe(() => {
-          this.router.navigate(['/admin/enrollments']);
+        .subscribe({
+          next: (res) => {
+            console.log('Update success:', res);
+            this.router.navigate(['/admin/enrollments']);
+          },
+          error: (err) => console.error('Error updating enrollment:', err)
         });
     } else {
       this.enrollmentService.create(enrollmentData)
-        .subscribe(() => {
-          this.router.navigate(['/admin/enrollments']);
+        .subscribe({
+          next: () => this.router.navigate(['/admin/enrollments']),
+          error: (err) => console.error('Error creating enrollment:', err)
         });
     }
   }

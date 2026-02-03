@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
-import { catchError, of } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
+import { catchError, forkJoin, of } from 'rxjs';
 import { EnrollmentService } from '../../../shared/services/enrollment.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-enrollment-list',
@@ -14,16 +15,59 @@ import { EnrollmentService } from '../../../shared/services/enrollment.service';
 export class EnrollmentList {
 
   private enrollmentService = inject(EnrollmentService);
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
-  // Raw enrollments signal
-  enrollments = toSignal(this.loadEnrollments(), {
-    initialValue: []
+  data = toSignal(this.loadData(), {
+    initialValue: { enrollments: [], pos: [], companies: [], trainers: [] }
   });
 
-  // Grouped signals
-  requested = computed(() =>
-    this.enrollments().filter(e => e.status === 'REQUESTED')
-  );
+  loadData() {
+    return forkJoin({
+      enrollments: this.enrollmentService.getAll(),
+      pos: this.http.get<any[]>('http://localhost:3000/purchaseOrders'),
+      companies: this.http.get<any[]>('http://localhost:3000/companies'),
+      trainers: this.http.get<any[]>('http://localhost:3000/trainers')
+    }).pipe(
+      catchError(err => {
+        console.error(err);
+        return of({ enrollments: [], pos: [], companies: [], trainers: [] });
+      })
+    );
+  }
+
+  enrollments = computed(() => this.data().enrollments);
+  pos = computed(() => this.data().pos);
+  companies = computed(() => this.data().companies);
+  trainers = computed(() => this.data().trainers);
+
+  // Helper methods to get names
+  getCompanyName(companyId: number): string {
+    const company = this.companies().find(c => c.id == companyId);
+    return company?.name || `Company #${companyId}`;
+  }
+
+  getTrainerName(trainerId: number | null | undefined): string {
+    if (!trainerId) return 'Not Assigned';
+    const trainer = this.trainers().find(t => t.id == trainerId);
+    return trainer?.name || `Trainer #${trainerId}`;
+  }
+
+  // ✅ Requested = trainer acceptance pending
+  requested = computed(() => {
+    const enrollments = this.enrollments();
+    const pos = this.pos();
+
+    return enrollments.filter(e => {
+      if (e.status !== 'REQUESTED') return false;
+
+      const trainerPO = pos.find(
+        p => p.enrollmentId == e.id && p.type === 'TRAINER'
+      );
+
+      return trainerPO && trainerPO.status !== 'ACCEPTED';
+    });
+  });
 
   approved = computed(() =>
     this.enrollments().filter(e => e.status === 'APPROVED')
@@ -37,21 +81,15 @@ export class EnrollmentList {
     this.enrollments().filter(e => e.status === 'COMPLETED')
   );
 
-  loadEnrollments() {
-    return this.enrollmentService.getAll().pipe(
-      catchError(err => {
-        console.error('Error fetching enrollments:', err);
-        return of([]);
-      })
-    );
+  editEnrollment(id: number) {
+    this.router.navigate(['/admin/enrollments/edit', id]);
   }
 
   deleteEnrollment(id: number) {
     if (confirm('Are you sure you want to delete this enrollment?')) {
       this.enrollmentService.delete(id).subscribe(() => {
-        // reload signal
-        this.enrollments = toSignal(this.loadEnrollments(), {
-          initialValue: []
+        this.data = toSignal(this.loadData(), {
+          initialValue: { enrollments: [], pos: [], companies: [], trainers: [] }
         });
       });
     }
