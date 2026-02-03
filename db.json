@@ -251,6 +251,7 @@
     {
       "id": 1,
       "poId": 7,
+      "trainerId": 1,
       "issuedBy": "TRAINER",
       "amount": 4800,
       "invoiceDate": "2026-01-20",
@@ -268,11 +269,32 @@
     {
       "id": "3db8",
       "poId": 2,
+      "trainerId": 1,
       "amount": 15000,
       "tax": 0,
       "invoiceDate": "2026-01-12",
       "status": "PENDING",
       "issuedBy": "TRAINER"
+    },
+    {
+      "id": 101,
+      "poId": 5,
+      "trainerId": 2,
+      "issuedBy": "TRAINER",
+      "amount": 3000,
+      "tax": 0,
+      "invoiceDate": "2026-02-18",
+      "status": "PENDING"
+    },
+    {
+      "id": 102,
+      "poId": 5,
+      "trainerId": 2,
+      "issuedBy": "TRAINER",
+      "amount": 3000,
+      "tax": 0,
+      "invoiceDate": "2026-02-25",
+      "status": "APPROVED"
     }
   ]
 }
