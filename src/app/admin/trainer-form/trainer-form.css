@@ -1,4 +1,4 @@
-/* Enrollment Form - Professional Dark Theme with Golden Yellow Accents */
+/* Trainer Form - Professional Dark Theme with Golden Yellow Accents */
 
 :host {
     --admin-bg: #0f172a;
@@ -13,13 +13,13 @@
 }
 
 /* Container */
-.enrollment-form-container {
+.trainer-form-container {
     min-height: 100vh;
     background-color: var(--admin-bg);
     padding: 2rem;
     color: var(--admin-text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -88,6 +88,24 @@
     margin-bottom: 2rem;
 }
 
+/* Error Banner */
+.error-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--admin-error);
+    border-radius: 8px;
+    color: var(--admin-error);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.error-icon {
+    font-size: 1.25rem;
+}
+
 /* Form Layout */
 .form-row {
     display: grid;
@@ -96,6 +114,7 @@
     margin-bottom: 1.5rem;
 }
 
+/* Form Field */
 .form-field {
     display: flex;
     flex-direction: column;
@@ -104,6 +123,14 @@
 
 .form-field.full-width {
     margin-bottom: 1.5rem;
+}
+
+/* Field Hint */
+.field-hint {
+    color: var(--admin-text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: -0.25rem;
 }
 
 /* Field Label */
@@ -173,7 +200,7 @@ select.field-input {
     appearance: none;
 }
 
-/* Input with Prefix (for Budget) */
+/* Input with Prefix (for Rate) */
 .input-with-prefix {
     position: relative;
     display: flex;
@@ -238,17 +265,18 @@ select.field-input {
     box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.39);
 }
 
-.submit-btn:hover:not(.disabled) {
+.submit-btn:hover:not(.disabled):not(:disabled) {
     background: var(--admin-accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
 }
 
-.submit-btn:active:not(.disabled) {
+.submit-btn:active:not(.disabled):not(:disabled) {
     transform: translateY(0);
 }
 
-.submit-btn.disabled {
+.submit-btn.disabled,
+.submit-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
@@ -271,14 +299,19 @@ select.field-input {
     border-radius: 10px;
     font-weight: 600;
     font-size: 1rem;
-    text-decoration: none;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover:not(:disabled) {
     border-color: var(--admin-error);
     color: var(--admin-error);
     background: rgba(239, 68, 68, 0.1);
+}
+
+.cancel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .cancel-btn .btn-icon {
@@ -326,8 +359,8 @@ select.field-input {
     margin-bottom: 0;
 }
 
-.help-content .required {
-    color: var(--admin-error);
+.help-content strong {
+    color: var(--admin-accent);
     font-weight: 700;
 }
 
@@ -339,7 +372,7 @@ select.field-input {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .enrollment-form-container {
+    .trainer-form-container {
         padding: 1.5rem;
     }
 
@@ -385,7 +418,7 @@ select.field-input {
 }
 
 @media (max-width: 480px) {
-    .enrollment-form-container {
+    .trainer-form-container {
         padding: 1rem;
     }
 
@@ -400,27 +433,6 @@ select.field-input {
     .subtitle {
         font-size: 0.9rem;
     }
-}
-
-/* Date Input Styling (Browser-specific) */
-input[type="date"].field-input {
-    position: relative;
-}
-
-input[type="date"].field-input::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    filter: invert(1) brightness(1.2);
-    opacity: 0.8;
-}
-
-input[type="date"].field-input::-webkit-calendar-picker-indicator:hover {
-    opacity: 1;
-}
-
-/* Number Input Arrows */
-input[type="number"].field-input::-webkit-inner-spin-button,
-input[type="number"].field-input::-webkit-outer-spin-button {
-    opacity: 0.6;
 }
 
 /* Smooth Animations */

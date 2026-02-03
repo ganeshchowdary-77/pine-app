@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { EnrollmentList } from './enrollment/enrollment-list/enrollment-list';
 import { EnrollmentForm } from './enrollment/enrollment-form/enrollment-form';
-import { ClientPo } from './purchase-order/client-po/client-po';
-import { TrainerPo } from './purchase-order/trainer-po/trainer-po';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { TrainerAvailability } from './trainer-availability/trainer-availability';
+import { TrainerForm } from './trainer-form/trainer-form';
 
 /**
  * ADMIN MODULE ROUTES
@@ -72,9 +72,11 @@ export const ADMIN_ROUTES: Routes = [
             { path: 'enrollments/new', component: EnrollmentForm },
             { path: 'enrollments/edit/:id', component: EnrollmentForm },
 
-            /* Purchase Order Management */
-            { path: 'purchase-orders/client/new', component: ClientPo },
-            { path: 'purchase-orders/trainer/new', component: TrainerPo },
+            /* Trainer Availability */
+            { path: 'trainer-availability', component: TrainerAvailability },
+
+            /* Trainer Management */
+            { path: 'trainers/new', component: TrainerForm },
 
             // Default route
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' }

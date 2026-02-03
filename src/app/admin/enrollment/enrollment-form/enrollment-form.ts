@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,10 +9,10 @@ import { TrainerService } from '../../../shared/services/trainer.service';
 
 @Component({
   selector: 'app-enrollment-form',
-  standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './enrollment-form.html',
   styleUrl: './enrollment-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EnrollmentForm implements OnInit {
   private enrollmentService = inject(EnrollmentService);

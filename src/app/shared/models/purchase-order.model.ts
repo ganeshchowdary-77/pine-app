@@ -20,7 +20,7 @@
  */
 export interface PurchaseOrder {
     id: number;
-    enrollmentId: number;                          // References Enrollment.id
+    enrollmentId?: number | null;                          // References Enrollment.id
     type: 'CLIENT' | 'TRAINER';                    // Who receives this PO
     paymentType?: 'hourly' | 'daily' | 'monthly'; // For TRAINER POs
     rate?: number;                                 // For TRAINER POs
