@@ -1,20 +1,39 @@
 <nav class="admin-navbar">
   <div class="navbar-container">
-    <h2>🍍 Admin Panel</h2>
+    <div class="navbar-header">
+      <h2>🍍 Admin Panel</h2>
+      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+    </div>
 
-    <div class="navbar-menu">
-      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
+    <div class="navbar-menu" [class.open]="isMenuOpen()">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link" (click)="isMenuOpen.set(false)">
         📊 Dashboard
       </a>
 
-      <a routerLink="/admin/enrollments" routerLinkActive="active" class="nav-link">
+      <a routerLink="/admin/training-requests" routerLinkActive="active" class="nav-link" (click)="isMenuOpen.set(false)">
+        📬 Training Requests
+      </a>
+
+      <a routerLink="/admin/enrollments" routerLinkActive="active" class="nav-link" (click)="isMenuOpen.set(false)">
         👥 Enrollments
       </a>
 
+      <a routerLink="/admin/trainer-invoices" routerLinkActive="active" class="nav-link" (click)="isMenuOpen.set(false)">
+        💳 Trainer Invoices
+      </a>
 
-      <a routerLink="/admin/trainer-availability" routerLinkActive="active" class="nav-link">
+      <a routerLink="/admin/trainer-availability" routerLinkActive="active" class="nav-link" (click)="isMenuOpen.set(false)">
         📋 Trainer Availability
       </a>
+
+      <div class="navbar-divider"></div>
+
+      <div class="user-section">
+        <span class="user-info">{{ currentUser()?.email || 'Admin' }}</span>
+        <button class="logout-btn" (click)="logout()" title="Logout">
+          🚪 Logout
+        </button>
+      </div>
     </div>
   </div>
 </nav>

@@ -3,8 +3,13 @@
         <div class="header-content">
             <div class="header-text">
                 <h1>{{ enrollmentId() ? '✏️ Edit Enrollment' : '➕ Create New Enrollment' }}</h1>
-                <p class="subtitle">{{ enrollmentId() ? 'Update enrollment details below' : 'Fill in the details to
-                    create a new enrollment' }}</p>
+                <p class="subtitle">
+                    @if (form.get('requestId')?.value) {
+                        Converting Training Request #{{ form.get('requestId')?.value }} to Enrollment
+                    } @else {
+                        {{ enrollmentId() ? 'Update enrollment details below' : 'Fill in the details to create a new enrollment' }}
+                    }
+                </p>
             </div>
             <a routerLink="/admin/enrollments" class="back-btn" aria-label="Back to enrollments">
                 <span>← Back to List</span>
