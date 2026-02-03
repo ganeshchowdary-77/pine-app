@@ -21,7 +21,7 @@ export const TRAINER_ROUTES: Routes = [
 
             // Invoice Routes (Team 5 - Invoice & Dashboard)
             { path: 'invoice-upload', component: InvoiceUploadComponent },
-            { path: 'payment-status', component: PaymentStatusComponent },
+            { path: 'payment-status', redirectTo: 'invoice-history', pathMatch: 'full' },
             { path: 'invoice-history', component: InvoiceHistoryComponent },
 
             // Default route redirects to dashboard

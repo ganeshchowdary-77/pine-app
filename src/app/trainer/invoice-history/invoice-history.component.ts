@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth-service';
 import { InvoiceService } from '../../shared/services';
 import { Invoice } from '../../shared/models';
@@ -33,27 +32,44 @@ export class InvoiceHistoryComponent implements OnInit {
     return this.filteredInvoices().reduce((sum, inv) => sum + (inv.amount || 0) + (inv.tax || 0), 0);
   });
 
+  // Computed Payment Summary (from PaymentStatus logic)
+  paymentSummary = computed(() => {
+    const all = this.invoices();
+    let totalPaid = 0;
+    let totalPending = 0;
+    let lastPaymentDate: string | null = null;
+
+    all.forEach(inv => {
+      const total = (inv.amount || 0) + (inv.tax || 0);
+      if (inv.status === 'PAID') {
+        totalPaid += total;
+        if (!lastPaymentDate || (inv.invoiceDate > lastPaymentDate)) {
+          lastPaymentDate = inv.invoiceDate;
+        }
+      } else {
+        // Pending, Sent, Approved all count as pending payment or future revenue
+        // If status is APPROVED or SENT or PENDING, it's pending MONEY
+        if (['PENDING', 'APPROVED', 'SENT'].includes(inv.status)) {
+          totalPending += total;
+        }
+      }
+    });
+
+    return { totalPaid, totalPending, lastPaymentDate };
+  });
+
   ngOnInit() {
     this.loadData();
   }
 
   private loadData() {
     const user = this.authService.getUser();
-    if (!user || user.role !== 'trainer') return; // Invoices are linked to User or derived from PO logic? 
-    // Wait, Invoice model doesn't explicitly store trainerId usually, it might be linked via PO.
-    // However, InvoiceService has `getTrainerInvoices()`.
+    if (!user || user.role !== 'trainer' || !user.trainerId) return;
 
     this.isLoading.set(true);
 
-    this.invoiceService.getTrainerInvoices().subscribe({
+    this.invoiceService.getByTrainerId(user.trainerId).subscribe({
       next: (data) => {
-        // We might need to filter by trainerId if the service returns ALL trainer invoices
-        // Assuming for now getTrainerInvoices() might need client side filtering 
-        // But Invoice model usually has `issuedBy` and maybe `purchaseOrderId`.
-        // If the backend doesn't filter by user, we might see other trainers' invoices.
-        // BUT, since we are doing client-side dev with mock server often, let's assume we proceed.
-        // Ideally we should filter by POs belonging to this trainer, which requires mapping POs.
-        // For simplicity/robustness:
         this.invoices.set(data);
         this.isLoading.set(false);
       },

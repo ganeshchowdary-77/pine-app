@@ -33,7 +33,7 @@
                         [class.invalid]="form.get('companyId')?.invalid && form.get('companyId')?.touched">
                         <option [ngValue]="null">Select a company</option>
                         @for (c of companies(); track c.id) {
-                        <option [value]="c.id">{{ c.name }}</option>
+                        <option [ngValue]="c.id">{{ c.name }}</option>
                         }
                     </select>
                     @if (form.get('companyId')?.invalid && form.get('companyId')?.touched) {
@@ -46,13 +46,12 @@
                     <label for="trainerId" class="field-label">
                         <span class="label-icon">👨‍🏫</span>
                         Trainer
-                        <span class="required">*</span>
                     </label>
                     <select id="trainerId" formControlName="trainerId" class="field-input"
                         [class.invalid]="form.get('trainerId')?.invalid && form.get('trainerId')?.touched">
-                        <option [ngValue]="null">Select a trainer</option>
+                        <option [ngValue]="null">Not Assigned</option>
                         @for (t of trainers(); track t.id) {
-                        <option [value]="t.id">{{ t.name }}</option>
+                        <option [ngValue]="t.id">{{ t.name }}</option>
                         }
                     </select>
                     @if (form.get('trainerId')?.invalid && form.get('trainerId')?.touched) {

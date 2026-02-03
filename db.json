@@ -21,13 +21,14 @@
       "trainerId": 2
     },
     {
-      "id": "362e",
+      "id": 4,
       "email": "talasilaskc@gmail.com",
       "password": "123456",
       "role": "trainer",
-      "trainerId": "0373"
+      "trainerId": 3
     }
   ],
+
   "trainingRequests": [
     {
       "id": "1",
@@ -43,6 +44,8 @@
       "participants": 15,
       "message": "Looking for advanced Python training for our development team",
       "status": "APPROVED"
+      "message": "Looking for advanced Python training",
+      "status": "NEW"
     },
     {
       "id": "2",
@@ -58,6 +61,8 @@
       "participants": 10,
       "message": "Need K8s training for our DevOps team",
       "status": "APPROVED"
+      "message": "Need K8s training",
+      "status": "CONTACTED"
     },
     {
       "id": "3",
@@ -99,6 +104,7 @@
       "status": "APPROVED"
     }
   ],
+
   "companies": [
     {
       "id": "1",
@@ -119,16 +125,13 @@
       "industry": "IT Services"
     }
   ],
+
   "trainers": [
     {
       "id": "1",
       "name": "John Davis",
       "email": "trainer1@pine.com",
-      "technologies": [
-        "Angular",
-        "React",
-        "Node.js"
-      ],
+      "technologies": ["Angular", "React", "Node.js"],
       "paymentType": "daily",
       "rate": 800
     },
@@ -136,28 +139,20 @@
       "id": "2",
       "name": "Emily Thompson",
       "email": "trainer2@pine.com",
-      "technologies": [
-        "AWS",
-        "Docker",
-        "DevOps"
-      ],
+      "technologies": ["AWS", "Docker", "DevOps"],
       "paymentType": "daily",
       "rate": 1000
     },
     {
-      "id": "0373",
+      "id": 3,
       "name": "Sri Krishna Chaitanya Talasila",
       "email": "talasilaskc@gmail.com",
-      "technologies": [
-        "Java",
-        "Angular",
-        "AI",
-        "ML"
-      ],
+      "technologies": ["Java", "Angular", "AI", "ML"],
       "paymentType": "daily",
       "rate": 20000
     }
   ],
+
   "enrollments": [
     {
       "id": "1",
@@ -213,8 +208,20 @@
       "endDate": "2026-01-15",
       "budget": 28000,
       "status": "COMPLETED"
+    },
+    {
+      "id": 6,
+      "companyId": 1,
+      "requestId": null,
+      "trainerId": 2,
+      "technology": "DevOps",
+      "startDate": "2026-04-20",
+      "endDate": "2026-04-25",
+      "budget": 45000,
+      "status": "REQUESTED"
     }
   ],
+
   "purchaseOrders": [
     {
       "id": "1",
@@ -277,12 +284,32 @@
       "totalAmount": 4800,
       "paymentTerms": "Upon completion",
       "status": "ACCEPTED"
+    },
+    {
+      "id": 8,
+      "enrollmentId": 6,
+      "type": "CLIENT",
+      "totalAmount": 45000,
+      "paymentTerms": "Net 30",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": 9,
+      "enrollmentId": 6,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 1000,
+      "totalAmount": 6000,
+      "paymentTerms": "Upon completion",
+      "status": "SENT"
     }
   ],
+
   "invoices": [
     {
       "id": "1",
       "poId": 7,
+      "trainerId": 1,
       "issuedBy": "TRAINER",
       "amount": 4800,
       "invoiceDate": "2026-01-20",
@@ -300,11 +327,32 @@
     {
       "id": "3db8",
       "poId": 2,
+      "trainerId": 1,
       "amount": 15000,
       "tax": 0,
       "invoiceDate": "2026-01-12",
       "status": "PAID",
       "issuedBy": "TRAINER"
+    },
+    {
+      "id": 101,
+      "poId": 5,
+      "trainerId": 2,
+      "issuedBy": "TRAINER",
+      "amount": 3000,
+      "tax": 0,
+      "invoiceDate": "2026-02-18",
+      "status": "PENDING"
+    },
+    {
+      "id": 102,
+      "poId": 5,
+      "trainerId": 2,
+      "issuedBy": "TRAINER",
+      "amount": 3000,
+      "tax": 0,
+      "invoiceDate": "2026-02-25",
+      "status": "APPROVED"
     }
   ]
 }

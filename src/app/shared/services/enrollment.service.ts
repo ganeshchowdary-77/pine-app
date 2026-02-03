@@ -52,7 +52,7 @@ export class EnrollmentService {
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
     update(id: number, enrollment: Partial<Enrollment>): Observable<Enrollment> {
-        return this.http.put<Enrollment>(`${this.apiUrl}/${id}`, enrollment);
+        return this.http.patch<Enrollment>(`${this.apiUrl}/${id}`, enrollment);
     }
 
     /**

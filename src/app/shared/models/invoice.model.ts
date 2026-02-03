@@ -15,6 +15,7 @@ export interface Invoice {
     id: number;
 
     poId: number; // References PurchaseOrder.id
+    trainerId?: number; // Direct link for simpler filtering
 
     issuedBy: 'ADMIN' | 'TRAINER';
 

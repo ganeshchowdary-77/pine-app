@@ -1,10 +1,35 @@
 <div class="page-header mb-2rem">
-  <h2>Invoice History</h2>
-  <p class="text-muted">View and filter your complete invoice records</p>
+  <h2>Payments</h2>
+  <p class="text-muted">Track your invoice history and payment status</p>
+</div>
+
+<!-- Payment Status Overview -->
+<div class="summary-grid mb-2rem">
+  <div class="pine-card summary-card">
+    <div class="card-icon">💰</div>
+    <div class="card-content">
+      <h3 style="color: var(--pine-green);">{{ paymentSummary().totalPaid | currency }}</h3>
+      <p>Total Paid</p>
+    </div>
+  </div>
+  <div class="pine-card summary-card">
+    <div class="card-icon">⏳</div>
+    <div class="card-content">
+      <h3 style="color: var(--pine-gold);">{{ paymentSummary().totalPending | currency }}</h3>
+      <p>Pending Payment</p>
+    </div>
+  </div>
+  <div class="pine-card summary-card">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <h3>{{ (paymentSummary().lastPaymentDate | date) || 'N/A' }}</h3>
+      <p>Last Payment</p>
+    </div>
+  </div>
 </div>
 
 <div class="pine-card filter-section mb-2rem" style="display:flex; align-items:center; gap:1rem;">
-  <label for="statusFilter" style="color:var(--admin-text); font-weight:600;">Filter by Status:</label>
+  <label for="statusFilter" style="color:var(--admin-text); font-weight:600;">Filter Invoices:</label>
   <select id="statusFilter" (change)="onStatusFilter($event)" class="pine-input" style="max-width:200px;">
     <option value="">All Invoices</option>
     <option value="PENDING">Pending</option>
@@ -12,23 +37,8 @@
     <option value="SENT">Sent</option>
     <option value="PAID">Paid</option>
   </select>
-</div>
-
-<!-- Summary Cards -->
-<div class="summary-grid">
-  <div class="pine-card summary-card">
-    <div class="card-icon">📋</div>
-    <div class="card-content">
-      <h3>{{ filteredInvoices().length }}</h3>
-      <p>Total Invoices</p>
-    </div>
-  </div>
-  <div class="pine-card summary-card">
-    <div class="card-icon">💰</div>
-    <div class="card-content">
-      <h3>${{ totalInvoiceValue() }}</h3>
-      <p>Total Value</p>
-    </div>
+  <div style="margin-left:auto; display:flex; gap:1rem; align-items:center;">
+    <span class="text-muted">Showing {{ filteredInvoices().length }} invoices</span>
   </div>
 </div>
 
