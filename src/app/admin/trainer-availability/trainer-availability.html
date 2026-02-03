@@ -1,0 +1,161 @@
+<div class="trainer-availability-container">
+    <div class="page-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1>👨‍🏫 Trainer Availability</h1>
+                <p class="subtitle">Monitor trainer assignments and availability for training programs</p>
+            </div>
+            <a routerLink="/admin/trainers/new" class="add-trainer-btn">
+                <span class="btn-icon">➕</span>
+                Add Trainer
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+        <div class="stat-card assigned">
+            <div class="stat-icon">🔴</div>
+            <div class="stat-content">
+                <div class="stat-label">Currently Assigned</div>
+                <div class="stat-value">{{ assigned().length }}</div>
+            </div>
+        </div>
+
+        <div class="stat-card available">
+            <div class="stat-icon">🟢</div>
+            <div class="stat-content">
+                <div class="stat-label">Available</div>
+                <div class="stat-value">{{ available().length }}</div>
+            </div>
+        </div>
+
+        <div class="stat-card total">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+                <div class="stat-label">Total Trainers</div>
+                <div class="stat-value">{{ data().trainers.length }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assigned Trainers Section -->
+    <section class="trainers-section">
+        <div class="section-header">
+            <h2>
+                <span class="section-icon">🔴</span>
+                Currently Assigned
+                <span class="count-badge assigned">{{ assigned().length }}</span>
+            </h2>
+            <p class="section-description">Trainers with active or approved enrollments</p>
+        </div>
+
+        <div class="trainers-grid">
+            @for (t of assigned(); track t.id) {
+            <div class="trainer-card assigned">
+                <div class="card-header">
+                    <div class="trainer-info">
+                        <div class="trainer-avatar">{{ t.name.charAt(0).toUpperCase() }}</div>
+                        <div class="trainer-details">
+                            <h3 class="trainer-name">{{ t.name }}</h3>
+                            <span class="trainer-email">{{ t.email }}</span>
+                        </div>
+                    </div>
+                    <span class="status-badge assigned">BUSY</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="info-section">
+                        <div class="info-label">
+                            <span class="info-icon">💻</span>
+                            Technologies
+                        </div>
+                        <div class="technologies-list">
+                            @for (tech of t.technologies; track tech) {
+                            <span class="tech-badge">{{ tech }}</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-label">
+                            <span class="info-icon">💰</span>
+                            Rate
+                        </div>
+                        <div class="rate-display">${{ t.rate }}/{{ t.paymentType === 'hourly' ? 'hr' : t.paymentType ===
+                            'daily' ? 'day' : 'mo' }}</div>
+                    </div>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">✅</span>
+                <p>No trainers currently assigned</p>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- Available Trainers Section -->
+    <section class="trainers-section">
+        <div class="section-header">
+            <h2>
+                <span class="section-icon">🟢</span>
+                Available Trainers
+                <span class="count-badge available">{{ available().length }}</span>
+            </h2>
+            <p class="section-description">Trainers ready to be assigned to new enrollments</p>
+        </div>
+
+        <div class="trainers-grid">
+            @for (t of available(); track t.id) {
+            <div class="trainer-card available">
+                <div class="card-header">
+                    <div class="trainer-info">
+                        <div class="trainer-avatar">{{ t.name.charAt(0).toUpperCase() }}</div>
+                        <div class="trainer-details">
+                            <h3 class="trainer-name">{{ t.name }}</h3>
+                            <span class="trainer-email">{{ t.email }}</span>
+                        </div>
+                    </div>
+                    <span class="status-badge available">AVAILABLE</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="info-section">
+                        <div class="info-label">
+                            <span class="info-icon">💻</span>
+                            Technologies
+                        </div>
+                        <div class="technologies-list">
+                            @for (tech of t.technologies; track tech) {
+                            <span class="tech-badge">{{ tech }}</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-label">
+                            <span class="info-icon">💰</span>
+                            Rate
+                        </div>
+                        <div class="rate-display">${{ t.rate }}/{{ t.paymentType === 'hourly' ? 'hr' : t.paymentType ===
+                            'daily' ? 'day' : 'mo' }}</div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="action-btn assign" type="button" aria-label="Assign trainer">
+                        <span>➕</span> Assign to Enrollment
+                    </button>
+                </div>
+            </div>
+            } @empty {
+            <div class="empty-state">
+                <span class="empty-icon">📭</span>
+                <p>All trainers are currently assigned</p>
+            </div>
+            }
+        </div>
+    </section>
+</div>

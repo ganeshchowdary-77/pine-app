@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientPo } from './client-po';
+import { TrainerForm } from './trainer-form';
 
-describe('ClientPo', () => {
-  let component: ClientPo;
-  let fixture: ComponentFixture<ClientPo>;
+describe('TrainerForm', () => {
+  let component: TrainerForm;
+  let fixture: ComponentFixture<TrainerForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClientPo]
+      imports: [TrainerForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ClientPo);
+    fixture = TestBed.createComponent(TrainerForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

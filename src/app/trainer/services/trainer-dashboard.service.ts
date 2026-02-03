@@ -53,6 +53,10 @@ export class TrainerDashboardService {
         // Filter invoices for this trainer's POs
         const trainerInvoices = invoices.filter(invoice =>
           myPOIds.includes(invoice.poId)
+        // Filter invoices for this trainer's POs
+        const trainerPOIds = pos.map(po => po.id);
+        const trainerInvoices = invoices.filter(invoice =>
+          trainerPOIds.includes(invoice.poId)
         );
 
         const totalEarnings = trainerInvoices
@@ -151,7 +155,9 @@ export class TrainerDashboardService {
       map(([pos, enrollments]) => {
         // Filter POs related to this trainer's enrollments
         const trainerEnrollmentIds = enrollments.map(e => e.id);
-        const trainerPOs = pos.filter(po => trainerEnrollmentIds.includes(po.enrollmentId));
+        const trainerPOs = pos.filter(po =>
+          po.enrollmentId != null && trainerEnrollmentIds.includes(po.enrollmentId)
+        );
 
         const byStatus = trainerPOs.reduce((acc, po) => {
           acc[po.status] = (acc[po.status] || 0) + 1;
@@ -195,6 +201,7 @@ export class TrainerDashboardService {
         // Filter invoices for this trainer
         const trainerPOIds = pos.filter(po =>
           enrollments.some(e => e.id === po.enrollmentId)
+          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
 
         const trainerInvoices = invoices.filter(invoice =>
@@ -257,6 +264,7 @@ export class TrainerDashboardService {
         // Filter invoices for this trainer
         const trainerPOIds = pos.filter(po =>
           enrollments.some(e => e.id === po.enrollmentId)
+          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
 
         let trainerInvoices = invoices.filter(invoice =>

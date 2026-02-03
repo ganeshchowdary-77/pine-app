@@ -1,0 +1,513 @@
+/* Enrollment List - Professional Dark Theme with Golden Yellow Accents */
+
+:host {
+    --admin-bg: #0f172a;
+    --admin-card-bg: #1e293b;
+    --admin-accent: #fbbf24;
+    --admin-accent-hover: #f59e0b;
+    --admin-text: #f8fafc;
+    --admin-text-muted: #94a3b8;
+    --admin-border: #334155;
+
+    /* Status-specific colors */
+    --status-requested: #60a5fa;
+    --status-approved: #34d399;
+    --status-ongoing: #fbbf24;
+    --status-completed: #a78bfa;
+}
+
+/* Container */
+.enrollment-list-container {
+    min-height: 100vh;
+    background-color: var(--admin-bg);
+    padding: 2rem;
+    color: var(--admin-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 3rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.header-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--admin-accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+.subtitle {
+    color: var(--admin-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Add New Enrollment Button */
+.add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--admin-accent);
+    color: #000;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.39);
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background: var(--admin-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+}
+
+.add-btn .btn-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.add-btn .btn-text {
+    font-size: 1rem;
+}
+
+.add-btn:focus-visible {
+    outline: 3px solid var(--admin-accent);
+    outline-offset: 3px;
+}
+
+/* Status Section */
+.status-section {
+    margin-bottom: 3rem;
+}
+
+.status-header {
+    margin-bottom: 1.5rem;
+}
+
+.status-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--admin-text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+}
+
+.status-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.status-icon.requested {
+    color: var(--status-requested);
+}
+
+.status-icon.approved {
+    color: var(--status-approved);
+}
+
+.status-icon.ongoing {
+    color: var(--status-ongoing);
+}
+
+.status-icon.completed {
+    color: var(--status-completed);
+}
+
+/* Count Badge */
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.count-badge.requested {
+    background: rgba(96, 165, 250, 0.2);
+    color: var(--status-requested);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+.count-badge.approved {
+    background: rgba(52, 211, 153, 0.2);
+    color: var(--status-approved);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.count-badge.ongoing {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--status-ongoing);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.count-badge.completed {
+    background: rgba(167, 139, 250, 0.2);
+    color: var(--status-completed);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+}
+
+/* Enrollments Grid */
+.enrollments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Enrollment Card */
+.enrollment-card {
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.enrollment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.enrollment-card.requested::before {
+    background: var(--status-requested);
+}
+
+.enrollment-card.approved::before {
+    background: var(--status-approved);
+}
+
+.enrollment-card.ongoing::before {
+    background: var(--status-ongoing);
+}
+
+.enrollment-card.completed::before {
+    background: var(--status-completed);
+}
+
+.enrollment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(251, 191, 36, 0.15);
+}
+
+.enrollment-card.requested:hover {
+    border-color: var(--status-requested);
+}
+
+.enrollment-card.approved:hover {
+    border-color: var(--status-approved);
+}
+
+.enrollment-card.ongoing:hover {
+    border-color: var(--status-ongoing);
+}
+
+.enrollment-card.completed:hover {
+    border-color: var(--status-completed);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(51, 65, 85, 0.3);
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.requested {
+    background: rgba(96, 165, 250, 0.2);
+    color: var(--status-requested);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+}
+
+.status-badge.approved {
+    background: rgba(52, 211, 153, 0.2);
+    color: var(--status-approved);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.status-badge.ongoing {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--status-ongoing);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.status-badge.completed {
+    background: rgba(167, 139, 250, 0.2);
+    color: var(--status-completed);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+}
+
+.enrollment-id {
+    color: var(--admin-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: var(--admin-font-mono, 'Courier New', monospace);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem;
+}
+
+.technology {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--admin-accent);
+    margin: 0 0 1.25rem 0;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.info-item.budget-item {
+    grid-column: 1 / -1;
+}
+
+.info-item .label {
+    color: var(--admin-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-item .value {
+    color: var(--admin-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.info-item .value.budget {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--admin-accent);
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border-top: 1px solid var(--admin-border);
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.625rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.action-btn span {
+    font-size: 1rem;
+}
+
+.action-btn.edit {
+    background: transparent;
+    border: 1px solid var(--admin-accent);
+    color: var(--admin-accent);
+}
+
+.action-btn.edit:hover {
+    background: rgba(251, 191, 36, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+}
+
+.action-btn.delete {
+    background: transparent;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+}
+
+.action-btn.delete:hover {
+    background: rgba(239, 68, 68, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.action-btn:focus-visible {
+    outline: 2px solid var(--admin-accent);
+    outline-offset: 2px;
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px dashed var(--admin-border);
+    border-radius: 12px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    color: var(--admin-text-muted);
+    font-size: 1rem;
+    margin: 0;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .enrollments-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .enrollment-list-container {
+        padding: 1.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+
+    .header-text {
+        min-width: unset;
+        text-align: center;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .enrollments-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-item.budget-item {
+        grid-column: 1;
+    }
+
+    .status-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .enrollment-list-container {
+        padding: 1rem;
+    }
+
+    .card-header,
+    .card-body,
+    .card-actions {
+        padding: 1rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+}
+
+/* Accessibility - Keyboard Navigation */
+.action-btn:focus-visible {
+    outline: 3px solid var(--admin-accent);
+    outline-offset: 2px;
+}
+
+/* Smooth Animations */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

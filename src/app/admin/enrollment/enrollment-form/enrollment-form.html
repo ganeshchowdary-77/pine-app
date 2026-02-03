@@ -1,80 +1,170 @@
-<div class="container mx-auto p-4 max-w-lg">
-    <h2 class="text-2xl font-bold mb-6">{{ enrollmentId() ? 'Edit Enrollment' : 'Create Enrollment' }}</h2>
+<div class="enrollment-form-container">
+    <div class="form-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1>{{ enrollmentId() ? '✏️ Edit Enrollment' : '➕ Create New Enrollment' }}</h1>
+                <p class="subtitle">{{ enrollmentId() ? 'Update enrollment details below' : 'Fill in the details to
+                    create a new enrollment' }}</p>
+            </div>
+            <a routerLink="/admin/enrollments" class="back-btn" aria-label="Back to enrollments">
+                <span>← Back to List</span>
+            </a>
+        </div>
+    </div>
 
-    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-4">
+    <div class="form-card">
+        <form [formGroup]="form" (ngSubmit)="save()">
 
-        <!-- Company -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Company</label>
-            <select formControlName="companyId"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option [ngValue]="null">Select Company</option>
-                @for (c of companies(); track c.id) {
-                <option [value]="c.id">{{ c.name }}</option>
+            <!-- Company and Trainer Row -->
+            <div class="form-row">
+                <!-- Company -->
+                <div class="form-field">
+                    <label for="companyId" class="field-label">
+                        <span class="label-icon">🏢</span>
+                        Company
+                        <span class="required">*</span>
+                    </label>
+                    <select id="companyId" formControlName="companyId" class="field-input"
+                        [class.invalid]="form.get('companyId')?.invalid && form.get('companyId')?.touched">
+                        <option [ngValue]="null">Select a company</option>
+                        @for (c of companies(); track c.id) {
+                        <option [value]="c.id">{{ c.name }}</option>
+                        }
+                    </select>
+                    @if (form.get('companyId')?.invalid && form.get('companyId')?.touched) {
+                    <span class="error-message">Company is required</span>
+                    }
+                </div>
+
+                <!-- Trainer -->
+                <div class="form-field">
+                    <label for="trainerId" class="field-label">
+                        <span class="label-icon">👨‍🏫</span>
+                        Trainer
+                        <span class="required">*</span>
+                    </label>
+                    <select id="trainerId" formControlName="trainerId" class="field-input"
+                        [class.invalid]="form.get('trainerId')?.invalid && form.get('trainerId')?.touched">
+                        <option [ngValue]="null">Select a trainer</option>
+                        @for (t of trainers(); track t.id) {
+                        <option [value]="t.id">{{ t.name }}</option>
+                        }
+                    </select>
+                    @if (form.get('trainerId')?.invalid && form.get('trainerId')?.touched) {
+                    <span class="error-message">Trainer is required</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Technology -->
+            <div class="form-field full-width">
+                <label for="technology" class="field-label">
+                    <span class="label-icon">💻</span>
+                    Technology
+                    <span class="required">*</span>
+                </label>
+                <input id="technology" type="text" formControlName="technology"
+                    placeholder="e.g., Angular, React, Node.js" class="field-input"
+                    [class.invalid]="form.get('technology')?.invalid && form.get('technology')?.touched">
+                @if (form.get('technology')?.invalid && form.get('technology')?.touched) {
+                <span class="error-message">Technology is required</span>
                 }
-            </select>
+            </div>
+
+            <!-- Date Row -->
+            <div class="form-row">
+                <!-- Start Date -->
+                <div class="form-field">
+                    <label for="startDate" class="field-label">
+                        <span class="label-icon">📅</span>
+                        Start Date
+                        <span class="required">*</span>
+                    </label>
+                    <input id="startDate" type="date" formControlName="startDate" class="field-input"
+                        [class.invalid]="form.get('startDate')?.invalid && form.get('startDate')?.touched">
+                    @if (form.get('startDate')?.invalid && form.get('startDate')?.touched) {
+                    <span class="error-message">Start date is required</span>
+                    }
+                </div>
+
+                <!-- End Date -->
+                <div class="form-field">
+                    <label for="endDate" class="field-label">
+                        <span class="label-icon">📅</span>
+                        End Date
+                        <span class="required">*</span>
+                    </label>
+                    <input id="endDate" type="date" formControlName="endDate" class="field-input"
+                        [class.invalid]="form.get('endDate')?.invalid && form.get('endDate')?.touched">
+                    @if (form.get('endDate')?.invalid && form.get('endDate')?.touched) {
+                    <span class="error-message">End date is required</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Budget and Status Row -->
+            <div class="form-row">
+                <!-- Budget -->
+                <div class="form-field">
+                    <label for="budget" class="field-label">
+                        <span class="label-icon">💰</span>
+                        Budget
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-with-prefix">
+                        <span class="input-prefix">$</span>
+                        <input id="budget" type="number" formControlName="budget" placeholder="0.00" min="0" step="0.01"
+                            class="field-input with-prefix"
+                            [class.invalid]="form.get('budget')?.invalid && form.get('budget')?.touched">
+                    </div>
+                    @if (form.get('budget')?.invalid && form.get('budget')?.touched) {
+                    <span class="error-message">Valid budget is required</span>
+                    }
+                </div>
+
+                <!-- Status -->
+                <div class="form-field">
+                    <label for="status" class="field-label">
+                        <span class="label-icon">📊</span>
+                        Status
+                        <span class="required">*</span>
+                    </label>
+                    <select id="status" formControlName="status" class="field-input">
+                        <option value="REQUESTED">📋 Requested</option>
+                        <option value="APPROVED">✅ Approved</option>
+                        <option value="ONGOING">🚀 Ongoing</option>
+                        <option value="COMPLETED">🎉 Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" [disabled]="form.invalid" [class.disabled]="form.invalid">
+                    <span class="btn-icon">{{ enrollmentId() ? '💾' : '➕' }}</span>
+                    <span>{{ enrollmentId() ? 'Update Enrollment' : 'Create Enrollment' }}</span>
+                </button>
+
+                <a routerLink="/admin/enrollments" class="cancel-btn" aria-label="Cancel and go back">
+                    <span class="btn-icon">❌</span>
+                    <span>Cancel</span>
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Help Text -->
+    <div class="help-card">
+        <div class="help-icon">💡</div>
+        <div class="help-content">
+            <h3>Quick Tips</h3>
+            <ul>
+                <li>All fields marked with <span class="required">*</span> are required</li>
+                <li>Start date must be before end date</li>
+                <li>Budget should include the total training cost</li>
+                <li>Status can be updated after creation</li>
+            </ul>
         </div>
-
-        <!-- Trainer -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Trainer</label>
-            <select formControlName="trainerId"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option [ngValue]="null">Select Trainer</option>
-                @for (t of trainers(); track t.id) {
-                <option [value]="t.id">{{ t.name }}</option>
-                }
-            </select>
-        </div>
-
-        <!-- Technology -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Technology</label>
-            <input type="text" formControlName="technology"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Start Date -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Start Date</label>
-            <input type="date" formControlName="startDate"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- End Date -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">End Date</label>
-            <input type="date" formControlName="endDate"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Budget -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Budget</label>
-            <input type="number" formControlName="budget"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Status -->
-        <div>
-            <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-            <select formControlName="status"
-                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="REQUESTED">Requested</option>
-                <option value="APPROVED">Approved</option>
-                <option value="ONGOING">Ongoing</option>
-                <option value="COMPLETED">Completed</option>
-            </select>
-        </div>
-
-        <div class="flex items-center justify-between mt-6">
-            <button type="submit" [disabled]="form.invalid"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
-                {{ enrollmentId() ? 'Update Enrollment' : 'Create Enrollment' }}
-            </button>
-
-            <a routerLink="/admin/enrollments" class="text-gray-600 hover:text-gray-800">Cancel</a>
-        </div>
-
-    </form>
+    </div>
 </div>
