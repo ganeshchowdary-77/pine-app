@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-assigned-trainings',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './assigned-trainings.component.html',
   styleUrls: ['./assigned-trainings.component.css']
 })
