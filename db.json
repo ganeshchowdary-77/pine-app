@@ -42,7 +42,7 @@
       "budget": 50000,
       "participants": 15,
       "message": "Looking for advanced Python training for our development team",
-      "status": "NEW"
+      "status": "APPROVED"
     },
     {
       "id": "2",
@@ -57,7 +57,7 @@
       "budget": 75000,
       "participants": 10,
       "message": "Need K8s training for our DevOps team",
-      "status": "CONTACTED"
+      "status": "APPROVED"
     },
     {
       "id": "3",
@@ -83,7 +83,20 @@
       "endDate": "2026-09-06",
       "participants": 25,
       "message": "Training for freshers",
-      "status": "NEW"
+      "status": "CONTACTED"
+    },
+    {
+      "id": "7b0c",
+      "companyName": "Hartford Hyd",
+      "contactPerson": "Sharath miya",
+      "email": "sharatah@gmail.com",
+      "phone": "9999999999",
+      "technology": "Java",
+      "startDate": "2026-02-03",
+      "endDate": "2026-03-03",
+      "participants": 20,
+      "message": "Nothing",
+      "status": "APPROVED"
     }
   ],
   "companies": [
@@ -273,7 +286,7 @@
       "issuedBy": "TRAINER",
       "amount": 4800,
       "invoiceDate": "2026-01-20",
-      "status": "APPROVED"
+      "status": "PAID"
     },
     {
       "id": "2",
@@ -290,7 +303,7 @@
       "amount": 15000,
       "tax": 0,
       "invoiceDate": "2026-01-12",
-      "status": "PENDING",
+      "status": "PAID",
       "issuedBy": "TRAINER"
     }
   ]
