@@ -1,73 +1,80 @@
 <div class="trainer-dashboard">
-  <div class="dashboard-header">
-    <h2>Trainer Dashboard</h2>
-    <p class="welcome-message">Welcome back! Here's your training overview.</p>
-  </div>
-  
-  <div class="dashboard-stats">
-    <div class="stat-card">
-      <div class="stat-icon">📚</div>
-      <h3>{{ stats().totalTrainings }}</h3>
-      <p>Total Trainings</p>
+  <!-- Navigation Section -->
+  <nav class="dashboard-nav">
+    <div class="nav-brand">
+      <h1>{{ welcomeMessage() }}</h1>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">🚀</div>
-      <h3>{{ stats().ongoingTrainings }}</h3>
-      <p>Ongoing Trainings</p>
+    <div class="nav-links">
+      <a routerLink="/trainer/assigned-trainings" class="nav-link">
+        <span class="nav-icon">📚</span>
+        <span>Assigned Trainings</span>
+      </a>
+      <a routerLink="/trainer/po-details" class="nav-link">
+        <span class="nav-icon">📄</span>
+        <span>PO Details</span>
+      </a>
+      <a routerLink="/trainer/invoice-upload" class="nav-link">
+        <span class="nav-icon">📤</span>
+        <span>Raise Invoice</span>
+      </a>
+      <a routerLink="/trainer/payment-status" class="nav-link">
+        <span class="nav-icon">💳</span>
+        <span>Payment Status</span>
+      </a>
+      <a routerLink="/trainer/invoice-history" class="nav-link">
+        <span class="nav-icon">📊</span>
+        <span>Invoice History</span>
+      </a>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">✅</div>
-      <h3>{{ stats().completedTrainings }}</h3>
-      <p>Completed Trainings</p>
+    <div class="nav-actions">
+      <button class="logout-btn" (click)="logout()">
+        <span class="logout-icon">🚪</span>
+        <span>Logout</span>
+      </button>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">💰</div>
-      <h3>\${{ stats().totalEarnings }}</h3>
-      <p>Total Earnings</p>
-    </div>
-  </div>
+  </nav>
 
-  <div class="dashboard-actions">
-    <div class="action-grid">
-      <a routerLink="/trainer/assigned-trainings" class="action-btn">
-        <div class="btn-icon">📋</div>
-        <div class="btn-content">
-          <h4>Assigned Trainings</h4>
-          <p>View your scheduled training sessions</p>
+  <!-- Dashboard Summary Only -->
+  <div class="dashboard-content">
+    <div class="summary-section">
+      <h2>Training Summary</h2>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="card-icon">📚</div>
+          <div class="card-content">
+            <h3>{{ stats().totalTrainings }}</h3>
+            <p>Total Trainings</p>
+          </div>
         </div>
-      </a>
-      
-      <a routerLink="/trainer/po-details" class="action-btn">
-        <div class="btn-icon">📄</div>
-        <div class="btn-content">
-          <h4>PO Details</h4>
-          <p>View purchase order information</p>
+        <div class="summary-card">
+          <div class="card-icon">🚀</div>
+          <div class="card-content">
+            <h3>{{ stats().ongoingTrainings }}</h3>
+            <p>Ongoing Trainings</p>
+          </div>
         </div>
-      </a>
-      
-      <a routerLink="/trainer/invoice-upload" class="action-btn">
-        <div class="btn-icon">📤</div>
-        <div class="btn-content">
-          <h4>Upload Invoice</h4>
-          <p>Submit new invoices for payment</p>
+        <div class="summary-card">
+          <div class="card-icon">✅</div>
+          <div class="card-content">
+            <h3>{{ stats().completedTrainings }}</h3>
+            <p>Completed Trainings</p>
+          </div>
         </div>
-      </a>
-      
-      <a routerLink="/trainer/payment-status" class="action-btn">
-        <div class="btn-icon">💳</div>
-        <div class="btn-content">
-          <h4>Payment Status</h4>
-          <p>Track your payment history</p>
+        <div class="summary-card">
+          <div class="card-icon">💰</div>
+          <div class="card-content">
+            <h3>${{ stats().totalEarnings }}</h3>
+            <p>Total Earnings</p>
+          </div>
         </div>
-      </a>
-      
-      <a routerLink="/trainer/invoice-history" class="action-btn">
-        <div class="btn-icon">📊</div>
-        <div class="btn-content">
-          <h4>Invoice History</h4>
-          <p>View all your past invoices</p>
+        <div class="summary-card">
+          <div class="card-icon">⏳</div>
+          <div class="card-content">
+            <h3>{{ stats().pendingInvoices }}</h3>
+            <p>Pending Invoices</p>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </div>
