@@ -45,10 +45,14 @@ export class TrainerDashboardService {
         const ongoingTrainings = enrollments.filter(e => e.status === 'ONGOING').length;
         const completedTrainings = enrollments.filter(e => e.status === 'COMPLETED').length;
 
+        // Filter POs for this trainer's enrollments
+        const myEnrollmentIds = enrollments.map(e => e.id);
+        const myPOs = pos.filter(po => po.enrollmentId != null && myEnrollmentIds.includes(po.enrollmentId));
+        const myPOIds = myPOs.map(po => po.id);
+
         // Filter invoices for this trainer's POs
-        const trainerPOIds = pos.map(po => po.id);
         const trainerInvoices = invoices.filter(invoice =>
-          trainerPOIds.includes(invoice.poId)
+          myPOIds.includes(invoice.poId)
         );
 
         const totalEarnings = trainerInvoices
