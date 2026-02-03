@@ -1,4 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { AuthService } from '../../auth/auth-service';
+import { TrainerDashboardService } from '../services/trainer-dashboard.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -11,6 +13,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class TrainerDashboardComponent implements OnInit {
   private router = inject(Router);
+  private authService = inject(AuthService);
+  private dashboardService = inject(TrainerDashboardService);
 
   stats = signal({
     totalTrainings: 0,
@@ -23,56 +27,60 @@ export class TrainerDashboardComponent implements OnInit {
   currentUser = signal<{ name: string; email: string } | null>(null);
   welcomeMessage = signal<string>('');
 
+  isLoading = signal(false);
+  error = signal<string | null>(null);
+
   ngOnInit() {
-    // Load user data and dashboard data
     this.loadUserData();
-    this.loadDashboardData();
   }
 
   private loadUserData() {
-    // Get current user from localStorage
-    const userStr = localStorage.getItem('currentUser');
-    if (userStr) {
-      try {
-        const user = JSON.parse(userStr);
-        this.currentUser.set(user);
-        this.welcomeMessage.set(`Welcome, ${user.name || user.email || 'Trainer'}!`);
-      } catch (e) {
-        // Fallback to mock data
-        this.setMockUser();
+    const user = this.authService.getUser();
+
+    if (user) {
+      this.currentUser.set({
+        name: user.email.split('@')[0],
+        email: user.email
+      });
+
+      if (user.role === 'trainer' && user.trainerId) {
+        this.loadDashboardData(user.trainerId);
+      } else {
+        this.error.set('User is not a trainer or missing trainer ID');
       }
     } else {
-      // Fallback to mock data
-      this.setMockUser();
+      // Not logged in, redirect
+      this.router.navigate(['/auth/login']);
     }
   }
 
-  private setMockUser() {
-    const mockUser = {
-      name: 'John Davis',
-      email: 'trainer1@pine.com'
-    };
-    this.currentUser.set(mockUser);
-    this.welcomeMessage.set(`Welcome, ${mockUser.name}!`);
-  }
+  private loadDashboardData(trainerId: number) {
+    this.isLoading.set(true);
+    this.dashboardService.getDashboardData(trainerId).subscribe({
+      next: (data) => {
+        // Update stats
+        this.stats.set(data.stats);
 
-  private loadDashboardData() {
-    // Mock stats data
-    this.stats.set({
-      totalTrainings: 5,
-      ongoingTrainings: 2,
-      completedTrainings: 3,
-      totalEarnings: 15000,
-      pendingInvoices: 2
+        // Update user info with real name from trainer profile
+        if (data.trainer) {
+          this.currentUser.set({
+            name: data.trainer.name,
+            email: data.trainer.email
+          });
+          this.welcomeMessage.set(`Welcome, ${data.trainer.name}!`);
+        }
+
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error loading dashboard data', err);
+        this.error.set('Failed to load dashboard data. Your session may be invalid (User/Trainer ID mismatch).');
+        this.isLoading.set(false);
+      }
     });
   }
 
   logout() {
-    // Clear any stored user data
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
-    
-    // Navigate to login page
-    this.router.navigate(['/auth/login']);
+    this.authService.logout();
   }
 }

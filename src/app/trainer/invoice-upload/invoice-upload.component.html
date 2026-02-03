@@ -1,64 +1,65 @@
-<div class="invoice-upload">
-  <div class="page-header">
-    <h2>Upload Invoice</h2>
-    <p>Submit new invoices for your completed training sessions</p>
-  </div>
-  
-  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice-form">
-    <div class="form-group">
-      <label for="poId">Purchase Order:</label>
-      <select id="poId" formControlName="poId" class="form-control">
+<div class="page-header mb-2rem">
+  <h2>Upload Invoice</h2>
+  <p class="text-muted">Submit new invoices for your completed training sessions</p>
+</div>
+
+<div class="pine-card">
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice-form"
+    style="background: transparent; border: none; padding: 0; box-shadow: none;">
+    <div class="form-group mb-2rem">
+      <label for="poId" style="color: var(--admin-text-muted);">Purchase Order:</label>
+      <select id="poId" formControlName="poId" class="pine-input">
         <option value="">Select a PO</option>
         <option *ngFor="let po of purchaseOrders()" [value]="po.id">
           PO #{{ po.id }} - ${{ po.totalAmount }}
         </option>
       </select>
-      <div class="error" *ngIf="invoiceForm.get('poId')?.invalid && invoiceForm.get('poId')?.touched">
+      <div class="pine-badge pine-badge-error mt-2rem"
+        *ngIf="invoiceForm.get('poId')?.invalid && invoiceForm.get('poId')?.touched">
         Please select a purchase order
       </div>
     </div>
-    
-    <div class="form-group">
-      <label for="amount">Amount:</label>
-      <input id="amount" type="number" formControlName="amount" class="form-control" placeholder="Enter amount">
-      <div class="error" *ngIf="invoiceForm.get('amount')?.invalid && invoiceForm.get('amount')?.touched">
+
+    <div class="form-group mb-2rem">
+      <label for="amount" style="color: var(--admin-text-muted);">Amount:</label>
+      <input id="amount" type="number" formControlName="amount" class="pine-input" placeholder="Enter amount">
+      <div class="pine-badge pine-badge-error mt-2rem"
+        *ngIf="invoiceForm.get('amount')?.invalid && invoiceForm.get('amount')?.touched">
         Valid amount is required
       </div>
     </div>
-    
-    <div class="form-group">
-      <label for="tax">Tax (optional):</label>
-      <input id="tax" type="number" formControlName="tax" class="form-control" placeholder="Enter tax amount">
+
+    <div class="form-group mb-2rem">
+      <label for="tax" style="color: var(--admin-text-muted);">Tax (optional):</label>
+      <input id="tax" type="number" formControlName="tax" class="pine-input" placeholder="Enter tax amount">
     </div>
-    
-    <div class="form-group">
-      <label for="invoiceDate">Invoice Date:</label>
-      <input id="invoiceDate" type="date" formControlName="invoiceDate" class="form-control">
-      <div class="error" *ngIf="invoiceForm.get('invoiceDate')?.invalid && invoiceForm.get('invoiceDate')?.touched">
+
+    <div class="form-group mb-2rem">
+      <label for="invoiceDate" style="color: var(--admin-text-muted);">Invoice Date:</label>
+      <input id="invoiceDate" type="date" formControlName="invoiceDate" class="pine-input">
+      <div class="pine-badge pine-badge-error mt-2rem"
+        *ngIf="invoiceForm.get('invoiceDate')?.invalid && invoiceForm.get('invoiceDate')?.touched">
         Invoice date is required
       </div>
     </div>
-    
-    <div class="form-group">
-      <label for="notes">Notes (optional):</label>
-      <textarea id="notes" formControlName="notes" class="form-control" rows="3" placeholder="Additional notes"></textarea>
+
+    <div class="form-group mb-2rem">
+      <label for="notes" style="color: var(--admin-text-muted);">Notes (optional):</label>
+      <textarea id="notes" formControlName="notes" class="pine-input" rows="3"
+        placeholder="Additional notes"></textarea>
     </div>
-    
-    <div class="form-actions">
-      <button type="submit" [disabled]="invoiceForm.invalid || isSubmitting" class="submit-btn">
+
+    <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 2rem;">
+      <button type="submit" [disabled]="invoiceForm.invalid || isSubmitting" class="pine-btn pine-btn-primary">
         {{ isSubmitting ? 'Submitting...' : 'Submit Invoice' }}
       </button>
-      <a routerLink="/trainer/dashboard" class="cancel-btn">Cancel</a>
+      <a routerLink="/trainer/dashboard" class="pine-btn pine-btn-secondary" style="text-decoration: none;">Cancel</a>
     </div>
   </form>
-  
-  <div class="success-message" *ngIf="submitSuccess">
-    <div class="success-icon">✅</div>
-    <h4>Invoice Submitted Successfully!</h4>
-    <p>Your invoice has been submitted for review.</p>
-  </div>
-  
-  <div class="back-link">
-    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
-  </div>
+</div>
+
+<div class="pine-badge pine-badge-success" *ngIf="submitSuccess" style="text-align: center; margin-top: 2rem;">
+  <div style="font-size: 2rem; margin-bottom: 0.5rem;">✅</div>
+  <h4 style="margin: 0; color: #34d399;">Invoice Submitted Successfully!</h4>
+  <p style="margin: 0.5rem 0 0 0; color: var(--admin-text);">Your invoice has been submitted for review.</p>
 </div>
