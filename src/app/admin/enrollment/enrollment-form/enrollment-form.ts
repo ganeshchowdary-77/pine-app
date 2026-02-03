@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EnrollmentService } from '../../../shared/services/enrollment.service';
 import { CompanyService } from '../../../shared/services/company.service';
 import { TrainerService } from '../../../shared/services/trainer.service';
+import { TrainingRequestService } from '../../../shared/services/training-request.service';
 
 @Component({
   selector: 'app-enrollment-form',
@@ -18,6 +19,7 @@ export class EnrollmentForm implements OnInit {
   private enrollmentService = inject(EnrollmentService);
   private companyService = inject(CompanyService);
   private trainerService = inject(TrainerService);
+  private requestService = inject(TrainingRequestService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private fb = inject(FormBuilder);
@@ -29,7 +31,8 @@ export class EnrollmentForm implements OnInit {
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
     budget: [null as number | null, [Validators.required, Validators.min(0)]],
-    status: ['REQUESTED' as const, Validators.required]
+    requestId: [null as number | null],
+    status: ['REQUESTED' as string, Validators.required]
   });
 
   companies = toSignal(this.companyService.getAll(), { initialValue: [] });
@@ -39,10 +42,33 @@ export class EnrollmentForm implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    const requestId = this.route.snapshot.queryParamMap.get('requestId');
+
     if (id) {
       this.enrollmentId.set(Number(id));
       this.loadEnrollment(this.enrollmentId()!);
+    } else if (requestId) {
+      this.loadFromRequest(Number(requestId));
     }
+  }
+
+  loadFromRequest(requestId: number) {
+    this.requestService.getById(requestId).subscribe(request => {
+      // Try to find matching company or at least pre-fill the form
+      const company = this.companies().find(c => 
+        c.name.toLowerCase() === request.companyName.toLowerCase()
+      );
+
+      this.form.patchValue({
+        companyId: company ? company.id : null,
+        technology: request.technology,
+        startDate: request.startDate,
+        endDate: request.endDate,
+        budget: request.budget,
+        requestId: request.id,
+        status: 'APPROVED'
+      });
+    });
   }
 
   loadEnrollment(id: number) {
@@ -54,7 +80,8 @@ export class EnrollmentForm implements OnInit {
         startDate: data.startDate.split('T')[0], // Ensure date format
         endDate: data.endDate.split('T')[0],
         budget: data.budget,
-        status: data.status as any
+        requestId: data.requestId || null,
+        status: data.status
       });
     });
   }
@@ -74,6 +101,7 @@ export class EnrollmentForm implements OnInit {
       technology: formValue.technology || undefined,
       startDate: formValue.startDate || undefined,
       endDate: formValue.endDate || undefined,
+      requestId: formValue.requestId || undefined,
       status: (formValue.status || 'REQUESTED') as 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED'
     };
 

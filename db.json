@@ -36,8 +36,10 @@
       "email": "michael@datacore.com",
       "phone": "+1-555-0123",
       "technology": "Python",
-      "startDate": "2026-03-20",
-      "endDate": "2026-03-25",
+      "startDate": "2026-01-20",
+      "endDate": "2026-02-10",
+      "duration": 5,
+      "budget": 50000,
       "participants": 15,
       "message": "Looking for advanced Python training for our development team",
       "status": "NEW"
@@ -51,6 +53,8 @@
       "technology": "Kubernetes",
       "startDate": "2026-04-10",
       "endDate": "2026-04-15",
+      "duration": 5,
+      "budget": 75000,
       "participants": 10,
       "message": "Need K8s training for our DevOps team",
       "status": "CONTACTED"
@@ -63,6 +67,8 @@
       "technology": "Microservices",
       "startDate": "2026-05-01",
       "endDate": "2026-05-10",
+      "duration": 10,
+      "budget": 120000,
       "participants": 20,
       "status": "REJECTED"
     }
@@ -264,6 +270,22 @@
       "tax": 2800,
       "invoiceDate": "2026-01-22",
       "status": "PAID"
+    },
+    {
+      "id": "b399",
+      "poId": 6,
+      "issuedBy": "ADMIN",
+      "amount": 28000,
+      "invoiceDate": "2026-02-03T06:21:24.555Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "7106",
+      "poId": 2,
+      "issuedBy": "ADMIN",
+      "amount": 30000,
+      "invoiceDate": "2026-02-03T06:29:10.625Z",
+      "status": "APPROVED"
     }
   ]
 }
