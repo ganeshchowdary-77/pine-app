@@ -44,30 +44,30 @@ export class TrainerDashboardService {
         const totalTrainings = enrollments.length;
         const ongoingTrainings = enrollments.filter(e => e.status === 'ONGOING').length;
         const completedTrainings = enrollments.filter(e => e.status === 'COMPLETED').length;
-        
+
         // Filter invoices for this trainer's POs
         const trainerPOIds = pos.map(po => po.id);
-        const trainerInvoices = invoices.filter(invoice => 
+        const trainerInvoices = invoices.filter(invoice =>
           trainerPOIds.includes(invoice.poId)
         );
-        
+
         const totalEarnings = trainerInvoices
           .filter(inv => inv.status === 'PAID')
           .reduce((sum, inv) => sum + (inv.amount || 0), 0);
-        
+
         const pendingInvoices = trainerInvoices
           .filter(inv => inv.status === 'PENDING').length;
 
         const totalPaid = trainerInvoices
           .filter(inv => inv.status === 'PAID')
           .reduce((sum, inv) => sum + (inv.amount || 0), 0);
-        
+
         const totalPending = trainerInvoices
           .filter(inv => inv.status === 'PENDING' || inv.status === 'APPROVED' || inv.status === 'SENT')
           .reduce((sum, inv) => sum + (inv.amount || 0), 0);
 
         const paidInvoices = trainerInvoices.filter(inv => inv.status === 'PAID');
-        const lastPaymentDate = paidInvoices.length > 0 
+        const lastPaymentDate = paidInvoices.length > 0
           ? paidInvoices.sort((a, b) => new Date(b.invoiceDate).getTime() - new Date(a.invoiceDate).getTime())[0].invoiceDate
           : undefined;
 
@@ -147,7 +147,9 @@ export class TrainerDashboardService {
       map(([pos, enrollments]) => {
         // Filter POs related to this trainer's enrollments
         const trainerEnrollmentIds = enrollments.map(e => e.id);
-        const trainerPOs = pos.filter(po => trainerEnrollmentIds.includes(po.enrollmentId));
+        const trainerPOs = pos.filter(po =>
+          po.enrollmentId != null && trainerEnrollmentIds.includes(po.enrollmentId)
+        );
 
         const byStatus = trainerPOs.reduce((acc, po) => {
           acc[po.status] = (acc[po.status] || 0) + 1;
@@ -189,29 +191,29 @@ export class TrainerDashboardService {
     ]).pipe(
       map(([invoices, pos, enrollments]) => {
         // Filter invoices for this trainer
-        const trainerPOIds = pos.filter(po => 
-          enrollments.some(e => e.id === po.enrollmentId)
+        const trainerPOIds = pos.filter(po =>
+          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
-        
-        const trainerInvoices = invoices.filter(invoice => 
+
+        const trainerInvoices = invoices.filter(invoice =>
           trainerPOIds.includes(invoice.poId)
         );
 
         const totalPaid = trainerInvoices
           .filter(inv => inv.status === 'PAID')
           .reduce((sum, inv) => sum + (inv.amount || 0), 0);
-        
+
         const totalPending = trainerInvoices
           .filter(inv => inv.status === 'PENDING' || inv.status === 'APPROVED' || inv.status === 'SENT')
           .reduce((sum, inv) => sum + (inv.amount || 0), 0);
 
         const paidInvoices = trainerInvoices.filter(inv => inv.status === 'PAID');
-        const lastPaymentDate = paidInvoices.length > 0 
+        const lastPaymentDate = paidInvoices.length > 0
           ? paidInvoices.sort((a, b) => new Date(b.invoiceDate).getTime() - new Date(a.invoiceDate).getTime())[0].invoiceDate
           : undefined;
 
-        const averagePaymentAmount = paidInvoices.length > 0 
-          ? totalPaid / paidInvoices.length 
+        const averagePaymentAmount = paidInvoices.length > 0
+          ? totalPaid / paidInvoices.length
           : 0;
 
         return {
@@ -251,11 +253,11 @@ export class TrainerDashboardService {
     ]).pipe(
       map(([invoices, pos, enrollments]) => {
         // Filter invoices for this trainer
-        const trainerPOIds = pos.filter(po => 
-          enrollments.some(e => e.id === po.enrollmentId)
+        const trainerPOIds = pos.filter(po =>
+          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
         ).map(po => po.id);
-        
-        let trainerInvoices = invoices.filter(invoice => 
+
+        let trainerInvoices = invoices.filter(invoice =>
           trainerPOIds.includes(invoice.poId)
         );
 
@@ -265,23 +267,23 @@ export class TrainerDashboardService {
         }
 
         if (filters?.dateFrom) {
-          trainerInvoices = trainerInvoices.filter(inv => 
+          trainerInvoices = trainerInvoices.filter(inv =>
             new Date(inv.invoiceDate) >= new Date(filters.dateFrom!)
           );
         }
 
         if (filters?.dateTo) {
-          trainerInvoices = trainerInvoices.filter(inv => 
+          trainerInvoices = trainerInvoices.filter(inv =>
             new Date(inv.invoiceDate) <= new Date(filters.dateTo!)
           );
         }
 
-        const totalValue = trainerInvoices.reduce((sum, inv) => 
+        const totalValue = trainerInvoices.reduce((sum, inv) =>
           sum + (inv.amount || 0) + (inv.tax || 0), 0
         );
 
-        const averageAmount = trainerInvoices.length > 0 
-          ? totalValue / trainerInvoices.length 
+        const averageAmount = trainerInvoices.length > 0
+          ? totalValue / trainerInvoices.length
           : 0;
 
         return {
@@ -315,7 +317,7 @@ export class TrainerDashboardService {
     ]).pipe(
       map(([trainer, enrollments, invoices]) => {
         const totalTrainings = enrollments.length;
-        
+
         // Calculate earnings from paid invoices
         const totalEarnings = invoices
           .filter(inv => inv.status === 'PAID')
