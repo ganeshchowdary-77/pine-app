@@ -46,7 +46,7 @@ export class PoDetailsComponent implements OnInit {
 
         // Get all trainer POs and filter
         return this.poService.getTrainerPOs().pipe(
-          map(pos => pos.filter(po => this.enrollmentMap.has(po.enrollmentId)))
+          map(pos => pos.filter(po => po.enrollmentId != null && this.enrollmentMap.has(po.enrollmentId)))
         );
       })
     ).subscribe({

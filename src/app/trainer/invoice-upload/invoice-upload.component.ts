@@ -47,7 +47,7 @@ export class InvoiceUploadComponent implements OnInit {
       switchMap(enrollments => {
         const enrollmentIds = new Set(enrollments.map(e => e.id));
         return this.poService.getTrainerPOs().pipe(
-          map(pos => pos.filter(po => enrollmentIds.has(po.enrollmentId))) // And maybe check status?
+          map(pos => pos.filter(po => po.enrollmentId != null && enrollmentIds.has(po.enrollmentId))) // And maybe check status?
         );
       })
     ).subscribe({
