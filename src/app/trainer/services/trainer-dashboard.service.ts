@@ -35,25 +35,24 @@ export class TrainerDashboardService {
     // Use existing TrainerService and other services
     const trainerData$ = this.trainerService.getById(trainerId);
     const enrollments$ = this.enrollmentService.getByTrainerId(trainerId);
-    const invoices$ = this.invoiceService.getTrainerInvoices();
-    const pos$ = this.purchaseOrderService.getTrainerPOs();
+    const invoices$ = this.invoiceService.getByTrainerId(trainerId);
 
-    return combineLatest([trainerData$, enrollments$, invoices$, pos$]).pipe(
-      map(([trainer, enrollments, invoices, pos]) => {
+    // POs still needed? Not for invoices anymore, but maybe for other future stats?
+    // Current stats don't use POs directly other than filtering invoices.
+    // We can keep it or remove it. Let's keep it minimal.
+    // But `combineLatest` needs to change if we remove it.
+    // Let's keep it simple: fetch generic POs (or remove if unused).
+    // Actually, let's keep the signature but ignore POs for invoice filtering.
+
+    return combineLatest([trainerData$, enrollments$, invoices$]).pipe(
+      map(([trainer, enrollments, invoices]) => {
         // Calculate stats using existing service data
         const totalTrainings = enrollments.length;
         const ongoingTrainings = enrollments.filter(e => e.status === 'ONGOING').length;
         const completedTrainings = enrollments.filter(e => e.status === 'COMPLETED').length;
 
-        // Filter POs for this trainer's enrollments
-        const myEnrollmentIds = enrollments.map(e => e.id);
-        const myPOs = pos.filter(po => po.enrollmentId != null && myEnrollmentIds.includes(po.enrollmentId));
-        const myPOIds = myPOs.map(po => po.id);
-
-        // Filter invoices for this trainer's POs
-        const trainerInvoices = invoices.filter(invoice =>
-          myPOIds.includes(invoice.poId)
-        );
+        // Invoices are already filtered by trainerId and issuedBy=TRAINER
+        const trainerInvoices = invoices;
 
         const totalEarnings = trainerInvoices
           .filter(inv => inv.status === 'PAID')
@@ -189,19 +188,13 @@ export class TrainerDashboardService {
     };
   }> {
     return combineLatest([
-      this.invoiceService.getTrainerInvoices(),
-      this.purchaseOrderService.getTrainerPOs(),
-      this.enrollmentService.getByTrainerId(trainerId)
+      this.invoiceService.getByTrainerId(trainerId),
+      // this.purchaseOrderService.getTrainerPOs(), // Not needed for filtering anymore
+      // this.enrollmentService.getByTrainerId(trainerId) // Not needed for filtering anymore
     ]).pipe(
-      map(([invoices, pos, enrollments]) => {
-        // Filter invoices for this trainer
-        const trainerPOIds = pos.filter(po =>
-          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
-        ).map(po => po.id);
-
-        const trainerInvoices = invoices.filter(invoice =>
-          trainerPOIds.includes(invoice.poId)
-        );
+      map(([invoices]) => {
+        // Invoices are already filtered by trainerId and issuedBy=TRAINER
+        const trainerInvoices = invoices;
 
         const totalPaid = trainerInvoices
           .filter(inv => inv.status === 'PAID')
@@ -251,19 +244,13 @@ export class TrainerDashboardService {
     };
   }> {
     return combineLatest([
-      this.invoiceService.getTrainerInvoices(),
-      this.purchaseOrderService.getTrainerPOs(),
-      this.enrollmentService.getByTrainerId(trainerId)
+      this.invoiceService.getByTrainerId(trainerId),
+      // this.purchaseOrderService.getTrainerPOs(),
+      // this.enrollmentService.getByTrainerId(trainerId)
     ]).pipe(
-      map(([invoices, pos, enrollments]) => {
-        // Filter invoices for this trainer
-        const trainerPOIds = pos.filter(po =>
-          po.enrollmentId != null && enrollments.some(e => e.id === po.enrollmentId)
-        ).map(po => po.id);
-
-        let trainerInvoices = invoices.filter(invoice =>
-          trainerPOIds.includes(invoice.poId)
-        );
+      map(([invoices]) => {
+        // Invoices are already filtered by trainerId and issuedBy=TRAINER
+        let trainerInvoices = invoices;
 
         // Apply filters
         if (filters?.status) {
@@ -317,7 +304,7 @@ export class TrainerDashboardService {
     return combineLatest([
       this.trainerService.getById(trainerId),
       this.enrollmentService.getByTrainerId(trainerId),
-      this.invoiceService.getTrainerInvoices()
+      this.invoiceService.getByTrainerId(trainerId)
     ]).pipe(
       map(([trainer, enrollments, invoices]) => {
         const totalTrainings = enrollments.length;

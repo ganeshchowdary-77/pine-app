@@ -126,4 +126,11 @@ export class InvoiceService {
     getPendingInvoices(): Observable<Invoice[]> {
         return this.getByStatus('PENDING');
     }
+
+    /**
+     * Get invoices for a specific trainer directly
+     */
+    getByTrainerId(trainerId: number): Observable<Invoice[]> {
+        return this.http.get<Invoice[]>(`${this.apiUrl}?trainerId=${trainerId}&issuedBy=TRAINER`);
+    }
 }

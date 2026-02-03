@@ -74,7 +74,9 @@ export class TrainerDashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading dashboard data', err);
-        this.error.set('Failed to load dashboard data. Your session may be invalid (User/Trainer ID mismatch).');
+        // Display actual error for debugging
+        const errDetails = err.message || JSON.stringify(err);
+        this.error.set(`Failed to load dashboard data: ${errDetails}. Your session may be invalid (User/Trainer ID mismatch).`);
         this.isLoading.set(false);
       }
     });

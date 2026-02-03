@@ -48,11 +48,11 @@ export class PaymentStatusComponent implements OnInit {
 
   private loadData() {
     const user = this.authService.getUser();
-    if (!user || user.role !== 'trainer') return;
+    if (!user || user.role !== 'trainer' || !user.trainerId) return; // Ensure trainerId exists
 
     this.isLoading.set(true);
 
-    this.invoiceService.getTrainerInvoices().subscribe({
+    this.invoiceService.getByTrainerId(user.trainerId).subscribe({
       next: (data) => {
         this.invoices.set(data);
         this.isLoading.set(false);
