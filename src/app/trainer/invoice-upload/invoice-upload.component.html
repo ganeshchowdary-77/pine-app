@@ -1,60 +1,111 @@
 <div class="page-header mb-2rem">
-  <h2>Upload Invoice</h2>
-  <p class="text-muted">Submit new invoices for your completed training sessions</p>
+  <h2>Raise New Invoice</h2>
+  <p class="text-muted">Create and submit invoices for your approved purchase orders.</p>
 </div>
 
-<div class="pine-card">
-  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice-form"
-    style="background: transparent; border: none; padding: 0; box-shadow: none;">
-    <div class="form-group mb-2rem">
-      <label for="poId" style="color: var(--admin-text-muted);">Purchase Order:</label>
-      <select id="poId" formControlName="poId" class="pine-input">
-        <option value="">Select a PO</option>
-        <option *ngFor="let po of purchaseOrders()" [value]="po.id">
-          PO #{{ po.id }} - ${{ po.totalAmount }}
-        </option>
-      </select>
-      <div class="pine-badge pine-badge-error mt-2rem"
-        *ngIf="invoiceForm.get('poId')?.invalid && invoiceForm.get('poId')?.touched">
-        Please select a purchase order
+<div class="pine-card upload-card">
+  <div class="card-header-accent"></div>
+
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice-form">
+
+    <!-- Purchase Order Section -->
+    <div class="form-section">
+      <h3 class="section-title">Purchase Order</h3>
+      <div class="form-group">
+        <label for="poId">Select Purchase Order <span class="required">*</span></label>
+        <div class="input-group">
+          <span class="input-icon">📄</span>
+          <select id="poId" formControlName="poId" class="pine-input">
+            <option value="" disabled>Choose a PO...</option>
+            <option *ngFor="let po of purchaseOrders()" [value]="po.id">
+              PO #{{ po.id }} — ${{ po.totalAmount | number }} ({{ po.status }})
+            </option>
+          </select>
+        </div>
+        <div class="pine-badge pine-badge-error mt-05"
+          *ngIf="invoiceForm.get('poId')?.invalid && invoiceForm.get('poId')?.touched">
+          Please select a valid PO
+        </div>
       </div>
     </div>
 
-    <div class="form-group mb-2rem">
-      <label for="amount" style="color: var(--admin-text-muted);">Amount:</label>
-      <input id="amount" type="number" formControlName="amount" class="pine-input" placeholder="Enter amount">
-      <div class="pine-badge pine-badge-error mt-2rem"
-        *ngIf="invoiceForm.get('amount')?.invalid && invoiceForm.get('amount')?.touched">
-        Valid amount is required
+    <!-- Financial Details -->
+    <div class="form-section">
+      <h3 class="section-title">Invoice Details</h3>
+      <div class="form-grid">
+        <!-- Amount -->
+        <div class="form-group">
+          <label for="amount">Base Amount <span class="required">*</span></label>
+          <div class="input-group">
+            <span class="input-icon">💲</span>
+            <input id="amount" type="number" formControlName="amount" class="pine-input" placeholder="0.00">
+          </div>
+          <div class="pine-badge pine-badge-error mt-05"
+            *ngIf="invoiceForm.get('amount')?.invalid && invoiceForm.get('amount')?.touched">
+            Amount is required
+          </div>
+        </div>
+
+        <!-- Tax -->
+        <div class="form-group">
+          <label for="tax">Tax Amount</label>
+          <div class="input-group">
+            <span class="input-icon">🧾</span>
+            <input id="tax" type="number" formControlName="tax" class="pine-input" placeholder="0.00">
+          </div>
+        </div>
+
+        <!-- Date -->
+        <div class="form-group">
+          <label for="invoiceDate">Invoice Date <span class="required">*</span></label>
+          <div class="input-group">
+            <span class="input-icon">📅</span>
+            <input id="invoiceDate" type="date" formControlName="invoiceDate" class="pine-input">
+          </div>
+          <div class="pine-badge pine-badge-error mt-05"
+            *ngIf="invoiceForm.get('invoiceDate')?.invalid && invoiceForm.get('invoiceDate')?.touched">
+            Date is required
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="form-group mb-2rem">
-      <label for="tax" style="color: var(--admin-text-muted);">Tax (optional):</label>
-      <input id="tax" type="number" formControlName="tax" class="pine-input" placeholder="Enter tax amount">
-    </div>
-
-    <div class="form-group mb-2rem">
-      <label for="invoiceDate" style="color: var(--admin-text-muted);">Invoice Date:</label>
-      <input id="invoiceDate" type="date" formControlName="invoiceDate" class="pine-input">
-      <div class="pine-badge pine-badge-error mt-2rem"
-        *ngIf="invoiceForm.get('invoiceDate')?.invalid && invoiceForm.get('invoiceDate')?.touched">
-        Invoice date is required
+    <!-- Notes -->
+    <div class="form-section">
+      <div class="form-group">
+        <label for="notes">Additional Notes</label>
+        <div class="input-group textarea-group">
+          <span class="input-icon top-align">📝</span>
+          <textarea id="notes" formControlName="notes" class="pine-input" rows="3"
+            placeholder="Any specific details about this invoice..."></textarea>
+        </div>
       </div>
     </div>
 
-    <div class="form-group mb-2rem">
-      <label for="notes" style="color: var(--admin-text-muted);">Notes (optional):</label>
-      <textarea id="notes" formControlName="notes" class="pine-input" rows="3"
-        placeholder="Additional notes"></textarea>
+    <!-- Total Summary Display (Visual Only) -->
+    <div class="total-preview pine-card summary-card">
+      <div class="preview-label">Estimated Total</div>
+      <div class="preview-amount">
+        ${{ totalAmount() | number:'1.2-2' }}
+      </div>
     </div>
 
-    <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 2rem;">
-      <button type="submit" [disabled]="invoiceForm.invalid || isSubmitting" class="pine-btn pine-btn-primary">
-        {{ isSubmitting ? 'Submitting...' : 'Submit Invoice' }}
+    <!-- Date Validation Error -->
+    <div *ngIf="validationError()" class="pine-badge pine-badge-error mb-1rem"
+      style="display: block; text-align: center; padding: 1rem; font-weight: bold;">
+      ⚠️ {{ validationError() }}
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <a routerLink="/trainer/dashboard" class="pine-btn pine-btn-secondary">Cancel</a>
+      <button type="submit" [disabled]="invoiceForm.invalid || isSubmitting || !!validationError()"
+        class="pine-btn pine-btn-primary">
+        <span *ngIf="!isSubmitting">Submit Invoice</span>
+        <span *ngIf="isSubmitting" class="loading-spinner">⏳ Processing...</span>
       </button>
-      <a routerLink="/trainer/dashboard" class="pine-btn pine-btn-secondary" style="text-decoration: none;">Cancel</a>
     </div>
+
   </form>
 </div>
 

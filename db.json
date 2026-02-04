@@ -322,6 +322,7 @@
     {
       "id": "3",
       "enrollmentId": 3,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -340,6 +341,7 @@
     {
       "id": "5",
       "enrollmentId": 4,
+      "trainerId": 2,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 1000,
@@ -358,6 +360,7 @@
     {
       "id": "7",
       "enrollmentId": 5,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -411,6 +414,15 @@
       "tax": 0,
       "invoiceDate": "2026-01-12",
       "status": "PAID",
+      "issuedBy": "TRAINER"
+    },
+    {
+      "id": "0f48",
+      "poId": 3,
+      "amount": 5600,
+      "tax": 0,
+      "invoiceDate": "2026-02-12",
+      "status": "PENDING",
       "issuedBy": "TRAINER"
     }
   ]

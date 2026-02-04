@@ -9,6 +9,9 @@
 
 <div class="po-grid" *ngIf="purchaseOrders().length > 0; else noPOsTemplate">
   <div class="pine-card po-card" *ngFor="let po of purchaseOrders()">
+<div class="summary-grid" *ngIf="purchaseOrders().length > 0; else noPOsTemplate">
+  @for(po of purchaseOrders(); track po.id) {
+  <div class="pine-card summary-card">
     <div class="card-header">
       <div class="header-left">
         <h3>PO #{{ po.id }}</h3>
@@ -43,6 +46,7 @@
       </button>
     </div>
   </div>
+  }
 </div>
 
 <ng-template #noPOsTemplate>
