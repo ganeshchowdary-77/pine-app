@@ -19,8 +19,8 @@
  * GENERATED → SENT → ACCEPTED → RECEIVED
  */
 export interface PurchaseOrder {
-    id: number;
-    enrollmentId?: number | null;                          // References Enrollment.id
+    id: number | string;
+    enrollmentId?: number | string | null;                          // References Enrollment.id
     type: 'CLIENT' | 'TRAINER';                    // Who receives this PO
     paymentType?: 'hourly' | 'daily' | 'monthly'; // For TRAINER POs
     rate?: number;                                 // For TRAINER POs

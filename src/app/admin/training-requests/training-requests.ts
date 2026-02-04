@@ -17,23 +17,23 @@ import { catchError, finalize, timeout } from 'rxjs/operators';
 export class TrainingRequestsComponent implements OnInit {
   private requestService = inject(TrainingRequestService);
   private router = inject(Router);
-  
+
   requests = signal<TrainingRequest[]>([]);
   isLoading = signal(true);
   error = signal<string | null>(null);
   successMessage = signal<string | null>(null);
-  
+
   selectedStatus = signal<string>('');
   filterQuery = signal<string>('');
-  
+
   ngOnInit() {
     this.loadRequests();
   }
-  
+
   loadRequests() {
     this.isLoading.set(true);
     this.error.set(null);
-    
+
     this.requestService.getAll().pipe(
       timeout(8000),
       catchError((err) => {
@@ -46,22 +46,22 @@ export class TrainingRequestsComponent implements OnInit {
       next: (data) => this.requests.set(data || [])
     });
   }
-  
+
   get filteredRequests(): TrainingRequest[] {
     let filtered = this.requests();
-    
+
     if (this.selectedStatus()) {
       filtered = filtered.filter(r => r.status === this.selectedStatus());
     }
-    
+
     if (this.filterQuery()) {
       const query = this.filterQuery().toLowerCase();
-      filtered = filtered.filter(r => 
+      filtered = filtered.filter(r =>
         r.companyName?.toLowerCase().includes(query) ||
         r.technology?.toLowerCase().includes(query)
       );
     }
-    
+
     return filtered;
   }
 
@@ -72,11 +72,11 @@ export class TrainingRequestsComponent implements OnInit {
     const end = new Date(request.endDate);
     return start <= today && end >= today;
   }
-  
-  updateStatus(id: number, newStatus: string) {
+
+  updateStatus(id: number | string, newStatus: string) {
     const request = this.requests().find(r => r.id === id);
     if (!request) return;
-    
+
     this.requestService.updateStatus(id, newStatus as any).subscribe({
       next: () => {
         this.successMessage.set(`Request marked as ${newStatus}`);
@@ -90,15 +90,15 @@ export class TrainingRequestsComponent implements OnInit {
     });
   }
 
-  navigateToEnrollment(requestId: number) {
-    this.router.navigate(['/admin/enrollments/new'], { 
-      queryParams: { requestId: requestId } 
+  navigateToEnrollment(requestId: number | string) {
+    this.router.navigate(['/admin/enrollments/new'], {
+      queryParams: { requestId: requestId }
     });
   }
 
-  deleteRequest(id: number) {
+  deleteRequest(id: number | string) {
     if (!confirm('Are you sure you want to delete this request?')) return;
-    
+
     this.requestService.delete(id).subscribe({
       next: () => {
         this.successMessage.set('Request deleted successfully');
@@ -111,9 +111,9 @@ export class TrainingRequestsComponent implements OnInit {
       }
     });
   }
-  
+
   getStatusColor(status: string): string {
-    switch(status) {
+    switch (status) {
       case 'NEW': return 'status-new';
       case 'CONTACTED': return 'status-contacted';
       case 'APPROVED': return 'status-approved';

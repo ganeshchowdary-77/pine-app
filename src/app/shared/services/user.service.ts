@@ -30,7 +30,7 @@ export class UserService {
     /**
      * Get user by ID
      */
-    getById(id: number): Observable<User> {
+    getById(id: number | string): Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/${id}`);
     }
 
@@ -44,7 +44,7 @@ export class UserService {
     /**
      * Get user by trainerId
      */
-    getByTrainerId(trainerId: number): Observable<User[]> {
+    getByTrainerId(trainerId: number | string): Observable<User[]> {
         return this.http.get<User[]>(`${this.apiUrl}?trainerId=${trainerId}`);
     }
 
@@ -58,14 +58,14 @@ export class UserService {
     /**
      * Update existing user
      */
-    update(id: number, user: Partial<User>): Observable<User> {
+    update(id: number | string, user: Partial<User>): Observable<User> {
         return this.http.put<User>(`${this.apiUrl}/${id}`, user);
     }
 
     /**
      * Delete user
      */
-    delete(id: number): Observable<void> {
+    delete(id: number | string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 }

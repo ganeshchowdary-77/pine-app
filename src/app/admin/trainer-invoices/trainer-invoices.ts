@@ -15,23 +15,23 @@ import { catchError, finalize, timeout } from 'rxjs/operators';
 })
 export class TrainerInvoicesComponent implements OnInit {
   private invoiceService = inject(InvoiceService);
-  
+
   trainerInvoices = signal<Invoice[]>([]);
   isLoading = signal(true);
   error = signal<string | null>(null);
   successMessage = signal<string | null>(null);
-  
+
   selectedStatus = signal<string>('');
   searchQuery = signal<string>('');
-  
+
   ngOnInit() {
     this.loadTrainerInvoices();
   }
-  
+
   loadTrainerInvoices() {
     this.isLoading.set(true);
     this.error.set(null);
-    
+
     this.invoiceService.getByIssuedBy('TRAINER').pipe(
       timeout(8000),
       catchError((err) => {
@@ -47,26 +47,26 @@ export class TrainerInvoicesComponent implements OnInit {
       }
     });
   }
-  
+
   get filteredInvoices(): Invoice[] {
     let filtered = this.trainerInvoices();
-    
+
     if (this.selectedStatus()) {
       filtered = filtered.filter(i => i.status === this.selectedStatus());
     }
-    
+
     if (this.searchQuery()) {
       const query = this.searchQuery().toLowerCase();
-      filtered = filtered.filter(i => 
+      filtered = filtered.filter(i =>
         i.id?.toString().includes(query) ||
         i.poId?.toString().includes(query)
       );
     }
-    
+
     return filtered;
   }
-  
-  approveInvoice(id: number) {
+
+  approveInvoice(id: number | string) {
     this.invoiceService.approve(id).subscribe({
       next: () => {
         this.successMessage.set('Invoice approved successfully!');
@@ -79,8 +79,8 @@ export class TrainerInvoicesComponent implements OnInit {
       }
     });
   }
-  
-  markAsPaid(id: number) {
+
+  markAsPaid(id: number | string) {
     this.invoiceService.updateStatus(id, 'PAID').subscribe({
       next: () => {
         this.successMessage.set('Invoice marked as paid!');
@@ -93,8 +93,8 @@ export class TrainerInvoicesComponent implements OnInit {
       }
     });
   }
-  
-  rejectInvoice(id: number) {
+
+  rejectInvoice(id: number | string) {
     if (confirm('Are you sure you want to reject this invoice?')) {
       this.invoiceService.delete(id).subscribe({
         next: () => {
@@ -109,9 +109,9 @@ export class TrainerInvoicesComponent implements OnInit {
       });
     }
   }
-  
+
   getStatusColor(status: string): string {
-    switch(status) {
+    switch (status) {
       case 'PENDING': return 'status-pending';
       case 'APPROVED': return 'status-approved';
       case 'SENT': return 'status-sent';
@@ -119,11 +119,11 @@ export class TrainerInvoicesComponent implements OnInit {
       default: return 'status-default';
     }
   }
-  
+
   getTotalAmount(): number {
     return this.filteredInvoices.reduce((sum, inv) => sum + (inv.amount || 0), 0);
   }
-  
+
   getPendingAmount(): number {
     return this.filteredInvoices
       .filter(inv => inv.status === 'PENDING' || inv.status === 'APPROVED')

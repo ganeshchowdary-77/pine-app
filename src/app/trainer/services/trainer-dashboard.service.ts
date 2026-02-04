@@ -15,7 +15,7 @@ export class TrainerDashboardService {
    * Get comprehensive dashboard data for a trainer
    * Uses existing TrainerService methods
    */
-  getDashboardData(trainerId: number): Observable<{
+  getDashboardData(trainerId: number | string): Observable<{
     trainer: any;
     stats: {
       totalTrainings: number;
@@ -99,7 +99,7 @@ export class TrainerDashboardService {
    * Get trainer's assigned trainings with enhanced data
    * Uses existing EnrollmentService methods
    */
-  getAssignedTrainings(trainerId: number): Observable<{
+  getAssignedTrainings(trainerId: number | string): Observable<{
     trainings: any[];
     summary: {
       total: number;
@@ -135,7 +135,7 @@ export class TrainerDashboardService {
    * Get trainer's PO details with enhanced information
    * Uses existing PurchaseOrderService methods
    */
-  getTrainerPODetails(trainerId: number): Observable<{
+  getTrainerPODetails(trainerId: number | string): Observable<{
     purchaseOrders: any[];
     summary: {
       total: number;
@@ -151,7 +151,7 @@ export class TrainerDashboardService {
         // Filter POs related to this trainer's enrollments
         const trainerEnrollmentIds = enrollments.map(e => e.id);
         const trainerPOs = pos.filter(po =>
-          po.enrollmentId != null && trainerEnrollmentIds.includes(po.enrollmentId)
+          po.enrollmentId != null && trainerEnrollmentIds.includes(po.enrollmentId as any)
         );
 
         const byStatus = trainerPOs.reduce((acc, po) => {
@@ -177,7 +177,7 @@ export class TrainerDashboardService {
    * Get trainer's payment status with comprehensive data
    * Uses existing InvoiceService methods
    */
-  getPaymentStatus(trainerId: number): Observable<{
+  getPaymentStatus(trainerId: number | string): Observable<{
     invoices: any[];
     summary: {
       totalPaid: number;
@@ -231,7 +231,7 @@ export class TrainerDashboardService {
    * Get trainer's invoice history with filtering options
    * Uses existing InvoiceService methods
    */
-  getInvoiceHistory(trainerId: number, filters?: {
+  getInvoiceHistory(trainerId: number | string, filters?: {
     status?: string;
     dateFrom?: string;
     dateTo?: string;
@@ -293,7 +293,7 @@ export class TrainerDashboardService {
    * Get trainer profile data
    * Uses existing TrainerService methods
    */
-  getTrainerProfile(trainerId: number): Observable<{
+  getTrainerProfile(trainerId: number | string): Observable<{
     trainer: any;
     stats: {
       totalTrainings: number;

@@ -1,10 +1,10 @@
 export interface Enrollment {
-    id: number;
+    id: number | string;
 
-    companyId: number;
-    requestId?: number;
+    companyId: number | string;
+    requestId?: number | string;
 
-    trainerId?: number | null;
+    trainerId?: number | string | null;
 
     technology: string;
     startDate: string;

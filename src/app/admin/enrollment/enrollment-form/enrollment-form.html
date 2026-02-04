@@ -5,9 +5,10 @@
                 <h1>{{ enrollmentId() ? '✏️ Edit Enrollment' : '➕ Create New Enrollment' }}</h1>
                 <p class="subtitle">
                     @if (form.get('requestId')?.value) {
-                        Converting Training Request #{{ form.get('requestId')?.value }} to Enrollment
+                    Converting Training Request #{{ form.get('requestId')?.value }} to Enrollment
                     } @else {
-                        {{ enrollmentId() ? 'Update enrollment details below' : 'Fill in the details to create a new enrollment' }}
+                    {{ enrollmentId() ? 'Update enrollment details below' : 'Fill in the details to create a new
+                    enrollment' }}
                     }
                 </p>
             </div>
@@ -51,7 +52,7 @@
                         [class.invalid]="form.get('trainerId')?.invalid && form.get('trainerId')?.touched">
                         <option [ngValue]="null">Not Assigned</option>
                         @for (t of trainers(); track t.id) {
-                        <option [ngValue]="t.id">{{ t.name }}</option>
+                        <option [ngValue]="t.id">{{ t.name }} - ${{ t.calculatedFee }}</option>
                         }
                     </select>
                     @if (form.get('trainerId')?.invalid && form.get('trainerId')?.touched) {
@@ -126,20 +127,7 @@
                     }
                 </div>
 
-                <!-- Status -->
-                <div class="form-field">
-                    <label for="status" class="field-label">
-                        <span class="label-icon">📊</span>
-                        Status
-                        <span class="required">*</span>
-                    </label>
-                    <select id="status" formControlName="status" class="field-input">
-                        <option value="REQUESTED">📋 Requested</option>
-                        <option value="APPROVED">✅ Approved</option>
-                        <option value="ONGOING">🚀 Ongoing</option>
-                        <option value="COMPLETED">🎉 Completed</option>
-                    </select>
-                </div>
+
             </div>
 
             <!-- Form Actions -->

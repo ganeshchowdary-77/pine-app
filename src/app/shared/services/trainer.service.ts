@@ -33,7 +33,7 @@ export class TrainerService {
     /**
      * Get trainer by ID
      */
-    getById(id: number): Observable<Trainer> {
+    getById(id: number | string): Observable<Trainer> {
         return this.http.get<Trainer>(`${this.apiUrl}/${id}`);
     }
 
@@ -47,14 +47,14 @@ export class TrainerService {
     /**
      * Update existing trainer
      */
-    update(id: number, trainer: Partial<Trainer>): Observable<Trainer> {
+    update(id: number | string, trainer: Partial<Trainer>): Observable<Trainer> {
         return this.http.put<Trainer>(`${this.apiUrl}/${id}`, trainer);
     }
 
     /**
      * Delete trainer
      */
-    delete(id: number): Observable<void> {
+    delete(id: number | string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 

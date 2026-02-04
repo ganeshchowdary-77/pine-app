@@ -23,7 +23,7 @@ export class PoDetailsComponent implements OnInit {
   isLoading = signal(false);
 
   // Map for quick lookup of training details
-  private enrollmentMap = new Map<number, Enrollment>();
+  private enrollmentMap = new Map<number | string, Enrollment>();
 
   ngOnInit() {
     this.loadData();
@@ -46,7 +46,7 @@ export class PoDetailsComponent implements OnInit {
 
         // Get all trainer POs and filter
         return this.poService.getTrainerPOs().pipe(
-          map(pos => pos.filter(po => po.enrollmentId != null && this.enrollmentMap.has(po.enrollmentId)))
+          map(pos => pos.filter(po => po.enrollmentId != null && this.enrollmentMap.has(po.enrollmentId as string | number)))
         );
       })
     ).subscribe({
@@ -61,7 +61,7 @@ export class PoDetailsComponent implements OnInit {
     });
   }
 
-  getTrainingDetails(enrollmentId: number): string {
+  getTrainingDetails(enrollmentId: number | string): string {
     const enrollment = this.enrollmentMap.get(enrollmentId);
     return enrollment ? `${enrollment.technology} (${enrollment.startDate})` : 'Unknown Training';
   }

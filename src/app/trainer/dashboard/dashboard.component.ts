@@ -54,7 +54,7 @@ export class TrainerDashboardComponent implements OnInit {
     }
   }
 
-  private loadDashboardData(trainerId: number) {
+  private loadDashboardData(trainerId: number | string) {
     this.isLoading.set(true);
     this.dashboardService.getDashboardData(trainerId).subscribe({
       next: (data) => {

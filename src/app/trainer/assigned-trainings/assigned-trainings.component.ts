@@ -19,7 +19,7 @@ export class AssignedTrainingsComponent implements OnInit {
   private companyService = inject(CompanyService);
 
   trainings = signal<Enrollment[]>([]);
-  companyMap = new Map<number, Company>();
+  companyMap = new Map<number | string, Company>();
   isLoading = signal(false);
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class AssignedTrainingsComponent implements OnInit {
     });
   }
 
-  getCompanyName(companyId: number): string {
+  getCompanyName(companyId: number | string): string {
     const company = this.companyMap.get(companyId);
     return company ? company.name : 'Unknown Company';
   }
