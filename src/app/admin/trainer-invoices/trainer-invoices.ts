@@ -58,15 +58,15 @@ export class TrainerInvoicesComponent implements OnInit {
     if (this.searchQuery()) {
       const query = this.searchQuery().toLowerCase();
       filtered = filtered.filter(i =>
-        i.id?.toString().includes(query) ||
-        i.poId?.toString().includes(query)
+        i.id?.toLowerCase().includes(query) ||
+        i.poId?.toLowerCase().includes(query)
       );
     }
 
     return filtered;
   }
 
-  approveInvoice(id: number | string) {
+  approveInvoice(id: string) {
     this.invoiceService.approve(id).subscribe({
       next: () => {
         this.successMessage.set('Invoice approved successfully!');
@@ -80,7 +80,7 @@ export class TrainerInvoicesComponent implements OnInit {
     });
   }
 
-  markAsPaid(id: number | string) {
+  markAsPaid(id: string) {
     this.invoiceService.updateStatus(id, 'PAID').subscribe({
       next: () => {
         this.successMessage.set('Invoice marked as paid!');
@@ -94,7 +94,7 @@ export class TrainerInvoicesComponent implements OnInit {
     });
   }
 
-  rejectInvoice(id: number | string) {
+  rejectInvoice(id: string) {
     if (confirm('Are you sure you want to reject this invoice?')) {
       this.invoiceService.delete(id).subscribe({
         next: () => {

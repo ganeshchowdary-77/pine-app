@@ -55,11 +55,11 @@ export class InvoiceUploadComponent implements OnInit {
 
   private statusFilterListener() {
     this.invoiceForm.get('poId')?.valueChanges.subscribe(val => {
-      this.checkDateValidation(Number(val));
+      this.checkDateValidation(val);
     });
   }
 
-  private checkDateValidation(poId: number) {
+  private checkDateValidation(poId: string | null | undefined) {
     if (!poId) {
       this.validationError.set(null);
       return;
@@ -99,13 +99,13 @@ export class InvoiceUploadComponent implements OnInit {
     }).pipe(
       map(({ enrollments, pos }) => {
         // IDs in db.json can be strings, so we convert to numbers for mapping
-        const enrollmentMap = new Map(enrollments.map(e => [Number(e.id), e]));
+        const enrollmentMap = new Map(enrollments.map(e => [String(e.id), e]));
         return pos
-          .filter(po => po.enrollmentId != null && enrollmentMap.has(Number(po.enrollmentId)))
+          .filter(po => po.enrollmentId != null && enrollmentMap.has(String(po.enrollmentId)))
           .map(po => ({
             ...po,
-            startDate: enrollmentMap.get(Number(po.enrollmentId!))?.startDate,
-            endDate: enrollmentMap.get(Number(po.enrollmentId!))?.endDate
+            startDate: enrollmentMap.get(String(po.enrollmentId!))?.startDate,
+            endDate: enrollmentMap.get(String(po.enrollmentId!))?.endDate
           }));
       })
     ).subscribe({
@@ -122,7 +122,7 @@ export class InvoiceUploadComponent implements OnInit {
     // cast form values
     const formVal = this.invoiceForm.value;
     const invoiceData = {
-      poId: Number(formVal.poId),
+      poId: String(formVal.poId),
       amount: Number(formVal.amount),
       tax: Number(formVal.tax) || 0,
       invoiceDate: formVal.invoiceDate!,

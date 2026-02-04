@@ -9,9 +9,9 @@
  */
 
 export interface User {
-    id: number | string;
+    id: string;
     email: string;
     password: string;
     role: 'admin' | 'trainer';
-    trainerId?: number | string; // Links to Trainer.id if role is 'trainer'
+    trainerId?: string; // Links to Trainer.id if role is 'trainer'
 }

@@ -134,7 +134,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onPoSelected() {
-    const selectedPo = this.purchaseOrders.find(p => p.id === Number(this.selectedPoId));
+    const selectedPo = this.purchaseOrders.find(p => p.id === this.selectedPoId);
     if (selectedPo) {
       this.newAmount = selectedPo.totalAmount;
     } else {
@@ -164,7 +164,7 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     const newInvoice: Partial<Invoice> = {
-      poId: Number(this.selectedPoId),
+      poId: String(this.selectedPoId),
       issuedBy: 'ADMIN',
       amount: this.newAmount,
       invoiceDate: new Date().toISOString(),
@@ -185,7 +185,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  deleteInvoice(id: number | string) {
+  deleteInvoice(id: string) {
     if (!confirm('Delete this invoice?')) return;
     this.invoiceService.delete(id).subscribe({
       next: () => {
@@ -196,7 +196,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  approveInvoice(id: number | string) {
+  approveInvoice(id: string) {
     this.invoiceService.approve(id).subscribe({
       next: () => {
         this.invoicesSuccess = 'Invoice approved!';

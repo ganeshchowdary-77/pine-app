@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, from } from 'rxjs';
 import { switchMap, map, catchError, toArray, concatMap } from 'rxjs/operators';
 import { Enrollment } from '../models';
+import { generateId } from '../utils/id-generator.util';
 
 /**
  * ENROLLMENT SERVICE
@@ -36,7 +37,7 @@ export class EnrollmentService {
     /**
      * Get enrollment by ID
      */
-    getById(id: number | string): Observable<Enrollment> {
+    getById(id: string): Observable<Enrollment> {
         return this.http.get<Enrollment>(`${this.apiUrl}/${id}`);
     }
 
@@ -45,14 +46,15 @@ export class EnrollmentService {
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
     create(enrollment: Partial<Enrollment>): Observable<Enrollment> {
-        return this.http.post<Enrollment>(this.apiUrl, enrollment);
+        const newEnrollment = { ...enrollment, id: generateId() };
+        return this.http.post<Enrollment>(this.apiUrl, newEnrollment);
     }
 
     /**
      * Update existing enrollment
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    update(id: number | string, enrollment: Partial<Enrollment>): Observable<Enrollment> {
+    update(id: string, enrollment: Partial<Enrollment>): Observable<Enrollment> {
         return this.http.patch<Enrollment>(`${this.apiUrl}/${id}`, enrollment);
     }
 
@@ -60,7 +62,7 @@ export class EnrollmentService {
      * Delete enrollment
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    delete(id: number | string): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
@@ -74,7 +76,7 @@ export class EnrollmentService {
     /**
      * Get enrollments for a specific company
      */
-    getByCompanyId(companyId: number | string): Observable<Enrollment[]> {
+    getByCompanyId(companyId: string): Observable<Enrollment[]> {
         return this.http.get<Enrollment[]>(`${this.apiUrl}?companyId=${companyId}`);
     }
 
@@ -82,7 +84,7 @@ export class EnrollmentService {
      * Get enrollments for a specific trainer
      * Used by: Trainer teams to see their assigned trainings
      */
-    getByTrainerId(trainerId: number | string): Observable<Enrollment[]> {
+    getByTrainerId(trainerId: string): Observable<Enrollment[]> {
         return this.http.get<Enrollment[]>(`${this.apiUrl}?trainerId=${trainerId}`);
     }
 
@@ -90,7 +92,7 @@ export class EnrollmentService {
      * Update enrollment status
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    updateStatus(id: number, status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED'): Observable<Enrollment> {
+    updateStatus(id: string, status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED'): Observable<Enrollment> {
         return this.http.patch<Enrollment>(`${this.apiUrl}/${id}`, { status });
     }
 

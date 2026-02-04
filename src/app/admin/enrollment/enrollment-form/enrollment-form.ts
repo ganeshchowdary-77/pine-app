@@ -35,13 +35,13 @@ export class EnrollmentForm implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   form = this.fb.group({
-    companyId: [null as number | string | null, Validators.required],
-    trainerId: [null as number | string | null],
+    companyId: [null as string | null, Validators.required],
+    trainerId: [null as string | null],
     technology: ['', Validators.required],
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
     budget: [null as number | null, [Validators.required, Validators.min(0)]],
-    requestId: [null as number | string | null],
+    requestId: [null as string | null],
     status: ['REQUESTED' as string, Validators.required]
   });
 
@@ -53,9 +53,9 @@ export class EnrollmentForm implements OnInit {
   technologyValue = toSignal(this.form.get('technology')!.valueChanges, { initialValue: '' });
   startDateValue = toSignal(this.form.get('startDate')!.valueChanges, { initialValue: '' });
   endDateValue = toSignal(this.form.get('endDate')!.valueChanges, { initialValue: '' });
-  trainerIdValue = toSignal(this.form.get('trainerId')!.valueChanges, { initialValue: null as number | string | null });
+  trainerIdValue = toSignal(this.form.get('trainerId')!.valueChanges, { initialValue: null as string | null });
 
-  enrollmentId = signal<number | string | null>(null);
+  enrollmentId = signal<string | null>(null);
 
   // Trainer availability & technology filter with fee calculation
   trainers = computed(() => {
@@ -102,7 +102,7 @@ export class EnrollmentForm implements OnInit {
     const requestId = this.route.snapshot.queryParamMap.get('requestId');
 
     if (id) {
-      this.enrollmentId.set(Number(id));
+      this.enrollmentId.set(id);
       this.loadEnrollment(this.enrollmentId()!);
     } else if (requestId) {
       this.loadFromRequest(requestId);
@@ -149,7 +149,7 @@ export class EnrollmentForm implements OnInit {
   }
 
   // Load enrollment for editing
-  loadEnrollment(id: number | string) {
+  loadEnrollment(id: string) {
     console.log('Loading enrollment:', id);
     this.enrollmentService.getById(id).subscribe({
       next: data => {
@@ -229,11 +229,8 @@ export class EnrollmentForm implements OnInit {
     const formValue = this.form.getRawValue();
 
     const isNew = !this.enrollmentId();
-    const id = this.enrollmentId() || Math.random().toString(36).substring(2, 9);
 
     const enrollmentData: any = {
-      id: id,
-      enrollmentId: id,
       companyId: formValue.companyId,
       trainerId: formValue.trainerId ?? null,
       budget: formValue.budget != null ? Number(formValue.budget) : null,
@@ -261,7 +258,6 @@ export class EnrollmentForm implements OnInit {
 
             // 1. Create Client PO
             const clientPO: Partial<PurchaseOrder> = {
-              id: Math.random().toString(36).substring(2, 9),
               enrollmentId: enrollmentId,
               type: 'CLIENT',
               totalAmount: enrollmentData.budget || 0,
@@ -276,7 +272,6 @@ export class EnrollmentForm implements OnInit {
               if (trainer) {
                 const { days, months } = this.calculateDuration(enrollmentData.startDate, enrollmentData.endDate);
                 const trainerPO: Partial<PurchaseOrder> = {
-                  id: Math.random().toString(36).substring(2, 9),
                   enrollmentId: enrollmentId,
                   type: 'TRAINER',
                   paymentType: trainer.paymentType,

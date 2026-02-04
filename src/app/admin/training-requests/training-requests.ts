@@ -73,7 +73,7 @@ export class TrainingRequestsComponent implements OnInit {
     return start <= today && end >= today;
   }
 
-  updateStatus(id: number | string, newStatus: string) {
+  updateStatus(id: string, newStatus: string) {
     const request = this.requests().find(r => r.id === id);
     if (!request) return;
 
@@ -90,13 +90,13 @@ export class TrainingRequestsComponent implements OnInit {
     });
   }
 
-  navigateToEnrollment(requestId: number | string) {
+  navigateToEnrollment(requestId: string) {
     this.router.navigate(['/admin/enrollments/new'], {
       queryParams: { requestId: requestId }
     });
   }
 
-  deleteRequest(id: number | string) {
+  deleteRequest(id: string) {
     if (!confirm('Are you sure you want to delete this request?')) return;
 
     this.requestService.delete(id).subscribe({

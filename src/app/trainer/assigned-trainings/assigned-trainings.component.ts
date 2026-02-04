@@ -20,20 +20,20 @@ export class AssignedTrainingsComponent implements OnInit {
   private poService = inject(PurchaseOrderService);
 
   trainings = signal<Enrollment[]>([]);
-  companyMap = signal<Map<number, Company>>(new Map());
-  poMap = signal<Map<number, PurchaseOrder>>(new Map());
+  companyMap = signal<Map<string, Company>>(new Map());
+  poMap = signal<Map<string, PurchaseOrder>>(new Map());
   isLoading = signal(false);
 
   // Computed signals for categorization
-  ongoingTrainings = computed(() => 
+  ongoingTrainings = computed(() =>
     this.trainings().filter(t => t.status === 'ONGOING')
   );
 
-  newRequests = computed(() => 
+  newRequests = computed(() =>
     this.trainings().filter(t => t.status === 'REQUESTED')
   );
 
-  historyTrainings = computed(() => 
+  historyTrainings = computed(() =>
     this.trainings().filter(t => t.status === 'COMPLETED' || t.status === 'REJECTED')
   );
 
@@ -54,14 +54,14 @@ export class AssignedTrainingsComponent implements OnInit {
     }).subscribe({
       next: ({ enrollments, companies, pos }) => {
         // Create company map
-        const map = new Map<number, Company>();
-        companies.forEach(c => map.set(Number(c.id), c));
+        const map = new Map<string, Company>();
+        companies.forEach(c => map.set(String(c.id), c));
         this.companyMap.set(map);
 
         // Create PO map
-        const poMap = new Map<number, PurchaseOrder>();
+        const poMap = new Map<string, PurchaseOrder>();
         pos.forEach(p => {
-          if (p.enrollmentId) poMap.set(Number(p.enrollmentId), p);
+          if (p.enrollmentId) poMap.set(String(p.enrollmentId), p);
         });
         this.poMap.set(poMap);
 
@@ -75,7 +75,7 @@ export class AssignedTrainingsComponent implements OnInit {
     });
   }
 
-  getCompanyName(companyId: number): string {
+  getCompanyName(companyId: string): string {
     const company = this.companyMap().get(companyId);
     return company ? company.name : 'Unknown Company';
   }
@@ -88,24 +88,24 @@ export class AssignedTrainingsComponent implements OnInit {
     return `${diffDays} Days`;
   }
 
-  getCost(enrollmentId: number): number | null {
+  getCost(enrollmentId: string): number | null {
     const po = this.poMap().get(enrollmentId);
     return po ? po.totalAmount : null;
   }
 
-  acceptAssignment(id: number) {
+  acceptAssignment(id: string) {
     this.updateStatus(id, 'ONGOING');
   }
 
-  rejectAssignment(id: number) {
+  rejectAssignment(id: string) {
     this.updateStatus(id, 'REJECTED');
   }
 
-  private updateStatus(id: number, status: 'ONGOING' | 'REJECTED') {
+  private updateStatus(id: string, status: 'ONGOING' | 'REJECTED') {
     this.isLoading.set(true);
     this.enrollmentService.updateStatus(id, status).subscribe({
       next: (updatedEnrollment) => {
-        this.trainings.update(current => 
+        this.trainings.update(current =>
           current.map(t => t.id === id ? updatedEnrollment : t)
         );
         this.isLoading.set(false);

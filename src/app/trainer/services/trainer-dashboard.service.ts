@@ -15,7 +15,7 @@ export class TrainerDashboardService {
    * Get comprehensive dashboard data for a trainer
    * Uses existing TrainerService methods
    */
-  getDashboardData(trainerId: number | string): Observable<{
+  getDashboardData(trainerId: string): Observable<{
     trainer: any;
     stats: {
       totalTrainings: number;
@@ -99,7 +99,7 @@ export class TrainerDashboardService {
    * Get trainer's assigned trainings with enhanced data
    * Uses existing EnrollmentService methods
    */
-  getAssignedTrainings(trainerId: number | string): Observable<{
+  getAssignedTrainings(trainerId: string): Observable<{
     trainings: any[];
     summary: {
       total: number;
@@ -135,7 +135,7 @@ export class TrainerDashboardService {
    * Get trainer's PO details with enhanced information
    * Uses existing PurchaseOrderService methods
    */
-  getTrainerPODetails(trainerId: number | string): Observable<{
+  getTrainerPODetails(trainerId: string): Observable<{
     purchaseOrders: any[];
     summary: {
       total: number;
@@ -177,7 +177,7 @@ export class TrainerDashboardService {
    * Get trainer's payment status with comprehensive data
    * Uses existing InvoiceService methods
    */
-  getPaymentStatus(trainerId: number | string): Observable<{
+  getPaymentStatus(trainerId: string): Observable<{
     invoices: any[];
     summary: {
       totalPaid: number;
@@ -231,7 +231,7 @@ export class TrainerDashboardService {
    * Get trainer's invoice history with filtering options
    * Uses existing InvoiceService methods
    */
-  getInvoiceHistory(trainerId: number | string, filters?: {
+  getInvoiceHistory(trainerId: string, filters?: {
     status?: string;
     dateFrom?: string;
     dateTo?: string;
@@ -293,7 +293,7 @@ export class TrainerDashboardService {
    * Get trainer profile data
    * Uses existing TrainerService methods
    */
-  getTrainerProfile(trainerId: number | string): Observable<{
+  getTrainerProfile(trainerId: string): Observable<{
     trainer: any;
     stats: {
       totalTrainings: number;
