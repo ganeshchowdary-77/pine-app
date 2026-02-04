@@ -65,4 +65,20 @@ export class PoDetailsComponent implements OnInit {
     const enrollment = this.enrollmentMap.get(enrollmentId);
     return enrollment ? `${enrollment.technology} (${enrollment.startDate})` : 'Unknown Training';
   }
+
+  acceptPO(id: number) {
+    this.isLoading.set(true);
+    this.poService.updateStatus(id, 'ACCEPTED').subscribe({
+      next: (updatedPO) => {
+        this.purchaseOrders.update(current => 
+          current.map(po => po.id === id ? updatedPO : po)
+        );
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error accepting PO', err);
+        this.isLoading.set(false);
+      }
+    });
+  }
 }

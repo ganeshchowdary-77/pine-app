@@ -26,6 +26,13 @@
       "password": "123456",
       "role": "trainer",
       "trainerId": "0373"
+    },
+    {
+      "id": "sharat-user",
+      "email": "sharat@pine.com",
+      "password": "password",
+      "role": "trainer",
+      "trainerId": 400
     }
   ],
   "trainingRequests": [
@@ -156,6 +163,18 @@
       ],
       "paymentType": "daily",
       "rate": 20000
+    },
+    {
+      "id": 400,
+      "name": "Sharat",
+      "email": "sharat@pine.com",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "Microservices"
+      ],
+      "paymentType": "daily",
+      "rate": 1500
     }
   ],
   "enrollments": [
@@ -168,7 +187,7 @@
       "startDate": "2026-03-01",
       "endDate": "2026-03-05",
       "budget": 25000,
-      "status": "REQUESTED"
+      "status": "ONGOING"
     },
     {
       "id": "2",
@@ -179,7 +198,7 @@
       "startDate": "2026-03-10",
       "endDate": "2026-03-15",
       "budget": 40000,
-      "status": "REQUESTED"
+      "status": "REJECTED"
     },
     {
       "id": "3",
@@ -234,6 +253,52 @@
       "startDate": "2026-02-03",
       "endDate": "2026-04-03",
       "requestId": null,
+      "status": "REQUESTED"
+    },
+    {
+      "id": 401,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Basics",
+      "startDate": "2025-11-01",
+      "endDate": "2025-11-05",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 402,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Spring Boot",
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-10",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 403,
+      "companyId": 3,
+      "trainerId": 400,
+      "technology": "Hibernate",
+      "startDate": "2026-01-05",
+      "endDate": "2026-01-08",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 404,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Advanced",
+      "startDate": "2026-01-20",
+      "endDate": "2026-01-25",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 405,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Microservices Architecture",
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-10",
+      "budget": 50000,
       "status": "REQUESTED"
     }
   ],
@@ -299,6 +364,26 @@
       "totalAmount": 4800,
       "paymentTerms": "Upon completion",
       "status": "ACCEPTED"
+    },
+    {
+      "id": "8",
+      "enrollmentId": "4bc7",
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 15000,
+      "paymentTerms": "Monthly",
+      "status": "GENERATED"
+    },
+    {
+      "id": "9",
+      "enrollmentId": 405,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 1500,
+      "totalAmount": 15000,
+      "paymentTerms": "Net 15",
+      "status": "GENERATED"
     }
   ],
   "invoices": [
