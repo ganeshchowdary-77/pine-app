@@ -56,33 +56,6 @@
       "participants": 15,
       "message": "DO GOOD",
       "status": "APPROVED"
-    },
-    {
-      "id": "2a7e",
-      "companyName": "Guvi Technologies",
-      "contactPerson": "Surya",
-      "email": "surya@gmail.com",
-      "phone": "5555555555",
-      "technology": "AI, ML",
-      "startDate": "2026-03-02",
-      "endDate": "2026-05-01",
-      "participants": 20,
-      "message": "DO IT",
-      "status": "CONTACTED"
-    },
-    {
-      "id": "45c2",
-      "companyName": "Hartford",
-      "contactPerson": "Sri Krishna Chaitanya Talasila",
-      "email": "talasilaskc@gmail.com",
-      "phone": "08919100257",
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "participants": 30,
-      "budget": 500000,
-      "message": "DO IT",
-      "status": "APPROVED"
     }
   ],
   "companies": [
@@ -324,11 +297,23 @@
       "status": "REQUESTED"
     },
     {
-      "id": "b15ibsc",
-      "enrollmentId": "b15ibsc",
+      "id": "750isll",
+      "enrollmentId": "750isll",
       "companyId": "f2b6",
-      "trainerId": "3",
-      "budget": 1000000,
+      "trainerId": null,
+      "budget": 500000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "trc4o66",
+      "enrollmentId": "trc4o66",
+      "companyId": "f2b6",
+      "trainerId": "af42",
+      "budget": 30000,
       "technology": "AI",
       "startDate": "2026-02-16",
       "endDate": "2026-04-06",
@@ -471,7 +456,7 @@
     },
     {
       "id": "pocudn5",
-      "enrollmentId": "b15ibsc",
+      "enrollmentId": null,
       "type": "CLIENT",
       "totalAmount": 1000000,
       "status": "GENERATED",
@@ -479,7 +464,7 @@
     },
     {
       "id": "y3bvbwp",
-      "enrollmentId": "b15ibsc",
+      "enrollmentId": null,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 20000,

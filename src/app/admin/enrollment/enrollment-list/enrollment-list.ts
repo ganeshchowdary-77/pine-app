@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { catchError, forkJoin, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, of, switchMap, BehaviorSubject } from 'rxjs';
 import { EnrollmentService } from '../../../shared/services/enrollment.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,8 +18,11 @@ export class EnrollmentList {
   private enrollmentService = inject(EnrollmentService);
   private http = inject(HttpClient);
   private router = inject(Router);
+  private refreshTrigger = new BehaviorSubject<void>(void 0);
 
-  data = toSignal(this.loadData(), {
+  data = toSignal(this.refreshTrigger.pipe(
+    switchMap(() => this.loadData())
+  ), {
     initialValue: { enrollments: [], pos: [], companies: [], trainers: [] }
   });
 
@@ -45,13 +48,13 @@ export class EnrollmentList {
 
   // Helper methods to get names
   getCompanyName(companyId: number | string): string {
-    const company = this.companies().find(c => c.id == companyId);
+    const company = this.companies().find((c: any) => c.id == companyId);
     return company?.name || `Company #${companyId}`;
   }
 
   getTrainerName(trainerId: number | string | null | undefined): string {
     if (!trainerId) return 'Not Assigned';
-    const trainer = this.trainers().find(t => t.id == trainerId);
+    const trainer = this.trainers().find((t: any) => t.id == trainerId);
     return trainer?.name || `Trainer #${trainerId}`;
   }
 
@@ -64,7 +67,7 @@ export class EnrollmentList {
       if (e.status !== 'REQUESTED') return false;
 
       const trainerPO = pos.find(
-        p => p.enrollmentId == e.id && p.type === 'TRAINER'
+        (p: any) => p.enrollmentId == e.id && p.type === 'TRAINER'
       );
 
       return trainerPO && trainerPO.status !== 'ACCEPTED';
@@ -89,10 +92,12 @@ export class EnrollmentList {
 
   deleteEnrollment(id: number | string) {
     if (confirm('Are you sure you want to delete this enrollment?')) {
-      this.enrollmentService.delete(id).subscribe(() => {
-        this.data = toSignal(this.loadData(), {
-          initialValue: { enrollments: [], pos: [], companies: [], trainers: [] }
-        });
+      this.enrollmentService.delete(id).subscribe({
+        next: () => {
+          console.log('[LIST] Enrollment deleted successfully');
+          this.refreshTrigger.next();
+        },
+        error: err => console.error('[LIST] Delete error:', err)
       });
     }
   }
