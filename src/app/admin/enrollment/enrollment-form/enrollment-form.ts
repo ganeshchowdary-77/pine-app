@@ -10,6 +10,7 @@ import { PurchaseOrderService } from '../../../shared/services/purchase-order.se
 import { CompanyService } from '../../../shared/services/company.service';
 import { TrainerService } from '../../../shared/services/trainer.service';
 import { TrainingRequestService } from '../../../shared/services/training-request.service';
+import { MailService } from '../../../shared/services/mail.service';
 import { Enrollment, PurchaseOrder } from '../../../shared/models';
 
 @Component({
@@ -26,6 +27,7 @@ export class EnrollmentForm implements OnInit {
   private poService = inject(PurchaseOrderService);
   private companyService = inject(CompanyService);
   private trainerService = inject(TrainerService);
+  private mailService = inject(MailService);
   private requestService = inject(TrainingRequestService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -288,8 +290,41 @@ export class EnrollmentForm implements OnInit {
             }
 
             if (poRequests.length > 0) {
+              console.log('Sending PO requests...', poRequests.length);
               forkJoin(poRequests).subscribe({
-                next: () => this.router.navigate(['/admin/enrollments']),
+                next: () => {
+                  console.log('POs created successfully, checking for email notification...');
+                  // 3. Send Email Notification
+                  if (enrollmentData.trainerId) {
+                    const trainer = this.allTrainers().find((t: any) => String(t.id) === String(enrollmentData.trainerId));
+                    const company = this.companies().find((c: any) => String(c.id) === String(enrollmentData.companyId));
+
+                    console.log('[FORM] Email Lookup Result:', {
+                      foundTrainer: !!trainer,
+                      foundCompany: !!company,
+                      trainerId: enrollmentData.trainerId,
+                      companyId: enrollmentData.companyId
+                    });
+
+                    if (trainer && company) {
+                      console.log('[FORM] Calling MailService.sendTrainerEnrollmentNotification...');
+                      this.mailService.sendTrainerEnrollmentNotification(trainer, enrollmentData, company.name);
+                    } else {
+                      console.warn('[FORM] Could not send email: Trainer or Company not found in local lists.');
+                    }
+                  }
+
+                  // 4. Cleanup Training Request if exists
+                  if (enrollmentData.requestId) {
+                    console.log('[FORM] Cleaning up training request:', enrollmentData.requestId);
+                    this.requestService.delete(enrollmentData.requestId).subscribe({
+                      next: () => console.log('[FORM] Request deleted successfully'),
+                      error: err => console.warn('[FORM] Cleanup error:', err)
+                    });
+                  }
+
+                  this.router.navigate(['/admin/enrollments']);
+                },
                 error: (err) => console.error('Error creating POs:', err)
               });
             } else {

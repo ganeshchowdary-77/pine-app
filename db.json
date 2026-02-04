@@ -33,6 +33,20 @@
       "password": "123456",
       "role": "trainer",
       "trainerId": "6aba"
+    },
+    {
+      "id": "8648",
+      "email": "22071a05b6@vnrvjiet.in",
+      "password": "123456",
+      "role": "trainer",
+      "trainerId": "af42"
+    },
+    {
+      "id": "613a",
+      "email": "anandch119@gmail.com",
+      "password": "123456",
+      "role": "trainer",
+      "trainerId": "68e0"
     }
   ],
   "trainingRequests": [
@@ -47,33 +61,6 @@
       "endDate": "2026-05-01",
       "participants": 15,
       "message": "DO GOOD",
-      "status": "APPROVED"
-    },
-    {
-      "id": "2a7e",
-      "companyName": "Guvi Technologies",
-      "contactPerson": "Surya",
-      "email": "surya@gmail.com",
-      "phone": "5555555555",
-      "technology": "AI, ML",
-      "startDate": "2026-03-02",
-      "endDate": "2026-05-01",
-      "participants": 20,
-      "message": "DO IT",
-      "status": "CONTACTED"
-    },
-    {
-      "id": "45c2",
-      "companyName": "Hartford",
-      "contactPerson": "Sri Krishna Chaitanya Talasila",
-      "email": "talasilaskc@gmail.com",
-      "phone": "08919100257",
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "participants": 30,
-      "budget": 500000,
-      "message": "DO IT",
       "status": "APPROVED"
     }
   ],
@@ -155,6 +142,32 @@
       "email": "dhurandhar@gmail.com",
       "technologies": [
         "Dot Net"
+      ],
+      "paymentType": "monthly",
+      "rate": 12000
+    },
+    {
+      "id": "af42",
+      "name": "Chaitu",
+      "email": "22071a05b6@vnrvjiet.in",
+      "technologies": [
+        "Java",
+        "Angular",
+        "AI",
+        "ML"
+      ],
+      "paymentType": "monthly",
+      "rate": 10000
+    },
+    {
+      "id": "68e0",
+      "name": "Anand",
+      "email": "anandch119@gmail.com",
+      "technologies": [
+        "Java",
+        "Angular",
+        "AI",
+        "ML"
       ],
       "paymentType": "monthly",
       "rate": 12000
@@ -306,11 +319,23 @@
       "status": "REQUESTED"
     },
     {
-      "id": "b15ibsc",
-      "enrollmentId": "b15ibsc",
+      "id": "750isll",
+      "enrollmentId": "750isll",
       "companyId": "f2b6",
-      "trainerId": "3",
-      "budget": 1000000,
+      "trainerId": null,
+      "budget": 500000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "trc4o66",
+      "enrollmentId": "trc4o66",
+      "companyId": "f2b6",
+      "trainerId": "af42",
+      "budget": 30000,
       "technology": "AI",
       "startDate": "2026-02-16",
       "endDate": "2026-04-06",
@@ -401,7 +426,7 @@
     },
     {
       "id": "pocudn5",
-      "enrollmentId": "b15ibsc",
+      "enrollmentId": null,
       "type": "CLIENT",
       "totalAmount": 1000000,
       "status": "GENERATED",
@@ -409,11 +434,235 @@
     },
     {
       "id": "y3bvbwp",
-      "enrollmentId": "b15ibsc",
+      "enrollmentId": null,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 20000,
       "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "gidimcu",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "nd8l4ch",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "gw1tipx",
+      "enrollmentId": "750isll",
+      "type": "CLIENT",
+      "totalAmount": 500000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "8jqxirm",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "39jg59n",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "fm8e6so",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "geb4yh0",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "qxly27i",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "sqewi10",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "hv421py",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "77qtfye",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "c4e2de1",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "1tn70v9",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "fylfjma",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "r34vvsb",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 12000,
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "xf1v94y",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "2q2v4yi",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 12000,
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "iv773bq",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "czjfx9l",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 12000,
+      "totalAmount": 36000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "zuf8bnh",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "pw80kdp",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "d7nh9ix",
+      "enrollmentId": null,
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "1dd8f7c",
+      "enrollmentId": null,
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
+    },
+    {
+      "id": "iornol6",
+      "enrollmentId": "trc4o66",
+      "type": "CLIENT",
+      "totalAmount": 30000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "r8mee84",
+      "enrollmentId": "trc4o66",
+      "type": "TRAINER",
+      "paymentType": "monthly",
+      "rate": 10000,
+      "totalAmount": 30000,
       "status": "GENERATED",
       "paymentTerms": "Upon completion"
     }
