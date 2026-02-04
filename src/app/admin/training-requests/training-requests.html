@@ -1,29 +1,25 @@
 <div class="training-requests-container">
   <h2 class="page-title">📬 Training Requests from Clients</h2>
-  
+
   @if (error()) {
-    <div class="alert alert-error">
-      {{ error() }}
-      <button class="retry-btn" (click)="loadRequests()">Retry</button>
-    </div>
+  <div class="alert alert-error">
+    {{ error() }}
+    <button class="retry-btn" (click)="loadRequests()">Retry</button>
+  </div>
   }
-  
+
   @if (successMessage()) {
-    <div class="alert alert-success">
-      {{ successMessage() }}
-    </div>
+  <div class="alert alert-success">
+    {{ successMessage() }}
+  </div>
   }
-  
+
   <div class="filter-section">
-    <input 
-      type="text" 
-      class="filter-input" 
-      #searchInput
-      placeholder="Search by company or technology..."
-      [value]="filterQuery()"
-      (input)="filterQuery.set(searchInput.value)">
-    
-    <select class="filter-select" title="Filter by status" #statusSelect [value]="selectedStatus()" (change)="selectedStatus.set(statusSelect.value)">
+    <input type="text" class="filter-input" #searchInput placeholder="Search by company or technology..."
+      [value]="filterQuery()" (input)="filterQuery.set(searchInput.value)">
+
+    <select class="filter-select" title="Filter by status" #statusSelect [value]="selectedStatus()"
+      (change)="selectedStatus.set(statusSelect.value)">
       <option value="">All Status</option>
       <option value="NEW">NEW</option>
       <option value="CONTACTED">CONTACTED</option>
@@ -31,67 +27,68 @@
       <option value="REJECTED">REJECTED</option>
     </select>
   </div>
-  
+
   @if (isLoading()) {
-    <div class="loading">Loading training requests...</div>
+  <div class="loading">Loading training requests...</div>
   } @else if (filteredRequests.length === 0) {
-    <div class="no-data">
-      <p>No training requests found</p>
-    </div>
+  <div class="no-data">
+    <p>No training requests found</p>
+  </div>
   } @else {
-    <div class="requests-grid">
-      @for (request of filteredRequests; track request.id) {
-        <div class="request-card" [class.started-training]="isStarted(request)">
-          <div class="card-header">
-            <div class="header-main">
-              <h3>{{ request.companyName }}</h3>
-              @if (isStarted(request)) {
-                <span class="started-badge pulse">● ONGOING</span>
-              }
-            </div>
-            <span [ngClass]="'status-badge ' + getStatusColor(request.status)">
-              {{ request.status }}
-            </span>
-          </div>
-          
-          <div class="card-body">
-            <p><strong>Technology:</strong> {{ request.technology }}</p>
-            <p><strong>Schedule:</strong> {{ request.startDate | date:'MMM d' }} - {{ request.endDate | date:'MMM d, yyyy' }}</p>
-            <p><strong>Duration:</strong> {{ request.duration }} days</p>
-            <p><strong>Budget:</strong> ₹{{ request.budget | number }}</p>
-            <p><strong>Contact:</strong> {{ request.contactPerson }}</p>
-            <p><strong>Email:</strong> {{ request.email }}</p>
-            <p><strong>Phone:</strong> {{ request.phone }}</p>
-            @if (request.message) {
-              <p><strong>Message:</strong> {{ request.message }}</p>
-            }
-          </div>
-          
-          <div class="card-actions">
-            @if (request.status === 'NEW') {
-              <button class="action-btn contact-btn" (click)="updateStatus(request.id, 'CONTACTED')">
-                📞 Mark as Contacted
-              </button>
-            }
-            @if (request.status === 'CONTACTED') {
-              <button class="action-btn approve-btn" (click)="updateStatus(request.id, 'APPROVED')">
-                ✓ Approve
-              </button>
-              <button class="action-btn reject-btn" (click)="updateStatus(request.id, 'REJECTED')">
-                ✗ Reject
-              </button>
-            }
-            @if (request.status === 'APPROVED') {
-              <button class="action-btn assign-btn" (click)="navigateToEnrollment(request.id)">
-                🤝 Assign Trainer
-              </button>
-            }
-            <button class="action-btn delete-btn" (click)="deleteRequest(request.id)" title="Delete Request">
-              🗑️
-            </button>
-          </div>
+  <div class="requests-grid">
+    @for (request of filteredRequests; track request.id) {
+    <div class="request-card" [class.started-training]="isStarted(request)">
+      <div class="card-header">
+        <div class="header-main">
+          <h3>{{ request.companyName }}</h3>
+          @if (isStarted(request)) {
+          <span class="started-badge pulse">● ONGOING</span>
+          }
         </div>
-      }
+        <span [ngClass]="'status-badge ' + getStatusColor(request.status)">
+          {{ request.status }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p><strong>Technology:</strong> {{ request.technology }}</p>
+        <p><strong>Schedule:</strong> {{ request.startDate | date:'MMM d' }} - {{ request.endDate | date:'MMM d, yyyy'
+          }}</p>
+        <p><strong>Duration:</strong> {{ request.duration }} days</p>
+        <p><strong>Budget:</strong> ₹{{ request.budget || 0 | number }}</p>
+        <p><strong>Contact:</strong> {{ request.contactPerson }}</p>
+        <p><strong>Email:</strong> {{ request.email }}</p>
+        <p><strong>Phone:</strong> {{ request.phone }}</p>
+        @if (request.message) {
+        <p><strong>Message:</strong> {{ request.message }}</p>
+        }
+      </div>
+
+      <div class="card-actions">
+        @if (request.status === 'NEW') {
+        <button class="action-btn contact-btn" (click)="updateStatus(request.id, 'CONTACTED')">
+          📞 Mark as Contacted
+        </button>
+        }
+        @if (request.status === 'CONTACTED') {
+        <button class="action-btn approve-btn" (click)="updateStatus(request.id, 'APPROVED')">
+          ✓ Approve
+        </button>
+        <button class="action-btn reject-btn" (click)="updateStatus(request.id, 'REJECTED')">
+          ✗ Reject
+        </button>
+        }
+        @if (request.status === 'APPROVED') {
+        <button class="action-btn assign-btn" (click)="navigateToEnrollment(request.id)">
+          🤝 Assign Trainer
+        </button>
+        }
+        <button class="action-btn delete-btn" (click)="deleteRequest(request.id)" title="Delete Request">
+          🗑️
+        </button>
+      </div>
     </div>
+    }
+  </div>
   }
 </div>

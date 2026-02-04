@@ -19,6 +19,8 @@
  * GENERATED → SENT → ACCEPTED → RECEIVED
  */
 export interface PurchaseOrder {
+    id: number | string;
+    enrollmentId?: number | string | null;                          // References Enrollment.id
     id: number;
     enrollmentId?: number | null;                          // References Enrollment.id
     trainerId?: number;                            // Direct link for trainer filtering

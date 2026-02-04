@@ -32,7 +32,7 @@ export class CompanyService {
     /**
      * Get company by ID
      */
-    getById(id: number): Observable<Company> {
+    getById(id: number | string): Observable<Company> {
         return this.http.get<Company>(`${this.apiUrl}/${id}`);
     }
 
@@ -46,14 +46,14 @@ export class CompanyService {
     /**
      * Update existing company
      */
-    update(id: number, company: Partial<Company>): Observable<Company> {
+    update(id: number | string, company: Partial<Company>): Observable<Company> {
         return this.http.put<Company>(`${this.apiUrl}/${id}`, company);
     }
 
     /**
      * Delete company
      */
-    delete(id: number): Observable<void> {
+    delete(id: number | string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 

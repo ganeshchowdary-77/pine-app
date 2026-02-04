@@ -40,7 +40,7 @@ export class InvoiceService {
     /**
      * Get invoice by ID
      */
-    getById(id: number): Observable<Invoice> {
+    getById(id: number | string): Observable<Invoice> {
         return this.http.get<Invoice>(`${this.apiUrl}/${id}`);
     }
 
@@ -56,7 +56,7 @@ export class InvoiceService {
      * Update existing invoice
      * Used by: Admin (Team 3) or Trainer (Team 5)
      */
-    update(id: number, invoice: Partial<Invoice>): Observable<Invoice> {
+    update(id: number | string, invoice: Partial<Invoice>): Observable<Invoice> {
         return this.http.put<Invoice>(`${this.apiUrl}/${id}`, invoice);
     }
 
@@ -64,7 +64,7 @@ export class InvoiceService {
      * Delete invoice
      * Used by: Admin (Team 3)
      */
-    delete(id: number): Observable<void> {
+    delete(id: number | string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
@@ -85,7 +85,7 @@ export class InvoiceService {
     /**
      * Get invoices for a specific Purchase Order
      */
-    getByPOId(poId: number): Observable<Invoice[]> {
+    getByPOId(poId: number | string): Observable<Invoice[]> {
         return this.http.get<Invoice[]>(`${this.apiUrl}?poId=${poId}`);
     }
 
@@ -93,7 +93,7 @@ export class InvoiceService {
      * Update invoice status
      * Used by: Admin - Invoice & Dashboard Owner (Team 3)
      */
-    updateStatus(id: number, status: 'PENDING' | 'APPROVED' | 'SENT' | 'PAID'): Observable<Invoice> {
+    updateStatus(id: number | string, status: 'PENDING' | 'APPROVED' | 'SENT' | 'PAID'): Observable<Invoice> {
         return this.http.patch<Invoice>(`${this.apiUrl}/${id}`, { status });
     }
 
@@ -101,7 +101,7 @@ export class InvoiceService {
      * Approve invoice (change status from PENDING to APPROVED)
      * Used by: Admin - Invoice & Dashboard Owner (Team 3)
      */
-    approve(id: number): Observable<Invoice> {
+    approve(id: number | string): Observable<Invoice> {
         return this.updateStatus(id, 'APPROVED');
     }
 
@@ -130,7 +130,7 @@ export class InvoiceService {
     /**
      * Get invoices for a specific trainer directly
      */
-    getByTrainerId(trainerId: number): Observable<Invoice[]> {
+    getByTrainerId(trainerId: number | string): Observable<Invoice[]> {
         return this.http.get<Invoice[]>(`${this.apiUrl}?trainerId=${trainerId}&issuedBy=TRAINER`);
     }
 }

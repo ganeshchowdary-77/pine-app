@@ -27,6 +27,7 @@ export class TrainingRequestFormComponent {
         startDate: new FormControl('', [Validators.required]),
         endDate: new FormControl('', [Validators.required]),
         participants: new FormControl<number | null>(null, [Validators.min(1)]),
+        budget: new FormControl<number | null>(null, [Validators.min(0)]),
         message: new FormControl(''),
     });
 

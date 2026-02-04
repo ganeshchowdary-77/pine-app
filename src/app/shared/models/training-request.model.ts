@@ -1,5 +1,5 @@
 export interface TrainingRequest {
-    id: number;
+    id: number | string;
 
     companyName: string;
     contactPerson: string;

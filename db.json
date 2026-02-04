@@ -11,20 +11,28 @@
       "email": "trainer1@pine.com",
       "password": "trainer123",
       "role": "trainer",
-      "trainerId": 1
+      "trainerId": "1"
     },
     {
       "id": "3",
       "email": "trainer2@pine.com",
       "password": "trainer123",
       "role": "trainer",
-      "trainerId": 2
+      "trainerId": "2"
     },
     {
-      "id": "362e",
+      "id": "4",
       "email": "talasilaskc@gmail.com",
       "password": "123456",
       "role": "trainer",
+      "trainerId": "3"
+    },
+    {
+      "id": "64d9",
+      "email": "dhurandhar@gmail.com",
+      "password": "123456",
+      "role": "trainer",
+      "trainerId": "6aba"
       "trainerId": "0373"
     },
     {
@@ -37,72 +45,43 @@
   ],
   "trainingRequests": [
     {
-      "id": "1",
-      "companyName": "DataCore Systems",
-      "contactPerson": "Michael Roberts",
-      "email": "michael@datacore.com",
-      "phone": "+1-555-0123",
-      "technology": "Python",
-      "startDate": "2026-01-20",
-      "endDate": "2026-02-10",
-      "duration": 5,
-      "budget": 50000,
+      "id": "23b5",
+      "companyName": "Google",
+      "contactPerson": "Sai Ram",
+      "email": "sairam@gmail.com",
+      "phone": "1234567890",
+      "technology": "Dot NET",
+      "startDate": "2026-02-16",
+      "endDate": "2026-05-01",
       "participants": 15,
-      "message": "Looking for advanced Python training for our development team",
+      "message": "DO GOOD",
       "status": "APPROVED"
     },
     {
-      "id": "2",
-      "companyName": "CloudFirst Inc",
-      "contactPerson": "Sarah Johnson",
-      "email": "sarah@cloudfirst.com",
-      "phone": "+1-555-0456",
-      "technology": "Kubernetes",
-      "startDate": "2026-04-10",
-      "endDate": "2026-04-15",
-      "duration": 5,
-      "budget": 75000,
-      "participants": 10,
-      "message": "Need K8s training for our DevOps team",
-      "status": "APPROVED"
-    },
-    {
-      "id": "3",
-      "companyName": "FinTech Solutions",
-      "contactPerson": "David Chen",
-      "email": "david@fintech.com",
-      "technology": "Microservices",
-      "startDate": "2026-05-01",
-      "endDate": "2026-05-10",
-      "duration": 10,
-      "budget": 120000,
+      "id": "2a7e",
+      "companyName": "Guvi Technologies",
+      "contactPerson": "Surya",
+      "email": "surya@gmail.com",
+      "phone": "5555555555",
+      "technology": "AI, ML",
+      "startDate": "2026-03-02",
+      "endDate": "2026-05-01",
       "participants": 20,
-      "status": "REJECTED"
+      "message": "DO IT",
+      "status": "CONTACTED"
     },
     {
-      "id": "985d",
+      "id": "45c2",
       "companyName": "Hartford",
-      "contactPerson": "Sai",
-      "email": "gruitdso555@gmail.com",
-      "phone": "98745613",
-      "technology": "Angular",
-      "startDate": "2026-07-06",
-      "endDate": "2026-09-06",
-      "participants": 25,
-      "message": "Training for freshers",
-      "status": "NEW"
-    },
-    {
-      "id": "7a8c",
-      "companyName": "Hartford",
-      "contactPerson": "Ganesh C",
-      "email": "ganesh@gmail.com",
-      "phone": "9999999999",
-      "technology": "Java",
-      "startDate": "2026-02-06",
-      "endDate": "2026-04-03",
-      "participants": 20,
-      "message": " ",
+      "contactPerson": "Sri Krishna Chaitanya Talasila",
+      "email": "talasilaskc@gmail.com",
+      "phone": "08919100257",
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "participants": 30,
+      "budget": 500000,
+      "message": "DO IT",
       "status": "APPROVED"
     }
   ],
@@ -124,6 +103,20 @@
       "name": "GlobalSoft Solutions",
       "email": "learning@globalsoft.com",
       "industry": "IT Services"
+    },
+    {
+      "id": "a0d5",
+      "name": "Google",
+      "email": "sairam@gmail.com",
+      "contactPerson": "Sai Ram",
+      "phone": "1234567890"
+    },
+    {
+      "id": "f2b6",
+      "name": "Hartford",
+      "email": "talasilaskc@gmail.com",
+      "contactPerson": "Sri Krishna Chaitanya Talasila",
+      "phone": "08919100257"
     }
   ],
   "trainers": [
@@ -152,7 +145,7 @@
       "rate": 1000
     },
     {
-      "id": "0373",
+      "id": "3",
       "name": "Sri Krishna Chaitanya Talasila",
       "email": "talasilaskc@gmail.com",
       "technologies": [
@@ -165,6 +158,14 @@
       "rate": 20000
     },
     {
+      "id": "6aba",
+      "name": "Dhurandhar",
+      "email": "dhurandhar@gmail.com",
+      "technologies": [
+        "Dot Net"
+      ],
+      "paymentType": "monthly",
+      "rate": 12000
       "id": 400,
       "name": "Sharat",
       "email": "sharat@pine.com",
@@ -180,7 +181,7 @@
   "enrollments": [
     {
       "id": "1",
-      "companyId": 1,
+      "companyId": "1",
       "requestId": null,
       "trainerId": null,
       "technology": "Angular",
@@ -191,7 +192,7 @@
     },
     {
       "id": "2",
-      "companyId": 2,
+      "companyId": "2",
       "requestId": null,
       "trainerId": null,
       "technology": "AWS",
@@ -202,9 +203,9 @@
     },
     {
       "id": "3",
-      "companyId": 3,
-      "requestId": 1,
-      "trainerId": 1,
+      "companyId": "3",
+      "requestId": "1",
+      "trainerId": "1",
       "technology": "React",
       "startDate": "2026-04-01",
       "endDate": "2026-04-07",
@@ -213,9 +214,9 @@
     },
     {
       "id": "4",
-      "companyId": 1,
-      "requestId": 2,
-      "trainerId": 2,
+      "companyId": "1",
+      "requestId": "2",
+      "trainerId": "2",
       "technology": "Docker",
       "startDate": "2026-02-15",
       "endDate": "2026-02-20",
@@ -224,9 +225,9 @@
     },
     {
       "id": "5",
-      "companyId": 2,
+      "companyId": "2",
       "requestId": null,
-      "trainerId": 1,
+      "trainerId": "1",
       "technology": "Node.js",
       "startDate": "2026-01-10",
       "endDate": "2026-01-15",
@@ -234,25 +235,104 @@
       "status": "COMPLETED"
     },
     {
-      "id": "4bc7",
-      "companyId": 1,
-      "trainerId": 373,
-      "budget": 1,
-      "technology": "Bongu",
-      "startDate": "2026-02-04",
-      "endDate": "2026-04-01",
+      "id": "6",
+      "companyId": "1",
       "requestId": null,
+      "trainerId": "2",
+      "technology": "DevOps",
+      "startDate": "2026-04-20",
+      "endDate": "2026-04-25",
+      "budget": 45000,
       "status": "REQUESTED"
     },
     {
-      "id": "ccd0",
-      "companyId": 1,
-      "trainerId": 373,
-      "budget": 1,
-      "technology": "Bongu",
-      "startDate": "2026-02-03",
-      "endDate": "2026-04-03",
-      "requestId": null,
+      "id": "3040",
+      "companyId": "a0d5",
+      "trainerId": "6aba",
+      "budget": 48000,
+      "technology": "Dot NET",
+      "startDate": "2026-02-16",
+      "endDate": "2026-05-01",
+      "requestId": "23b5",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "171b",
+      "companyId": "a0d5",
+      "trainerId": "6aba",
+      "budget": 48000,
+      "technology": "Dot NET",
+      "startDate": "2026-02-16",
+      "endDate": "2026-05-01",
+      "requestId": "23b5",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "e2ed",
+      "companyId": "a0d5",
+      "trainerId": "6aba",
+      "budget": 48000,
+      "technology": "Dot NET",
+      "startDate": "2026-02-16",
+      "endDate": "2026-05-01",
+      "requestId": "23b5",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "dcf7",
+      "companyId": "a0d5",
+      "trainerId": "6aba",
+      "budget": 48000,
+      "technology": "Dot NET",
+      "startDate": "2026-02-16",
+      "endDate": "2026-05-01",
+      "requestId": "23b5",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "534e",
+      "companyId": "f2b6",
+      "trainerId": "3",
+      "budget": 1000000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "94ba",
+      "companyId": "f2b6",
+      "trainerId": "3",
+      "budget": 1000000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "6iwfn8z",
+      "enrollmentId": "6iwfn8z",
+      "companyId": "f2b6",
+      "trainerId": "3",
+      "budget": 1000000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
+      "status": "REQUESTED"
+    },
+    {
+      "id": "b15ibsc",
+      "enrollmentId": "b15ibsc",
+      "companyId": "f2b6",
+      "trainerId": "3",
+      "budget": 1000000,
+      "technology": "AI",
+      "startDate": "2026-02-16",
+      "endDate": "2026-04-06",
+      "requestId": "45c2",
       "status": "REQUESTED"
     },
     {
@@ -305,7 +385,7 @@
   "purchaseOrders": [
     {
       "id": "1",
-      "enrollmentId": 2,
+      "enrollmentId": "2",
       "type": "CLIENT",
       "totalAmount": 40000,
       "paymentTerms": "Net 30",
@@ -313,7 +393,7 @@
     },
     {
       "id": "2",
-      "enrollmentId": 3,
+      "enrollmentId": "3",
       "type": "CLIENT",
       "totalAmount": 30000,
       "paymentTerms": "Net 30",
@@ -321,6 +401,7 @@
     },
     {
       "id": "3",
+      "enrollmentId": "3",
       "enrollmentId": 3,
       "trainerId": 1,
       "type": "TRAINER",
@@ -332,7 +413,7 @@
     },
     {
       "id": "4",
-      "enrollmentId": 4,
+      "enrollmentId": "4",
       "type": "CLIENT",
       "totalAmount": 35000,
       "paymentTerms": "Net 15",
@@ -340,6 +421,7 @@
     },
     {
       "id": "5",
+      "enrollmentId": "4",
       "enrollmentId": 4,
       "trainerId": 2,
       "type": "TRAINER",
@@ -351,7 +433,7 @@
     },
     {
       "id": "6",
-      "enrollmentId": 5,
+      "enrollmentId": "5",
       "type": "CLIENT",
       "totalAmount": 28000,
       "paymentTerms": "Net 15",
@@ -359,6 +441,7 @@
     },
     {
       "id": "7",
+      "enrollmentId": "5",
       "enrollmentId": 5,
       "trainerId": 1,
       "type": "TRAINER",
@@ -370,6 +453,39 @@
     },
     {
       "id": "8",
+      "enrollmentId": "6",
+      "type": "CLIENT",
+      "totalAmount": 45000,
+      "paymentTerms": "Net 30",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "9",
+      "enrollmentId": "6",
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 1000,
+      "totalAmount": 6000,
+      "paymentTerms": "Upon completion",
+      "status": "SENT"
+    },
+    {
+      "id": "pocudn5",
+      "enrollmentId": "b15ibsc",
+      "type": "CLIENT",
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Net 30"
+    },
+    {
+      "id": "y3bvbwp",
+      "enrollmentId": "b15ibsc",
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 1000000,
+      "status": "GENERATED",
+      "paymentTerms": "Upon completion"
       "enrollmentId": "4bc7",
       "type": "TRAINER",
       "paymentType": "daily",
@@ -392,16 +508,20 @@
   "invoices": [
     {
       "id": "1",
-      "poId": 7,
+      "poId": "7",
       "issuedBy": "TRAINER",
       "amount": 4800,
       "invoiceDate": "2026-01-20",
-      "status": "PAID"
+      "status": "APPROVED"
     },
     {
       "id": "2",
-      "poId": 6,
+      "poId": "6",
       "issuedBy": "ADMIN",
+      "amount": 28000,
+      "tax": 2800,
+      "invoiceDate": "2026-01-22",
+      "status": "PAID"
       "amount": 18000,
       "tax": 1800,
       "invoiceDate": "2026-04-15",

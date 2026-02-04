@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { catchError, forkJoin, of, switchMap } from 'rxjs';
 import { EnrollmentService } from '../../../shared/services/enrollment.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-enrollment-list',
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './enrollment-list.html',
   styleUrl: './enrollment-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,12 +24,13 @@ export class EnrollmentList {
   });
 
   loadData() {
-    return forkJoin({
-      enrollments: this.enrollmentService.getAll(),
-      pos: this.http.get<any[]>('http://localhost:3000/purchaseOrders'),
-      companies: this.http.get<any[]>('http://localhost:3000/companies'),
-      trainers: this.http.get<any[]>('http://localhost:3000/trainers')
-    }).pipe(
+    return this.enrollmentService.syncStatuses().pipe(
+      switchMap(() => forkJoin({
+        enrollments: this.enrollmentService.getAll(),
+        pos: this.http.get<any[]>('http://localhost:3000/purchaseOrders'),
+        companies: this.http.get<any[]>('http://localhost:3000/companies'),
+        trainers: this.http.get<any[]>('http://localhost:3000/trainers')
+      })),
       catchError(err => {
         console.error(err);
         return of({ enrollments: [], pos: [], companies: [], trainers: [] });
@@ -42,12 +44,12 @@ export class EnrollmentList {
   trainers = computed(() => this.data().trainers);
 
   // Helper methods to get names
-  getCompanyName(companyId: number): string {
+  getCompanyName(companyId: number | string): string {
     const company = this.companies().find(c => c.id == companyId);
     return company?.name || `Company #${companyId}`;
   }
 
-  getTrainerName(trainerId: number | null | undefined): string {
+  getTrainerName(trainerId: number | string | null | undefined): string {
     if (!trainerId) return 'Not Assigned';
     const trainer = this.trainers().find(t => t.id == trainerId);
     return trainer?.name || `Trainer #${trainerId}`;
@@ -81,11 +83,11 @@ export class EnrollmentList {
     this.enrollments().filter(e => e.status === 'COMPLETED')
   );
 
-  editEnrollment(id: number) {
+  editEnrollment(id: number | string) {
     this.router.navigate(['/admin/enrollments/edit', id]);
   }
 
-  deleteEnrollment(id: number) {
+  deleteEnrollment(id: number | string) {
     if (confirm('Are you sure you want to delete this enrollment?')) {
       this.enrollmentService.delete(id).subscribe(() => {
         this.data = toSignal(this.loadData(), {
