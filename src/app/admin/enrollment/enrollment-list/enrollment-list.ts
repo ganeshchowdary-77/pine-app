@@ -47,12 +47,12 @@ export class EnrollmentList {
   trainers = computed(() => this.data().trainers);
 
   // Helper methods to get names
-  getCompanyName(companyId: number | string): string {
+  getCompanyName(companyId: string): string {
     const company = this.companies().find((c: any) => c.id == companyId);
     return company?.name || `Company #${companyId}`;
   }
 
-  getTrainerName(trainerId: number | string | null | undefined): string {
+  getTrainerName(trainerId: string | null | undefined): string {
     if (!trainerId) return 'Not Assigned';
     const trainer = this.trainers().find((t: any) => t.id == trainerId);
     return trainer?.name || `Trainer #${trainerId}`;
@@ -86,11 +86,11 @@ export class EnrollmentList {
     this.enrollments().filter(e => e.status === 'COMPLETED')
   );
 
-  editEnrollment(id: number | string) {
+  editEnrollment(id: string) {
     this.router.navigate(['/admin/enrollments/edit', id]);
   }
 
-  deleteEnrollment(id: number | string) {
+  deleteEnrollment(id: string) {
     if (confirm('Are you sure you want to delete this enrollment?')) {
       this.enrollmentService.delete(id).subscribe({
         next: () => {

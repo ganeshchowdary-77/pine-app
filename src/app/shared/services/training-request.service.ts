@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { TrainingRequest } from '../models';
+import { generateId } from '../utils/id-generator.util';
 import { CompanyService } from './company.service';
 import { Company } from '../models';
 
@@ -40,7 +41,7 @@ export class TrainingRequestService {
     /**
      * Get training request by ID
      */
-    getById(id: number | string): Observable<TrainingRequest> {
+    getById(id: string): Observable<TrainingRequest> {
         return this.http.get<TrainingRequest>(`${this.apiUrl}/${id}`);
     }
 
@@ -49,14 +50,15 @@ export class TrainingRequestService {
      * Used by: Public landing page form
      */
     create(request: Partial<TrainingRequest>): Observable<TrainingRequest> {
-        return this.http.post<TrainingRequest>(this.apiUrl, request);
+        const newRequest = { ...request, id: generateId() };
+        return this.http.post<TrainingRequest>(this.apiUrl, newRequest);
     }
 
     /**
      * Update existing training request
      * Used by: Admin - Client Request Owner (Team 1)
      */
-    update(id: number | string, request: Partial<TrainingRequest>): Observable<TrainingRequest> {
+    update(id: string, request: Partial<TrainingRequest>): Observable<TrainingRequest> {
         return this.http.put<TrainingRequest>(`${this.apiUrl}/${id}`, request);
     }
 
@@ -64,7 +66,7 @@ export class TrainingRequestService {
      * Delete training request
      * Used by: Admin - Client Request Owner (Team 1)
      */
-    delete(id: number | string): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
@@ -87,7 +89,7 @@ export class TrainingRequestService {
      * Update request status
      * Used by: Admin - Client Request Owner (Team 1)
      */
-    updateStatus(id: number | string, status: 'NEW' | 'CONTACTED' | 'APPROVED' | 'REJECTED'): Observable<TrainingRequest> {
+    updateStatus(id: string, status: 'NEW' | 'CONTACTED' | 'APPROVED' | 'REJECTED'): Observable<TrainingRequest> {
         return this.http.patch<TrainingRequest>(`${this.apiUrl}/${id}`, { status }).pipe(
             switchMap(updatedRequest => {
                 if (status === 'APPROVED') {

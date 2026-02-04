@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from '../models';
+import { generateId } from '../utils/id-generator.util';
 
 /**
  * COMPANY SERVICE
@@ -32,7 +33,7 @@ export class CompanyService {
     /**
      * Get company by ID
      */
-    getById(id: number | string): Observable<Company> {
+    getById(id: string): Observable<Company> {
         return this.http.get<Company>(`${this.apiUrl}/${id}`);
     }
 
@@ -40,20 +41,21 @@ export class CompanyService {
      * Create new company
      */
     create(company: Partial<Company>): Observable<Company> {
-        return this.http.post<Company>(this.apiUrl, company);
+        const newCompany = { ...company, id: generateId() };
+        return this.http.post<Company>(this.apiUrl, newCompany);
     }
 
     /**
      * Update existing company
      */
-    update(id: number | string, company: Partial<Company>): Observable<Company> {
+    update(id: string, company: Partial<Company>): Observable<Company> {
         return this.http.put<Company>(`${this.apiUrl}/${id}`, company);
     }
 
     /**
      * Delete company
      */
-    delete(id: number | string): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 

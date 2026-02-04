@@ -60,11 +60,11 @@ export class PoDetailsComponent implements OnInit {
     return enrollment ? `${enrollment.technology} (${enrollment.startDate})` : 'Unknown Training';
   }
 
-  acceptPO(id: number) {
+  acceptPO(id: string) {
     this.isLoading.set(true);
     this.poService.updateStatus(id, 'ACCEPTED').subscribe({
       next: (updatedPO) => {
-        this.purchaseOrders.update(current => 
+        this.purchaseOrders.update(current =>
           current.map(po => po.id === id ? updatedPO : po)
         );
         this.isLoading.set(false);

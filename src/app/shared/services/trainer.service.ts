@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trainer } from '../models';
+import { generateId } from '../utils/id-generator.util';
 
 /**
  * TRAINER SERVICE
@@ -33,7 +34,7 @@ export class TrainerService {
     /**
      * Get trainer by ID
      */
-    getById(id: number | string): Observable<Trainer> {
+    getById(id: string): Observable<Trainer> {
         return this.http.get<Trainer>(`${this.apiUrl}/${id}`);
     }
 
@@ -41,20 +42,21 @@ export class TrainerService {
      * Create new trainer
      */
     create(trainer: Partial<Trainer>): Observable<Trainer> {
-        return this.http.post<Trainer>(this.apiUrl, trainer);
+        const newTrainer = { ...trainer, id: generateId() };
+        return this.http.post<Trainer>(this.apiUrl, newTrainer);
     }
 
     /**
      * Update existing trainer
      */
-    update(id: number | string, trainer: Partial<Trainer>): Observable<Trainer> {
+    update(id: string, trainer: Partial<Trainer>): Observable<Trainer> {
         return this.http.put<Trainer>(`${this.apiUrl}/${id}`, trainer);
     }
 
     /**
      * Delete trainer
      */
-    delete(id: number | string): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 

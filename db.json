@@ -1,533 +1,238 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": "327705c5-1753-4db6-874e-f83c7849376a",
       "email": "admin@pine.com",
       "password": "admin123",
       "role": "admin"
     },
     {
-      "id": "2",
-      "email": "trainer1@pine.com",
-      "password": "trainer123",
+      "id": "ac3cb304-309c-4131-bbcf-390525ff3b21",
+      "email": "trainer1@example.com",
+      "password": "password123",
       "role": "trainer",
-      "trainerId": "1"
+      "trainerId": "909e5369-6a0f-47f4-8e42-d16b89519ca4"
     },
     {
-      "id": "3",
-      "email": "trainer2@pine.com",
-      "password": "trainer123",
+      "id": "dabf60ec-8da5-4890-97ab-72f4d677aa64",
+      "email": "trainer2@example.com",
+      "password": "password123",
       "role": "trainer",
-      "trainerId": "2"
+      "trainerId": "c716cfb8-5898-4029-9837-1d19b4105b70"
     },
     {
-      "id": "4",
-      "email": "talasilaskc@gmail.com",
-      "password": "123456",
+      "id": "1983e300-e7c2-448a-8779-40df1594d7c5",
+      "email": "trainer3@example.com",
+      "password": "password123",
       "role": "trainer",
-      "trainerId": "3"
+      "trainerId": "0242810f-4d5c-48fc-b069-5562f1bc6c4f"
     },
     {
-      "id": "64d9",
-      "email": "dhurandhar@gmail.com",
-      "password": "123456",
+      "id": "d6bb36b6-da22-45af-9dfa-0843dc834e71",
+      "email": "trainer4@example.com",
+      "password": "password123",
       "role": "trainer",
-      "trainerId": "6aba"
-      "trainerId": "0373"
-    },
-    {
-      "id": "sharat-user",
-      "email": "sharat@pine.com",
-      "password": "password",
-      "role": "trainer",
-      "trainerId": 400
-    }
-  ],
-  "trainingRequests": [
-    {
-      "id": "23b5",
-      "companyName": "Google",
-      "contactPerson": "Sai Ram",
-      "email": "sairam@gmail.com",
-      "phone": "1234567890",
-      "technology": "Dot NET",
-      "startDate": "2026-02-16",
-      "endDate": "2026-05-01",
-      "participants": 15,
-      "message": "DO GOOD",
-      "status": "APPROVED"
+      "trainerId": "e98d1c16-a1fd-470e-a108-a2a341fd347e"
     }
   ],
   "companies": [
     {
-      "id": "1",
-      "name": "TechCorp Inc.",
-      "email": "hr@techcorp.com",
-      "industry": "Technology"
+      "id": "3d42dc29-ee86-4fe5-b26c-e7da8940ae54",
+      "name": "Client Company 1",
+      "email": "info@company1.com",
+      "industry": "IT",
+      "contactPerson": "Contact 1",
+      "phone": "555-0101"
     },
     {
-      "id": "2",
-      "name": "InnovateLabs",
-      "email": "training@innovatelabs.com",
-      "industry": "Software Development"
+      "id": "169f4de8-cc92-47fd-b3f7-f2bb47dd72b2",
+      "name": "Client Company 2",
+      "email": "info@company2.com",
+      "industry": "IT",
+      "contactPerson": "Contact 2",
+      "phone": "555-0102"
     },
     {
-      "id": "3",
-      "name": "GlobalSoft Solutions",
-      "email": "learning@globalsoft.com",
-      "industry": "IT Services"
+      "id": "cee9fc67-cb8e-4552-b90c-92f4f4d094ed",
+      "name": "Client Company 3",
+      "email": "info@company3.com",
+      "industry": "IT",
+      "contactPerson": "Contact 3",
+      "phone": "555-0103"
     },
     {
-      "id": "a0d5",
-      "name": "Google",
-      "email": "sairam@gmail.com",
-      "contactPerson": "Sai Ram",
-      "phone": "1234567890"
+      "id": "94df12d7-d9a8-486f-8982-f0fc0b27d26d",
+      "name": "Client Company 4",
+      "email": "info@company4.com",
+      "industry": "IT",
+      "contactPerson": "Contact 4",
+      "phone": "555-0104"
     },
     {
-      "id": "f2b6",
+      "id": "0cfa816d-e96b-4827-8eec-838a5c952d39",
+      "name": "Client Company 5",
+      "email": "info@company5.com",
+      "industry": "IT",
+      "contactPerson": "Contact 5",
+      "phone": "555-0105"
+    },
+    {
+      "id": "b3dca401-959f-49fb-8684-e0823e40b4e2",
       "name": "Hartford",
-      "email": "talasilaskc@gmail.com",
-      "contactPerson": "Sri Krishna Chaitanya Talasila",
-      "phone": "08919100257"
+      "email": "sai@gmail.com",
+      "contactPerson": "Sai",
+      "phone": "954216652"
     }
   ],
   "trainers": [
     {
-      "id": "1",
-      "name": "John Davis",
-      "email": "trainer1@pine.com",
+      "id": "909e5369-6a0f-47f4-8e42-d16b89519ca4",
+      "name": "Trainer 1",
+      "email": "trainer1@example.com",
       "technologies": [
         "Angular",
+        "React"
+      ],
+      "paymentType": "daily",
+      "rate": 600
+    },
+    {
+      "id": "c716cfb8-5898-4029-9837-1d19b4105b70",
+      "name": "Trainer 2",
+      "email": "trainer2@example.com",
+      "technologies": [
         "React",
         "Node.js"
       ],
-      "paymentType": "daily",
-      "rate": 800
+      "paymentType": "hourly",
+      "rate": 80
     },
     {
-      "id": "2",
-      "name": "Emily Thompson",
-      "email": "trainer2@pine.com",
+      "id": "0242810f-4d5c-48fc-b069-5562f1bc6c4f",
+      "name": "Trainer 3",
+      "email": "trainer3@example.com",
       "technologies": [
-        "AWS",
-        "Docker",
-        "DevOps"
+        "Node.js",
+        "Java"
       ],
       "paymentType": "daily",
-      "rate": 1000
+      "rate": 600
     },
     {
-      "id": "3",
-      "name": "Sri Krishna Chaitanya Talasila",
-      "email": "talasilaskc@gmail.com",
+      "id": "e98d1c16-a1fd-470e-a108-a2a341fd347e",
+      "name": "Trainer 4",
+      "email": "trainer4@example.com",
       "technologies": [
         "Java",
-        "Angular",
-        "AI",
-        "ML"
+        "Python"
       ],
-      "paymentType": "daily",
-      "rate": 20000
+      "paymentType": "hourly",
+      "rate": 80
+    }
+  ],
+  "trainingRequests": [
+    {
+      "id": "cc4b76a5-32c1-42eb-8eab-e803afb17cd6",
+      "companyName": "Client Company 2",
+      "contactPerson": "Contact 2",
+      "email": "request@company2.com",
+      "phone": "555-0102",
+      "technology": "Node.js",
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-15",
+      "duration": 15,
+      "budget": 7000,
+      "participants": 7,
+      "message": "We need training for Node.js.",
+      "status": "NEW"
     },
     {
-      "id": "6aba",
-      "name": "Dhurandhar",
-      "email": "dhurandhar@gmail.com",
-      "technologies": [
-        "Dot Net"
-      ],
-      "paymentType": "monthly",
-      "rate": 12000
-      "id": 400,
-      "name": "Sharat",
-      "email": "sharat@pine.com",
-      "technologies": [
-        "Java",
-        "Spring Boot",
-        "Microservices"
-      ],
-      "paymentType": "daily",
-      "rate": 1500
+      "id": "f53c26c9-460a-424a-ab46-07c746eb3871",
+      "companyName": "Client Company 3",
+      "contactPerson": "Contact 3",
+      "email": "request@company3.com",
+      "phone": "555-0103",
+      "technology": "Java",
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-15",
+      "duration": 15,
+      "budget": 8000,
+      "participants": 8,
+      "message": "We need training for Java.",
+      "status": "NEW"
+    },
+    {
+      "id": "f804b4cc-b1d2-486f-8bf3-5a90f44eeeef",
+      "companyName": "Client Company 4",
+      "contactPerson": "Contact 4",
+      "email": "request@company4.com",
+      "phone": "555-0104",
+      "technology": "Python",
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-15",
+      "duration": 15,
+      "budget": 9000,
+      "participants": 9,
+      "message": "We need training for Python.",
+      "status": "NEW"
+    },
+    {
+      "id": "70f7404f-d1ad-482f-94f5-48ead1a6c62d",
+      "companyName": "Client Company 5",
+      "contactPerson": "Contact 5",
+      "email": "request@company5.com",
+      "phone": "555-0105",
+      "technology": "AWS",
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-15",
+      "duration": 15,
+      "budget": 10000,
+      "participants": 10,
+      "message": "We need training for AWS.",
+      "status": "NEW"
     }
   ],
   "enrollments": [
     {
-      "id": "1",
-      "companyId": "1",
-      "requestId": null,
-      "trainerId": null,
-      "technology": "Angular",
-      "startDate": "2026-03-01",
-      "endDate": "2026-03-05",
-      "budget": 25000,
-      "status": "ONGOING"
-    },
-    {
-      "id": "2",
-      "companyId": "2",
-      "requestId": null,
-      "trainerId": null,
-      "technology": "AWS",
-      "startDate": "2026-03-10",
-      "endDate": "2026-03-15",
-      "budget": 40000,
-      "status": "REJECTED"
-    },
-    {
-      "id": "3",
-      "companyId": "3",
-      "requestId": "1",
-      "trainerId": "1",
+      "id": "393a2662-1acf-40f1-b8ea-dabbdf885329",
+      "companyId": "3d42dc29-ee86-4fe5-b26c-e7da8940ae54",
+      "trainerId": "909e5369-6a0f-47f4-8e42-d16b89519ca4",
+      "budget": 9000,
       "technology": "React",
-      "startDate": "2026-04-01",
-      "endDate": "2026-04-07",
-      "budget": 30000,
-      "status": "APPROVED"
-    },
-    {
-      "id": "4",
-      "companyId": "1",
-      "requestId": "2",
-      "trainerId": "2",
-      "technology": "Docker",
-      "startDate": "2026-02-15",
-      "endDate": "2026-02-20",
-      "budget": 35000,
-      "status": "ONGOING"
-    },
-    {
-      "id": "5",
-      "companyId": "2",
-      "requestId": null,
-      "trainerId": "1",
-      "technology": "Node.js",
-      "startDate": "2026-01-10",
-      "endDate": "2026-01-15",
-      "budget": 28000,
+      "startDate": "2023-12-01",
+      "endDate": "2023-12-15",
+      "requestId": "f249511b-34a3-4ae6-aeb9-aa032aea9b9f",
       "status": "COMPLETED"
-    },
-    {
-      "id": "6",
-      "companyId": "1",
-      "requestId": null,
-      "trainerId": "2",
-      "technology": "DevOps",
-      "startDate": "2026-04-20",
-      "endDate": "2026-04-25",
-      "budget": 45000,
-      "status": "REQUESTED"
-    },
-    {
-      "id": "3040",
-      "companyId": "a0d5",
-      "trainerId": "6aba",
-      "budget": 48000,
-      "technology": "Dot NET",
-      "startDate": "2026-02-16",
-      "endDate": "2026-05-01",
-      "requestId": "23b5",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "171b",
-      "companyId": "a0d5",
-      "trainerId": "6aba",
-      "budget": 48000,
-      "technology": "Dot NET",
-      "startDate": "2026-02-16",
-      "endDate": "2026-05-01",
-      "requestId": "23b5",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "e2ed",
-      "companyId": "a0d5",
-      "trainerId": "6aba",
-      "budget": 48000,
-      "technology": "Dot NET",
-      "startDate": "2026-02-16",
-      "endDate": "2026-05-01",
-      "requestId": "23b5",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "dcf7",
-      "companyId": "a0d5",
-      "trainerId": "6aba",
-      "budget": 48000,
-      "technology": "Dot NET",
-      "startDate": "2026-02-16",
-      "endDate": "2026-05-01",
-      "requestId": "23b5",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "534e",
-      "companyId": "f2b6",
-      "trainerId": "3",
-      "budget": 1000000,
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "requestId": "45c2",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "94ba",
-      "companyId": "f2b6",
-      "trainerId": "3",
-      "budget": 1000000,
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "requestId": "45c2",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "6iwfn8z",
-      "enrollmentId": "6iwfn8z",
-      "companyId": "f2b6",
-      "trainerId": "3",
-      "budget": 1000000,
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "requestId": "45c2",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "750isll",
-      "enrollmentId": "750isll",
-      "companyId": "f2b6",
-      "trainerId": null,
-      "budget": 500000,
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "requestId": "45c2",
-      "status": "REQUESTED"
-    },
-    {
-      "id": "trc4o66",
-      "enrollmentId": "trc4o66",
-      "companyId": "f2b6",
-      "trainerId": "af42",
-      "budget": 30000,
-      "technology": "AI",
-      "startDate": "2026-02-16",
-      "endDate": "2026-04-06",
-      "requestId": "45c2",
-      "status": "REQUESTED"
-    },
-    {
-      "id": 401,
-      "companyId": 1,
-      "trainerId": 400,
-      "technology": "Java Basics",
-      "startDate": "2025-11-01",
-      "endDate": "2025-11-05",
-      "status": "COMPLETED"
-    },
-    {
-      "id": 402,
-      "companyId": 2,
-      "trainerId": 400,
-      "technology": "Spring Boot",
-      "startDate": "2025-12-01",
-      "endDate": "2025-12-10",
-      "status": "COMPLETED"
-    },
-    {
-      "id": 403,
-      "companyId": 3,
-      "trainerId": 400,
-      "technology": "Hibernate",
-      "startDate": "2026-01-05",
-      "endDate": "2026-01-08",
-      "status": "COMPLETED"
-    },
-    {
-      "id": 404,
-      "companyId": 1,
-      "trainerId": 400,
-      "technology": "Java Advanced",
-      "startDate": "2026-01-20",
-      "endDate": "2026-01-25",
-      "status": "COMPLETED"
-    },
-    {
-      "id": 405,
-      "companyId": 2,
-      "trainerId": 400,
-      "technology": "Microservices Architecture",
-      "startDate": "2026-03-01",
-      "endDate": "2026-03-10",
-      "budget": 50000,
-      "status": "REQUESTED"
     }
   ],
   "purchaseOrders": [
     {
-      "id": "1",
-      "enrollmentId": "2",
+      "id": "14700294-ae77-4575-833f-d0ff0d06cfe7",
+      "enrollmentId": "393a2662-1acf-40f1-b8ea-dabbdf885329",
       "type": "CLIENT",
-      "totalAmount": 40000,
-      "paymentTerms": "Net 30",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "2",
-      "enrollmentId": "3",
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "paymentTerms": "Net 30",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "3",
-      "enrollmentId": "3",
-      "enrollmentId": 3,
-      "trainerId": 1,
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 800,
-      "totalAmount": 5600,
-      "paymentTerms": "Upon completion",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "4",
-      "enrollmentId": "4",
-      "type": "CLIENT",
-      "totalAmount": 35000,
-      "paymentTerms": "Net 15",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "5",
-      "enrollmentId": "4",
-      "enrollmentId": 4,
-      "trainerId": 2,
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 1000,
-      "totalAmount": 6000,
-      "paymentTerms": "Upon completion",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "6",
-      "enrollmentId": "5",
-      "type": "CLIENT",
-      "totalAmount": 28000,
-      "paymentTerms": "Net 15",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "7",
-      "enrollmentId": "5",
-      "enrollmentId": 5,
-      "trainerId": 1,
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 800,
-      "totalAmount": 4800,
-      "paymentTerms": "Upon completion",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "8",
-      "enrollmentId": "6",
-      "type": "CLIENT",
-      "totalAmount": 45000,
-      "paymentTerms": "Net 30",
-      "status": "ACCEPTED"
-    },
-    {
-      "id": "9",
-      "enrollmentId": "6",
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 1000,
-      "totalAmount": 6000,
-      "paymentTerms": "Upon completion",
-      "status": "SENT"
-    },
-    {
-      "id": "pocudn5",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 1000000,
+      "totalAmount": 9000,
       "status": "GENERATED",
       "paymentTerms": "Net 30"
     },
     {
-      "id": "y3bvbwp",
-      "enrollmentId": null,
+      "id": "e32b8571-f7de-45ba-a039-937a60b7d687",
+      "enrollmentId": "393a2662-1acf-40f1-b8ea-dabbdf885329",
       "type": "TRAINER",
       "paymentType": "daily",
-      "rate": 20000,
-      "totalAmount": 1000000,
+      "rate": 600,
+      "totalAmount": 9000,
       "status": "GENERATED",
       "paymentTerms": "Upon completion"
-      "enrollmentId": "4bc7",
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 20000,
-      "totalAmount": 15000,
-      "paymentTerms": "Monthly",
-      "status": "GENERATED"
-    },
-    {
-      "id": "9",
-      "enrollmentId": 405,
-      "type": "TRAINER",
-      "paymentType": "daily",
-      "rate": 1500,
-      "totalAmount": 15000,
-      "paymentTerms": "Net 15",
-      "status": "GENERATED"
     }
   ],
   "invoices": [
     {
-      "id": "1",
-      "poId": "7",
-      "issuedBy": "TRAINER",
-      "amount": 4800,
-      "invoiceDate": "2026-01-20",
-      "status": "APPROVED"
-    },
-    {
-      "id": "2",
-      "poId": "6",
-      "issuedBy": "ADMIN",
-      "amount": 28000,
-      "tax": 2800,
-      "invoiceDate": "2026-01-22",
-      "status": "PAID"
-      "amount": 18000,
-      "tax": 1800,
-      "invoiceDate": "2026-04-15",
-      "status": "APPROVED"
-    },
-    {
-      "id": "3db8",
-      "poId": 2,
-      "amount": 15000,
-      "tax": 0,
-      "invoiceDate": "2026-01-12",
+      "id": "22e28714-76ac-4b6a-a930-fdcc609dce03",
+      "poId": "e32b8571-f7de-45ba-a039-937a60b7d687",
+      "amount": 9000,
+      "tax": 900,
+      "invoiceDate": "2026-02-04",
       "status": "PAID",
-      "issuedBy": "TRAINER"
-    },
-    {
-      "id": "0f48",
-      "poId": 3,
-      "amount": 5600,
-      "tax": 0,
-      "invoiceDate": "2026-02-12",
-      "status": "PENDING",
       "issuedBy": "TRAINER"
     }
   ]
