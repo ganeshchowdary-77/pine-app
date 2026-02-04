@@ -109,4 +109,11 @@ export class PurchaseOrderService {
     getTrainerPOs(): Observable<PurchaseOrder[]> {
         return this.getByType('TRAINER');
     }
+
+    /**
+     * Get POs for a specific trainer
+     */
+    getByTrainerId(trainerId: number): Observable<PurchaseOrder[]> {
+        return this.http.get<PurchaseOrder[]>(`${this.apiUrl}?trainerId=${trainerId}&type=TRAINER`);
+    }
 }

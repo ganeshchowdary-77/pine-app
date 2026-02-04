@@ -1,11 +1,12 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../auth/auth-service';
 import { PurchaseOrderService, InvoiceService, EnrollmentService } from '../../shared/services';
 import { PurchaseOrder } from '../../shared/models';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, startWith, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-upload',
@@ -21,9 +22,10 @@ export class InvoiceUploadComponent implements OnInit {
   private invoiceService = inject(InvoiceService);
   private enrollmentService = inject(EnrollmentService);
 
-  purchaseOrders = signal<PurchaseOrder[]>([]);
+  purchaseOrders = signal<(PurchaseOrder & { startDate?: string; endDate?: string })[]>([]);
   isSubmitting = false;
   submitSuccess = false;
+  validationError = signal<string | null>(null);
 
   invoiceForm = this.fb.group({
     poId: ['', Validators.required],
@@ -33,22 +35,78 @@ export class InvoiceUploadComponent implements OnInit {
     notes: ['']
   });
 
+  // Convert form value changes to a signal
+  private formValue = toSignal(this.invoiceForm.valueChanges.pipe(
+    startWith(this.invoiceForm.value)
+  ));
+
+  // Computed total for the template
+  totalAmount = computed(() => {
+    const val = this.formValue();
+    const amount = Number(val?.amount) || 0;
+    const tax = Number(val?.tax) || 0;
+    return amount + tax;
+  });
+
   ngOnInit() {
+    this.statusFilterListener();
     this.loadPOs();
+  }
+
+  private statusFilterListener() {
+    this.invoiceForm.get('poId')?.valueChanges.subscribe(val => {
+      this.checkDateValidation(Number(val));
+    });
+  }
+
+  private checkDateValidation(poId: number) {
+    if (!poId) {
+      this.validationError.set(null);
+      return;
+    }
+
+    const selectedPO = this.purchaseOrders().find(p => p.id === poId);
+    if (!selectedPO) return;
+
+    const today = new Date().toISOString().split('T')[0];
+    const isDaily = selectedPO.paymentType === 'daily';
+
+    if (isDaily) {
+      // For daily, training must have started
+      if (selectedPO.startDate && today < selectedPO.startDate) {
+        this.validationError.set("you can't uplaod before training starts");
+      } else {
+        this.validationError.set(null);
+      }
+    } else {
+      // For others, training must have ended
+      if (selectedPO.endDate && today < selectedPO.endDate) {
+        this.validationError.set("you can't uplaod before training is completed");
+      } else {
+        this.validationError.set(null);
+      }
+    }
   }
 
   private loadPOs() {
     const user = this.authService.getUser();
     if (!user || user.role !== 'trainer' || !user.trainerId) return;
 
-    // Load POs available for invoicing (sent to trainer, maybe check status too?)
-    // For now, get all trainer POs and filter by enrollment like in PO Details
-    this.enrollmentService.getByTrainerId(user.trainerId).pipe(
-      switchMap(enrollments => {
-        const enrollmentIds = new Set(enrollments.map(e => e.id));
-        return this.poService.getTrainerPOs().pipe(
-          map(pos => pos.filter(po => po.enrollmentId != null && enrollmentIds.has(po.enrollmentId))) // And maybe check status?
-        );
+    // Load POs for this trainer and join with Enrollments to get dates
+    forkJoin({
+      enrollments: this.enrollmentService.getByTrainerId(user.trainerId),
+      pos: this.poService.getByTrainerId(user.trainerId)
+    }).pipe(
+      map(({ enrollments, pos }) => {
+        // IDs in db.json can be strings, so we convert to numbers for mapping
+        const enrollmentMap = new Map(enrollments.map(e => [Number(e.id), e]));
+        return pos
+          .filter(po => po.enrollmentId != null && enrollmentMap.has(Number(po.enrollmentId)))
+          .map(po => ({
+            ...po,
+            startDate: enrollmentMap.get(Number(po.enrollmentId!))?.startDate,
+            endDate: enrollmentMap.get(Number(po.enrollmentId!))?.endDate
+          }));
       })
     ).subscribe({
       next: (data) => this.purchaseOrders.set(data),

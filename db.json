@@ -33,6 +33,14 @@
       "password": "123456",
       "role": "trainer",
       "trainerId": "6aba"
+      "trainerId": "0373"
+    },
+    {
+      "id": "sharat-user",
+      "email": "sharat@pine.com",
+      "password": "password",
+      "role": "trainer",
+      "trainerId": 400
     }
   ],
   "trainingRequests": [
@@ -158,6 +166,16 @@
       ],
       "paymentType": "monthly",
       "rate": 12000
+      "id": 400,
+      "name": "Sharat",
+      "email": "sharat@pine.com",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "Microservices"
+      ],
+      "paymentType": "daily",
+      "rate": 1500
     }
   ],
   "enrollments": [
@@ -170,7 +188,7 @@
       "startDate": "2026-03-01",
       "endDate": "2026-03-05",
       "budget": 25000,
-      "status": "REQUESTED"
+      "status": "ONGOING"
     },
     {
       "id": "2",
@@ -181,7 +199,7 @@
       "startDate": "2026-03-10",
       "endDate": "2026-03-15",
       "budget": 40000,
-      "status": "REQUESTED"
+      "status": "REJECTED"
     },
     {
       "id": "3",
@@ -316,6 +334,52 @@
       "endDate": "2026-04-06",
       "requestId": "45c2",
       "status": "REQUESTED"
+    },
+    {
+      "id": 401,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Basics",
+      "startDate": "2025-11-01",
+      "endDate": "2025-11-05",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 402,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Spring Boot",
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-10",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 403,
+      "companyId": 3,
+      "trainerId": 400,
+      "technology": "Hibernate",
+      "startDate": "2026-01-05",
+      "endDate": "2026-01-08",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 404,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Advanced",
+      "startDate": "2026-01-20",
+      "endDate": "2026-01-25",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 405,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Microservices Architecture",
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-10",
+      "budget": 50000,
+      "status": "REQUESTED"
     }
   ],
   "purchaseOrders": [
@@ -338,6 +402,8 @@
     {
       "id": "3",
       "enrollmentId": "3",
+      "enrollmentId": 3,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -356,6 +422,8 @@
     {
       "id": "5",
       "enrollmentId": "4",
+      "enrollmentId": 4,
+      "trainerId": 2,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 1000,
@@ -374,6 +442,8 @@
     {
       "id": "7",
       "enrollmentId": "5",
+      "enrollmentId": 5,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -416,6 +486,23 @@
       "totalAmount": 1000000,
       "status": "GENERATED",
       "paymentTerms": "Upon completion"
+      "enrollmentId": "4bc7",
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 20000,
+      "totalAmount": 15000,
+      "paymentTerms": "Monthly",
+      "status": "GENERATED"
+    },
+    {
+      "id": "9",
+      "enrollmentId": 405,
+      "type": "TRAINER",
+      "paymentType": "daily",
+      "rate": 1500,
+      "totalAmount": 15000,
+      "paymentTerms": "Net 15",
+      "status": "GENERATED"
     }
   ],
   "invoices": [
@@ -435,6 +522,28 @@
       "tax": 2800,
       "invoiceDate": "2026-01-22",
       "status": "PAID"
+      "amount": 18000,
+      "tax": 1800,
+      "invoiceDate": "2026-04-15",
+      "status": "APPROVED"
+    },
+    {
+      "id": "3db8",
+      "poId": 2,
+      "amount": 15000,
+      "tax": 0,
+      "invoiceDate": "2026-01-12",
+      "status": "PAID",
+      "issuedBy": "TRAINER"
+    },
+    {
+      "id": "0f48",
+      "poId": 3,
+      "amount": 5600,
+      "tax": 0,
+      "invoiceDate": "2026-02-12",
+      "status": "PENDING",
+      "issuedBy": "TRAINER"
     }
   ]
 }

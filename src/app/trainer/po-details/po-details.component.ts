@@ -1,10 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, linkedSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth-service';
 import { PurchaseOrderService, EnrollmentService } from '../../shared/services';
 import { Enrollment, PurchaseOrder } from '../../shared/models';
 import { forkJoin, map, switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-po-details',
@@ -31,27 +32,20 @@ export class PoDetailsComponent implements OnInit {
 
   private loadData() {
     const user = this.authService.getUser();
-    if (!user || user.role !== 'trainer' || !user.trainerId) return;
+    if (!user || user.role.toLowerCase() !== 'trainer' || !user.trainerId) return;
 
     this.isLoading.set(true);
 
-    // 1. Get Enrollments for this trainer
-    // 2. Get All Trainer POs (Service limitation) and filter by enrollments
-    this.enrollmentService.getByTrainerId(user.trainerId).pipe(
-      switchMap(enrollments => {
+    // 1. Get Enrollments for this trainer (to get technology names/dates)
+    // 2. Get POs for this trainer (Direct filtering)
+    forkJoin({
+      enrollments: this.enrollmentService.getByTrainerId(user.trainerId),
+      purchaseOrders: this.poService.getByTrainerId(user.trainerId)
+    }).subscribe({
+      next: ({ enrollments, purchaseOrders }) => {
         this.enrollments.set(enrollments);
-
-        // Create map for easy lookup
         enrollments.forEach(e => this.enrollmentMap.set(e.id, e));
-
-        // Get all trainer POs and filter
-        return this.poService.getTrainerPOs().pipe(
-          map(pos => pos.filter(po => po.enrollmentId != null && this.enrollmentMap.has(po.enrollmentId as string | number)))
-        );
-      })
-    ).subscribe({
-      next: (filteredPOs) => {
-        this.purchaseOrders.set(filteredPOs);
+        this.purchaseOrders.set(purchaseOrders);
         this.isLoading.set(false);
       },
       error: (err) => {
@@ -64,5 +58,21 @@ export class PoDetailsComponent implements OnInit {
   getTrainingDetails(enrollmentId: number | string): string {
     const enrollment = this.enrollmentMap.get(enrollmentId);
     return enrollment ? `${enrollment.technology} (${enrollment.startDate})` : 'Unknown Training';
+  }
+
+  acceptPO(id: number) {
+    this.isLoading.set(true);
+    this.poService.updateStatus(id, 'ACCEPTED').subscribe({
+      next: (updatedPO) => {
+        this.purchaseOrders.update(current => 
+          current.map(po => po.id === id ? updatedPO : po)
+        );
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error accepting PO', err);
+        this.isLoading.set(false);
+      }
+    });
   }
 }

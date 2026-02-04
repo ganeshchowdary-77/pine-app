@@ -1,47 +1,127 @@
-<div class="page-header mb-2rem">
-  <h2>Assigned Trainings</h2>
-  <p class="text-muted">View and manage your scheduled training sessions</p>
-</div>
+<div class="assigned-trainings-container">
+  <div class="page-header mb-2rem">
+    <h2>Assigned Trainings</h2>
+    <p>View and manage your scheduled training sessions</p>
+  </div>
 
-<div class="loading-badge" *ngIf="isLoading()">
-  Loading...
-</div>
+  <div class="loading-badge" *ngIf="isLoading()">
+    Loading...
+  </div>
 
-<div class="summary-grid" *ngIf="trainings().length > 0; else noTrainingsTemplate">
-  <div class="pine-card summary-card" *ngFor="let training of trainings()">
-    <div class="card-header">
-      <h3>{{ training.technology }}</h3>
-      <span class="pine-badge {{ training.status === 'ONGOING' ? 'pine-badge-info' : 'pine-badge-success' }}">{{
-        training.status }}</span>
-    </div>
+  <!-- Section 1: Hero - Ongoing Training -->
+  <section class="section-ongoing mb-3rem" *ngIf="ongoingTrainings().length > 0">
+    <h3 class="section-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.243-2.143.7-3.1 1.1 1.3 2.1 2.3 2.8 3.1z"></path></svg>
+        Ongoing Training
+    </h3>
+    <div class="hero-card" *ngFor="let training of ongoingTrainings()">
+      <div class="hero-content">
+        <div class="hero-header">
+          <h2 class="tech-title">{{ training.technology }}</h2>
+          <span class="pine-badge pine-badge-info">IN PROGRESS</span>
+        </div>
+        
+        <div class="hero-details">
+          <div class="detail-group">
+            <label>Company</label>
+            <span>{{ getCompanyName(training.companyId) }}</span>
+          </div>
+          <div class="detail-group">
+            <label>Timeline</label>
+            <span>{{ training.startDate }} — {{ training.endDate }}</span>
+          </div>
 
-    <div class="card-content">
-      <div class="training-details">
-        <div class="detail-item">
-          <span class="label">Company:</span>
-          <span class="value">{{ getCompanyName(training.companyId) }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">Start Date:</span>
-          <span class="value">{{ training.startDate }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">End Date:</span>
-          <span class="value">{{ training.endDate }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">Budget:</span>
-          <span class="value">\${{ training.budget }}</span>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<ng-template #noTrainingsTemplate>
-  <div class="no-data pine-card">
-    <div class="empty-icon" style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
-    <h3>No Assigned Trainings</h3>
-    <p>You don't have any training sessions assigned at the moment.</p>
-  </div>
-</ng-template>
+  <!-- Section 2: New Requests - Grid -->
+  <section class="section-requests mb-3rem">
+    <h3 class="section-title">
+      New Assignments <span class="count-badge" *ngIf="newRequests().length">{{ newRequests().length }}</span>
+    </h3>
+    
+    <div class="requests-grid" *ngIf="newRequests().length > 0; else noRequests">
+      <div class="request-card" *ngFor="let training of newRequests()">
+        <div class="card-header">
+          <h4>{{ training.technology }}</h4>
+          <span class="pine-badge pine-badge-warning">REQUESTED</span>
+        </div>
+        
+        <div class="card-body">
+          <p class="company-name">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M8 10h.01"></path><path d="M16 10h.01"></path><path d="M8 14h.01"></path><path d="M16 14h.01"></path></svg>
+            {{ getCompanyName(training.companyId) }}
+          </p>
+          <div class="mini-details">
+            <div class="detail-row">
+                <span class="detail-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    {{ training.startDate }} — {{ training.endDate }}
+                </span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    {{ getDuration(training.startDate, training.endDate) }}
+                </span>
+                
+                <ng-container *ngIf="getCost(training.id) as cost">
+                    <span class="detail-item cost-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        {{ cost | currency:'USD':'symbol':'1.0-0' }}
+                    </span>
+                    <span class="po-indicator" title="Purchase Order Generated">PO Ready</span>
+                </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-accept" (click)="acceptAssignment(training.id)">
+            Accept Assignment
+          </button>
+          <button class="btn-reject" (click)="rejectAssignment(training.id)">
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noRequests>
+      <div class="empty-state">
+        <p>No new training requests at the moment.</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Section 3: History - List/Log -->
+  <section class="section-history">
+    <h3 class="section-title">History Log</h3>
+    
+    <div class="history-list" *ngIf="historyTrainings().length > 0; else noHistory">
+      <div class="history-item" *ngFor="let training of historyTrainings()">
+        <div class="history-main">
+          <span class="history-tech">{{ training.technology }}</span>
+          <span class="history-company">{{ getCompanyName(training.companyId) }}</span>
+        </div>
+        <div class="history-meta">
+          <span class="history-date">{{ training.endDate }}</span>
+          <span class="pine-badge" 
+                [class.pine-badge-success]="training.status === 'COMPLETED'"
+                [class.pine-badge-danger]="training.status === 'REJECTED'">
+            {{ training.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noHistory>
+      <div class="empty-state">
+        <p>No past training history.</p>
+      </div>
+    </ng-template>
+  </section>
+</div>
