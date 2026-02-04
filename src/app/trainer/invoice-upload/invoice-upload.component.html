@@ -109,8 +109,10 @@
   </form>
 </div>
 
-<div class="pine-card success-alert-card" *ngIf="submitSuccess">
-  <div class="success-icon">✅</div>
-  <h4 class="success-title">Invoice Submitted Successfully!</h4>
-  <p class="success-message">Your invoice has been submitted for review.</p>
+<div class="pine-badge pine-badge-success" *ngIf="submitSuccess" style="text-align: center; margin-top: 2rem;">
+  <div style="font-size: 2rem; margin-bottom: 0.5rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  </div>
+  <h4 style="margin: 0; color: #34d399;">Invoice Submitted Successfully!</h4>
+  <p style="margin: 0.5rem 0 0 0; color: var(--admin-text);">Your invoice has been submitted for review.</p>
 </div>

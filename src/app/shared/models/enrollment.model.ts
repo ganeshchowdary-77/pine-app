@@ -12,5 +12,5 @@ export interface Enrollment {
 
     budget?: number;
 
-    status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED';
+    status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED';
 }
