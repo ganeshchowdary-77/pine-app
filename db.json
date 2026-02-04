@@ -33,20 +33,14 @@
       "password": "123456",
       "role": "trainer",
       "trainerId": "6aba"
+      "trainerId": "0373"
     },
     {
-      "id": "8648",
-      "email": "22071a05b6@vnrvjiet.in",
-      "password": "123456",
+      "id": "sharat-user",
+      "email": "sharat@pine.com",
+      "password": "password",
       "role": "trainer",
-      "trainerId": "af42"
-    },
-    {
-      "id": "613a",
-      "email": "anandch119@gmail.com",
-      "password": "123456",
-      "role": "trainer",
-      "trainerId": "68e0"
+      "trainerId": 400
     }
   ],
   "trainingRequests": [
@@ -145,32 +139,16 @@
       ],
       "paymentType": "monthly",
       "rate": 12000
-    },
-    {
-      "id": "af42",
-      "name": "Chaitu",
-      "email": "22071a05b6@vnrvjiet.in",
+      "id": 400,
+      "name": "Sharat",
+      "email": "sharat@pine.com",
       "technologies": [
         "Java",
-        "Angular",
-        "AI",
-        "ML"
+        "Spring Boot",
+        "Microservices"
       ],
-      "paymentType": "monthly",
-      "rate": 10000
-    },
-    {
-      "id": "68e0",
-      "name": "Anand",
-      "email": "anandch119@gmail.com",
-      "technologies": [
-        "Java",
-        "Angular",
-        "AI",
-        "ML"
-      ],
-      "paymentType": "monthly",
-      "rate": 12000
+      "paymentType": "daily",
+      "rate": 1500
     }
   ],
   "enrollments": [
@@ -183,7 +161,7 @@
       "startDate": "2026-03-01",
       "endDate": "2026-03-05",
       "budget": 25000,
-      "status": "REQUESTED"
+      "status": "ONGOING"
     },
     {
       "id": "2",
@@ -194,7 +172,7 @@
       "startDate": "2026-03-10",
       "endDate": "2026-03-15",
       "budget": 40000,
-      "status": "REQUESTED"
+      "status": "REJECTED"
     },
     {
       "id": "3",
@@ -341,6 +319,52 @@
       "endDate": "2026-04-06",
       "requestId": "45c2",
       "status": "REQUESTED"
+    },
+    {
+      "id": 401,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Basics",
+      "startDate": "2025-11-01",
+      "endDate": "2025-11-05",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 402,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Spring Boot",
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-10",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 403,
+      "companyId": 3,
+      "trainerId": 400,
+      "technology": "Hibernate",
+      "startDate": "2026-01-05",
+      "endDate": "2026-01-08",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 404,
+      "companyId": 1,
+      "trainerId": 400,
+      "technology": "Java Advanced",
+      "startDate": "2026-01-20",
+      "endDate": "2026-01-25",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 405,
+      "companyId": 2,
+      "trainerId": 400,
+      "technology": "Microservices Architecture",
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-10",
+      "budget": 50000,
+      "status": "REQUESTED"
     }
   ],
   "purchaseOrders": [
@@ -363,6 +387,8 @@
     {
       "id": "3",
       "enrollmentId": "3",
+      "enrollmentId": 3,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -381,6 +407,8 @@
     {
       "id": "5",
       "enrollmentId": "4",
+      "enrollmentId": 4,
+      "trainerId": 2,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 1000,
@@ -399,6 +427,8 @@
     {
       "id": "7",
       "enrollmentId": "5",
+      "enrollmentId": 5,
+      "trainerId": 1,
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 800,
@@ -441,230 +471,23 @@
       "totalAmount": 1000000,
       "status": "GENERATED",
       "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "gidimcu",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 1000000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "nd8l4ch",
-      "enrollmentId": null,
+      "enrollmentId": "4bc7",
       "type": "TRAINER",
       "paymentType": "daily",
       "rate": 20000,
-      "totalAmount": 1000000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
+      "totalAmount": 15000,
+      "paymentTerms": "Monthly",
+      "status": "GENERATED"
     },
     {
-      "id": "gw1tipx",
-      "enrollmentId": "750isll",
-      "type": "CLIENT",
-      "totalAmount": 500000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "8jqxirm",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 1000000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "39jg59n",
-      "enrollmentId": null,
+      "id": "9",
+      "enrollmentId": 405,
       "type": "TRAINER",
       "paymentType": "daily",
-      "rate": 20000,
-      "totalAmount": 1000000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "fm8e6so",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "geb4yh0",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "qxly27i",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "sqewi10",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "hv421py",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "77qtfye",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "c4e2de1",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "1tn70v9",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "fylfjma",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "r34vvsb",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 12000,
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "xf1v94y",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "2q2v4yi",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 12000,
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "iv773bq",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "czjfx9l",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 12000,
-      "totalAmount": 36000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "zuf8bnh",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "pw80kdp",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "d7nh9ix",
-      "enrollmentId": null,
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "1dd8f7c",
-      "enrollmentId": null,
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
-    },
-    {
-      "id": "iornol6",
-      "enrollmentId": "trc4o66",
-      "type": "CLIENT",
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Net 30"
-    },
-    {
-      "id": "r8mee84",
-      "enrollmentId": "trc4o66",
-      "type": "TRAINER",
-      "paymentType": "monthly",
-      "rate": 10000,
-      "totalAmount": 30000,
-      "status": "GENERATED",
-      "paymentTerms": "Upon completion"
+      "rate": 1500,
+      "totalAmount": 15000,
+      "paymentTerms": "Net 15",
+      "status": "GENERATED"
     }
   ],
   "invoices": [
@@ -684,6 +507,28 @@
       "tax": 2800,
       "invoiceDate": "2026-01-22",
       "status": "PAID"
+      "amount": 18000,
+      "tax": 1800,
+      "invoiceDate": "2026-04-15",
+      "status": "APPROVED"
+    },
+    {
+      "id": "3db8",
+      "poId": 2,
+      "amount": 15000,
+      "tax": 0,
+      "invoiceDate": "2026-01-12",
+      "status": "PAID",
+      "issuedBy": "TRAINER"
+    },
+    {
+      "id": "0f48",
+      "poId": 3,
+      "amount": 5600,
+      "tax": 0,
+      "invoiceDate": "2026-02-12",
+      "status": "PENDING",
+      "issuedBy": "TRAINER"
     }
   ]
 }

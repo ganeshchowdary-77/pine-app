@@ -28,8 +28,169 @@
   font-size: 1rem !important;
 }
 
-/* Specific Page Styles */
+@import '../trainer-theme.css';
+
+/* Container Limit */
+.upload-card {
+  max-width: 800px;
+  /* Prevent it from being too wide */
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--admin-accent);
+  /* Accent Top Border */
+}
+
+/* Sections */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: var(--admin-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 0.5rem;
+}
+
+/* Grid Layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Input Groups with Icons */
+.form-group {
+  margin-bottom: 1rem;
+}
+
 .form-group label {
   display: block;
+  font-size: 0.9rem;
+  color: var(--admin-text-muted);
   margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.required {
+  color: var(--pine-gold);
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-icon.top-align {
+  align-self: flex-start;
+  top: 0.8rem;
+}
+
+.pine-input {
+  padding-left: 3rem !important;
+  /* Space for icon */
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.pine-input:focus {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(50, 117, 242, 0.15);
+  /* matching trainer accent */
+}
+
+/* Total Preview Card */
+.total-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px dashed var(--admin-border);
+}
+
+.preview-label {
+  color: var(--admin-text-muted);
+  font-size: 1.1rem;
+}
+
+.preview-amount {
+  color: var(--pine-green);
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--admin-border);
+}
+
+.pine-btn-primary {
+  min-width: 150px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Success Alert Card Style */
+.success-alert-card {
+  text-align: center;
+  margin-top: 2rem;
+  border: 1px solid rgba(52, 211, 153, 0.3) !important;
+  background: rgba(52, 211, 153, 0.05) !important;
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.success-title {
+  color: #34d399 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.success-message {
+  color: var(--admin-text-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

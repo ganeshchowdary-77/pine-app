@@ -67,7 +67,7 @@ export class EnrollmentService {
     /**
      * Get enrollments by status
      */
-    getByStatus(status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED'): Observable<Enrollment[]> {
+    getByStatus(status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED'): Observable<Enrollment[]> {
         return this.http.get<Enrollment[]>(`${this.apiUrl}?status=${status}`);
     }
 
@@ -90,7 +90,7 @@ export class EnrollmentService {
      * Update enrollment status
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    updateStatus(id: number | string, status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED'): Observable<Enrollment> {
+    updateStatus(id: number, status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED'): Observable<Enrollment> {
         return this.http.patch<Enrollment>(`${this.apiUrl}/${id}`, { status });
     }
 
