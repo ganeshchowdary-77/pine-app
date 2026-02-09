@@ -1,10 +1,10 @@
 export interface Enrollment {
-    id: number;
+    id: string;
 
-    companyId: number;
-    requestId?: number;
+    companyId: string;
+    requestId?: string;
 
-    trainerId?: number | null;
+    trainerId?: string | null;
 
     technology: string;
     startDate: string;
@@ -12,5 +12,5 @@ export interface Enrollment {
 
     budget?: number;
 
-    status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED';
+    status: 'REQUESTED' | 'APPROVED' | 'ONGOING' | 'COMPLETED' | 'REJECTED';
 }

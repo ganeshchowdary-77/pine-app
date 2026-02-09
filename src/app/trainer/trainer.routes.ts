@@ -1,10 +1,34 @@
 import { Routes } from '@angular/router';
+import { TrainerLayoutComponent } from './trainer-layout/trainer-layout.component';
 import { TrainerDashboardComponent } from './dashboard/dashboard.component';
 import { AssignedTrainingsComponent } from './assigned-trainings/assigned-trainings.component';
 import { PoDetailsComponent } from './po-details/po-details.component';
 import { InvoiceUploadComponent } from './invoice-upload/invoice-upload.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { InvoiceHistoryComponent } from './invoice-history/invoice-history.component';
+
+export const TRAINER_ROUTES: Routes = [
+    {
+        path: '',
+        component: TrainerLayoutComponent,
+        children: [
+            // Trainer Dashboard (Team 5 - Invoice & Dashboard)
+            { path: 'dashboard', component: TrainerDashboardComponent },
+
+            // Training & PO Routes (Team 4 - Training & PO)
+            { path: 'assigned-trainings', component: AssignedTrainingsComponent },
+            { path: 'po-details', component: PoDetailsComponent },
+
+            // Invoice Routes (Team 5 - Invoice & Dashboard)
+            { path: 'invoice-upload', component: InvoiceUploadComponent },
+            { path: 'payment-status', redirectTo: 'invoice-history', pathMatch: 'full' },
+            { path: 'invoice-history', component: InvoiceHistoryComponent },
+
+            // Default route redirects to dashboard
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+        ],
+    },
+];
 
 /**
  * TRAINER MODULE ROUTES
@@ -66,25 +90,3 @@ import { InvoiceHistoryComponent } from './invoice-history/invoice-history.compo
  * }
  * ```
  */
-
-export const TRAINER_ROUTES: Routes = [
-    {
-        path: '',
-        children: [
-            // Trainer Dashboard (Team 5 - Invoice & Dashboard)
-            { path: 'dashboard', component: TrainerDashboardComponent },
-            
-            // Training & PO Routes (Team 4 - Training & PO)
-            { path: 'assigned-trainings', component: AssignedTrainingsComponent },
-            { path: 'po-details', component: PoDetailsComponent },
-            
-            // Invoice Routes (Team 5 - Invoice & Dashboard)
-            { path: 'invoice-upload', component: InvoiceUploadComponent },
-            { path: 'payment-status', component: PaymentStatusComponent },
-            { path: 'invoice-history', component: InvoiceHistoryComponent },
-            
-            // Default route redirects to dashboard
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-        ],
-    },
-];

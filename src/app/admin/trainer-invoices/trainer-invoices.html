@@ -1,0 +1,108 @@
+<div class="trainer-invoices-container">
+  <h2 class="page-title">💳 Trainer Invoice Management</h2>
+  
+  @if (error()) {
+    <div class="alert alert-error">
+      {{ error() }}
+      <button class="retry-btn" (click)="loadTrainerInvoices()">Retry</button>
+    </div>
+  }
+  
+  @if (successMessage()) {
+    <div class="alert alert-success">
+      {{ successMessage() }}
+    </div>
+  }
+  
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-label">Total Invoices</div>
+      <div class="stat-value">{{ filteredInvoices.length }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Amount</div>
+      <div class="stat-value">₹{{ getTotalAmount() | number }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Payment</div>
+      <div class="stat-value pending">₹{{ getPendingAmount() | number }}</div>
+    </div>
+  </div>
+  
+  <div class="filter-section">
+    <input 
+      type="text" 
+      class="filter-input" 
+      #searchInput
+      placeholder="Search by Invoice ID or PO ID..."
+      [value]="searchQuery()"
+      (input)="searchQuery.set(searchInput.value)">
+    
+    <select class="filter-select" title="Filter by status" #statusSelect [value]="selectedStatus()" (change)="selectedStatus.set(statusSelect.value)">
+      <option value="">All Status</option>
+      <option value="PENDING">PENDING</option>
+      <option value="APPROVED">APPROVED</option>
+      <option value="SENT">SENT</option>
+      <option value="PAID">PAID</option>
+    </select>
+  </div>
+  
+  @if (isLoading()) {
+    <div class="loading">Loading trainer invoices...</div>
+  } @else if (filteredInvoices.length === 0) {
+    <div class="no-data">
+      <p>No trainer invoices found</p>
+    </div>
+  } @else {
+    <div class="invoices-table-wrapper">
+      <table class="invoices-table">
+        <thead>
+          <tr>
+            <th>Invoice ID</th>
+            <th>PO ID</th>
+            <th>Amount (₹)</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (invoice of filteredInvoices; track invoice.id) {
+            <tr [class.highlight]="invoice.status === 'PENDING'">
+              <td class="invoice-id">#{{ invoice.id }}</td>
+              <td>{{ invoice.poId }}</td>
+              <td class="amount">₹{{ invoice.amount | number }}</td>
+              <td>{{ invoice.invoiceDate | date:'MMM d, yyyy' }}</td>
+              <td>
+                <span [ngClass]="'status-badge ' + getStatusColor(invoice.status)">
+                  {{ invoice.status }}
+                </span>
+              </td>
+              <td class="actions">
+                @if (invoice.status === 'PENDING') {
+                  <button class="action-btn approve-btn" (click)="approveInvoice(invoice.id)" title="Approve this invoice">
+                    ✓ Approve
+                  </button>
+                  <button class="action-btn reject-btn" (click)="rejectInvoice(invoice.id)" title="Reject this invoice">
+                    ✗ Reject
+                  </button>
+                }
+                @if (invoice.status === 'APPROVED') {
+                  <button class="action-btn pay-btn" (click)="markAsPaid(invoice.id)" title="Mark as paid">
+                    💰 Mark Paid
+                  </button>
+                  <button class="action-btn reject-btn" (click)="rejectInvoice(invoice.id)" title="Reject this invoice">
+                    ✗ Reject
+                  </button>
+                }
+                @if (invoice.status === 'PAID') {
+                  <span class="paid-label">✓ Paid</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

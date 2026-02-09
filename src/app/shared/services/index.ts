@@ -15,3 +15,4 @@ export { PurchaseOrderService } from './purchase-order.service';
 export { InvoiceService } from './invoice.service';
 export { UserService } from './user.service';
 export { TrainingRequestService } from './training-request.service';
+export * from './mail.service';

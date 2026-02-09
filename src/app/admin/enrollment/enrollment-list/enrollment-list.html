@@ -5,10 +5,11 @@
                 <h1>📚 Enrollment Management</h1>
                 <p class="subtitle">Track and manage all training enrollments across different stages</p>
             </div>
-            <a routerLink="/admin/enrollments/new" class="add-btn" aria-label="Add new enrollment">
-                <span class="btn-icon">➕</span>
-                <span class="btn-text">Add New Enrollment</span>
-            </a>
+            <div class="header-actions">
+                <a routerLink="/admin/enrollments/new" class="create-btn">
+                    <span>➕ Create New Enrollment</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -31,15 +32,15 @@
                 </div>
 
                 <div class="card-body">
-                    <h3 class="technology">{{ e.technology }}</h3>
+                    <h3 class="company-name">{{ getCompanyName(e.companyId) }}</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">Company</span>
-                            <span class="value">ID: {{ e.companyId }}</span>
+                            <span class="label">Technology</span>
+                            <span class="value">{{ e.technology }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Trainer</span>
-                            <span class="value">ID: {{ e.trainerId }}</span>
+                            <span class="value">{{ getTrainerName(e.trainerId) }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Start Date</span>
@@ -57,7 +58,8 @@
                 </div>
 
                 <div class="card-actions">
-                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                    <button class="action-btn edit" type="button" (click)="editEnrollment(e.id)"
+                        aria-label="Edit enrollment">
                         <span>✏️</span> Edit
                     </button>
                     <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
@@ -94,15 +96,15 @@
                 </div>
 
                 <div class="card-body">
-                    <h3 class="technology">{{ e.technology }}</h3>
+                    <h3 class="company-name">{{ getCompanyName(e.companyId) }}</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">Company</span>
-                            <span class="value">ID: {{ e.companyId }}</span>
+                            <span class="label">Technology</span>
+                            <span class="value">{{ e.technology }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Trainer</span>
-                            <span class="value">ID: {{ e.trainerId }}</span>
+                            <span class="value">{{ getTrainerName(e.trainerId) }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Start Date</span>
@@ -120,7 +122,8 @@
                 </div>
 
                 <div class="card-actions">
-                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                    <button class="action-btn edit" type="button" (click)="editEnrollment(e.id)"
+                        aria-label="Edit enrollment">
                         <span>✏️</span> Edit
                     </button>
                     <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
@@ -157,15 +160,15 @@
                 </div>
 
                 <div class="card-body">
-                    <h3 class="technology">{{ e.technology }}</h3>
+                    <h3 class="company-name">{{ getCompanyName(e.companyId) }}</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">Company</span>
-                            <span class="value">ID: {{ e.companyId }}</span>
+                            <span class="label">Technology</span>
+                            <span class="value">{{ e.technology }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Trainer</span>
-                            <span class="value">ID: {{ e.trainerId }}</span>
+                            <span class="value">{{ getTrainerName(e.trainerId) }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Start Date</span>
@@ -183,7 +186,8 @@
                 </div>
 
                 <div class="card-actions">
-                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                    <button class="action-btn edit" type="button" (click)="editEnrollment(e.id)"
+                        aria-label="Edit enrollment">
                         <span>✏️</span> Edit
                     </button>
                     <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"
@@ -220,15 +224,15 @@
                 </div>
 
                 <div class="card-body">
-                    <h3 class="technology">{{ e.technology }}</h3>
+                    <h3 class="company-name">{{ getCompanyName(e.companyId) }}</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">Company</span>
-                            <span class="value">ID: {{ e.companyId }}</span>
+                            <span class="label">Technology</span>
+                            <span class="value">{{ e.technology }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Trainer</span>
-                            <span class="value">ID: {{ e.trainerId }}</span>
+                            <span class="value">{{ getTrainerName(e.trainerId) }}</span>
                         </div>
                         <div class="info-item">
                             <span class="label">Start Date</span>
@@ -246,7 +250,8 @@
                 </div>
 
                 <div class="card-actions">
-                    <button class="action-btn edit" type="button" aria-label="Edit enrollment">
+                    <button class="action-btn edit" type="button" (click)="editEnrollment(e.id)"
+                        aria-label="Edit enrollment">
                         <span>✏️</span> Edit
                     </button>
                     <button class="action-btn delete" type="button" (click)="deleteEnrollment(e.id)"

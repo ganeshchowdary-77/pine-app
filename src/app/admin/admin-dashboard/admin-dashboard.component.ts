@@ -18,10 +18,10 @@ export class AdminDashboardComponent implements OnInit {
   private trainerService = inject(TrainerService);
   private poService = inject(PurchaseOrderService);
   private cdr = inject(ChangeDetectorRef);
-  
+
   // Title
   title = 'Admin Dashboard';
-  
+
   // Data
   invoices: Invoice[] = [];
   trainers: Trainer[] = [];
@@ -30,7 +30,7 @@ export class AdminDashboardComponent implements OnInit {
   // Form State
   newAmount: number = 0;
   selectedPoId: number | string = '';
-  
+
   // Loading & Error states
   invoicesLoading = false;
   invoicesError: string | null = null;
@@ -38,20 +38,20 @@ export class AdminDashboardComponent implements OnInit {
   trainersLoading = false;
   trainersError: string | null = null;
   poError: string | null = null;
-  
+
   // Stats
   totalInvoices = 0;
   totalRevenue = 0;
   pendingInvoices = 0;
   paidInvoices = 0;
   totalTrainers = 0;
-  
+
   // Global loading state
   isLoading = true;
 
   // Stars animation
   stars: any[] = [];
-  
+
   ngOnInit() {
     console.log('🚀 AdminDashboardComponent initialized');
     this.generateStars();
@@ -80,8 +80,8 @@ export class AdminDashboardComponent implements OnInit {
     this.poError = null;
     this.invoicesLoading = true;
     this.trainersLoading = true;
-    this.cdr.detectChanges(); 
-    
+    this.cdr.detectChanges();
+
     console.log('📊 Fetching dashboard data (Invoices, Trainers, POs)...');
 
     forkJoin({
@@ -115,7 +115,7 @@ export class AdminDashboardComponent implements OnInit {
           this.isLoading = false;
           this.invoicesLoading = false;
           this.trainersLoading = false;
-          this.cdr.detectChanges(); 
+          this.cdr.detectChanges();
         })
       )
       .subscribe((result) => {
@@ -134,7 +134,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onPoSelected() {
-    const selectedPo = this.purchaseOrders.find(p => p.id === Number(this.selectedPoId));
+    const selectedPo = this.purchaseOrders.find(p => p.id === this.selectedPoId);
     if (selectedPo) {
       this.newAmount = selectedPo.totalAmount;
     } else {
@@ -164,7 +164,7 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     const newInvoice: Partial<Invoice> = {
-      poId: Number(this.selectedPoId),
+      poId: String(this.selectedPoId),
       issuedBy: 'ADMIN',
       amount: this.newAmount,
       invoiceDate: new Date().toISOString(),
@@ -185,7 +185,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  deleteInvoice(id: number) {
+  deleteInvoice(id: string) {
     if (!confirm('Delete this invoice?')) return;
     this.invoiceService.delete(id).subscribe({
       next: () => {
@@ -196,7 +196,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  approveInvoice(id: number) {
+  approveInvoice(id: string) {
     this.invoiceService.approve(id).subscribe({
       next: () => {
         this.invoicesSuccess = 'Invoice approved!';
@@ -207,7 +207,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getStatusColor(status: string): string {
-    switch(status) {
+    switch (status) {
       case 'PENDING': return 'pine-badge-warning';
       case 'PAID': return 'pine-badge-success';
       case 'APPROVED': return 'pine-badge-info';

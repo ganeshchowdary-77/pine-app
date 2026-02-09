@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PurchaseOrder } from '../models';
+import { generateId } from '../utils/id-generator.util';
 
 /**
  * PURCHASE ORDER SERVICE
@@ -39,7 +40,7 @@ export class PurchaseOrderService {
     /**
      * Get purchase order by ID
      */
-    getById(id: number): Observable<PurchaseOrder> {
+    getById(id: string): Observable<PurchaseOrder> {
         return this.http.get<PurchaseOrder>(`${this.apiUrl}/${id}`);
     }
 
@@ -48,14 +49,15 @@ export class PurchaseOrderService {
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
     create(po: Partial<PurchaseOrder>): Observable<PurchaseOrder> {
-        return this.http.post<PurchaseOrder>(this.apiUrl, po);
+        const newPO = { ...po, id: generateId() };
+        return this.http.post<PurchaseOrder>(this.apiUrl, newPO);
     }
 
     /**
      * Update existing purchase order
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    update(id: number, po: Partial<PurchaseOrder>): Observable<PurchaseOrder> {
+    update(id: string, po: Partial<PurchaseOrder>): Observable<PurchaseOrder> {
         return this.http.put<PurchaseOrder>(`${this.apiUrl}/${id}`, po);
     }
 
@@ -63,7 +65,7 @@ export class PurchaseOrderService {
      * Delete purchase order
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    delete(id: number): Observable<void> {
+    delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
@@ -84,7 +86,7 @@ export class PurchaseOrderService {
     /**
      * Get POs for a specific enrollment
      */
-    getByEnrollmentId(enrollmentId: number): Observable<PurchaseOrder[]> {
+    getByEnrollmentId(enrollmentId: string): Observable<PurchaseOrder[]> {
         return this.http.get<PurchaseOrder[]>(`${this.apiUrl}?enrollmentId=${enrollmentId}`);
     }
 
@@ -92,7 +94,7 @@ export class PurchaseOrderService {
      * Update PO status
      * Used by: Admin - Enrollment & PO Owner (Team 2)
      */
-    updateStatus(id: number, status: 'GENERATED' | 'SENT' | 'ACCEPTED' | 'RECEIVED'): Observable<PurchaseOrder> {
+    updateStatus(id: string, status: 'GENERATED' | 'SENT' | 'ACCEPTED' | 'RECEIVED'): Observable<PurchaseOrder> {
         return this.http.patch<PurchaseOrder>(`${this.apiUrl}/${id}`, { status });
     }
 
@@ -108,5 +110,12 @@ export class PurchaseOrderService {
      */
     getTrainerPOs(): Observable<PurchaseOrder[]> {
         return this.getByType('TRAINER');
+    }
+
+    /**
+     * Get POs for a specific trainer
+     */
+    getByTrainerId(trainerId: string): Observable<PurchaseOrder[]> {
+        return this.http.get<PurchaseOrder[]>(`${this.apiUrl}?trainerId=${trainerId}&type=TRAINER`);
     }
 }

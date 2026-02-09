@@ -1,10 +1,6 @@
 <div class="stars-background">
-  <div *ngFor="let star of stars"
-       class="star"
-       [style.left]="star.left"
-       [style.top]="star.top"
-       [style.animation-duration]="star.duration"
-       [style.animation-delay]="star.delay">
+  <div *ngFor="let star of stars" class="star" [style.left]="star.left" [style.top]="star.top"
+    [style.animation-duration]="star.duration" [style.animation-delay]="star.delay">
   </div>
 </div>
 
@@ -14,7 +10,8 @@
   </div>
 
   <!-- Global Loading State -->
-  <div *ngIf="isLoading" class="pine-badge pine-badge-info" style="display:block; padding:1.5rem; border-radius:8px; text-align:center; font-size:1rem;">
+  <div *ngIf="isLoading" class="pine-badge pine-badge-info"
+    style="display:block; padding:1.5rem; border-radius:8px; text-align:center; font-size:1rem;">
     ⏳ Loading dashboard data... Please wait.
     <div style="font-size:0.85rem; margin-top:0.5rem; color:var(--pine-info);">
       If this hangs, open DevTools Console (F12) to see errors or check that json-server is running.
@@ -22,146 +19,149 @@
   </div>
 
   <!-- Error & Success Messages -->
-  <div *ngIf="invoicesError" class="pine-badge pine-badge-error" style="margin-bottom:1rem; display:block; padding:1.5rem; border-radius:8px;">
+  <div *ngIf="invoicesError" class="pine-badge pine-badge-error"
+    style="margin-bottom:1rem; display:block; padding:1.5rem; border-radius:8px;">
     <strong style="display:block; margin-bottom:0.5rem;">❌ {{ invoicesError }}</strong>
     <small style="display:block; opacity:0.9;">
       <div style="margin-top:0.5rem;">💡 Quick fix: Run in terminal:</div>
-      <code style="background:rgba(0,0,0,0.2); padding:0.5rem; display:block; margin-top:0.5rem; border-radius:4px; font-family:monospace;">npm run backend</code>
+      <code
+        style="background:rgba(0,0,0,0.2); padding:0.5rem; display:block; margin-top:0.5rem; border-radius:4px; font-family:monospace;">npm run backend</code>
     </small>
   </div>
-  <div *ngIf="trainersError" class="pine-badge pine-badge-error" style="margin-bottom:1rem; display:block; padding:1.5rem; border-radius:8px;">
+  <div *ngIf="trainersError" class="pine-badge pine-badge-error"
+    style="margin-bottom:1rem; display:block; padding:1.5rem; border-radius:8px;">
     <strong style="display:block; margin-bottom:0.5rem;">❌ {{ trainersError }}</strong>
     <small style="display:block; opacity:0.9;">
       <div style="margin-top:0.5rem;">💡 Quick fix: Run in terminal:</div>
-      <code style="background:rgba(0,0,0,0.2); padding:0.5rem; display:block; margin-top:0.5rem; border-radius:4px; font-family:monospace;">npm run backend</code>
+      <code
+        style="background:rgba(0,0,0,0.2); padding:0.5rem; display:block; margin-top:0.5rem; border-radius:4px; font-family:monospace;">npm run backend</code>
     </small>
   </div>
-  <div *ngIf="invoicesSuccess" class="pine-badge pine-badge-success" style="margin-bottom:1rem; display:block; padding:1rem; border-radius:8px;">✅ {{ invoicesSuccess }}</div>
+  <div *ngIf="invoicesSuccess" class="pine-badge pine-badge-success"
+    style="margin-bottom:1rem; display:block; padding:1rem; border-radius:8px;">✅ {{ invoicesSuccess }}</div>
 
   <!-- Content Only Shows When Data is Loaded -->
   <div *ngIf="!isLoading">
-  <div class="stats-grid">
-    <div class="stat-card pine-card">
-      <div class="stat-label">Total Invoices</div>
-      <div class="stat-value">{{ totalInvoices }}</div>
+    <div class="stats-grid">
+      <div class="stat-card pine-card">
+        <div class="stat-label">Total Invoices</div>
+        <div class="stat-value">{{ totalInvoices }}</div>
+      </div>
+      <div class="stat-card pine-card">
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value">₹{{ totalRevenue | number:'1.0-0' }}</div>
+      </div>
+      <div class="stat-card pine-card">
+        <div class="stat-label">Pending Invoices</div>
+        <div class="stat-value pending">{{ pendingInvoices }}</div>
+      </div>
+      <div class="stat-card pine-card">
+        <div class="stat-label">Paid Invoices</div>
+        <div class="stat-value paid">{{ paidInvoices }}</div>
+      </div>
+      <div class="stat-card pine-card">
+        <div class="stat-label">Active Trainers</div>
+        <div class="stat-value">{{ totalTrainers }}</div>
+      </div>
     </div>
-    <div class="stat-card pine-card">
-      <div class="stat-label">Total Revenue</div>
-      <div class="stat-value">₹{{ totalRevenue | number:'1.0-0' }}</div>
-    </div>
-    <div class="stat-card pine-card">
-      <div class="stat-label">Pending Invoices</div>
-      <div class="stat-value pending">{{ pendingInvoices }}</div>
-    </div>
-    <div class="stat-card pine-card">
-      <div class="stat-label">Paid Invoices</div>
-      <div class="stat-value paid">{{ paidInvoices }}</div>
-    </div>
-    <div class="stat-card pine-card">
-      <div class="stat-label">Active Trainers</div>
-      <div class="stat-value">{{ totalTrainers }}</div>
-    </div>
-  </div>
 
-  <!-- TRAINERS SECTION -->
-  <div class="pine-card" style="margin-bottom:2rem; margin-top:2rem;">
-    <h2 style="margin-bottom:1rem;">👨‍🏫 Trainers Assigned</h2>
-    <div *ngIf="trainersLoading" class="loading">Loading trainers...</div>
-    <div *ngIf="trainersError" class="error">{{ trainersError }}</div>
-    <div *ngIf="!trainersLoading && trainers.length > 0" class="trainers-grid">
-      <div *ngFor="let trainer of trainers" class="trainer-card">
-        <div class="trainer-name">{{ trainer.name }}</div>
-        <div class="trainer-email">📧 {{ trainer.email }}</div>
-        <div class="trainer-tech">
-          <strong>Tech:</strong> {{ trainer.technologies?.join(', ') }}
+    <!-- TRAINERS SECTION -->
+    <div class="pine-card" style="margin-bottom:2rem; margin-top:2rem;">
+      <h2 style="margin-bottom:1rem;">👨‍🏫 Trainers Assigned</h2>
+      <div *ngIf="trainersLoading" class="loading">Loading trainers...</div>
+      <div *ngIf="trainersError" class="error">{{ trainersError }}</div>
+      <div *ngIf="!trainersLoading && trainers.length > 0" class="trainers-grid">
+        <div *ngFor="let trainer of trainers" class="trainer-card">
+          <div class="trainer-name">{{ trainer.name }}</div>
+          <div class="trainer-email">📧 {{ trainer.email }}</div>
+          <div class="trainer-tech">
+            <strong>Tech:</strong> {{ trainer.technologies.join(', ') }}
+          </div>
+          <div class="trainer-rate">
+            <strong>Rate:</strong> ₹{{ trainer.rate }}/{{ trainer.paymentType }}
+          </div>
         </div>
-        <div class="trainer-rate">
-          <strong>Rate:</strong> ₹{{ trainer.rate }}/{{ trainer.paymentType }}
+      </div>
+      <div *ngIf="!trainersLoading && trainers.length === 0" class="no-data">No trainers found</div>
+    </div>
+
+    <!-- ADD INVOICE SECTION -->
+    <div class="pine-card mb-2rem">
+      <h2 class="gold-text" style="margin-bottom:1rem;">💰 Add Invoice</h2>
+
+      <div *ngIf="poError" class="pine-badge pine-badge-error mb-1rem">
+        {{ poError }}
+      </div>
+
+      <div class="add-invoice-form">
+        <div class="form-field-large">
+          <label class="label-style">Select Purchase Order</label>
+          <select class="pine-input full-width" title="Select Purchase Order" [(ngModel)]="selectedPoId"
+            (change)="onPoSelected()">
+            <option value="" disabled>Choose PO ID...</option>
+            <option *ngFor="let po of purchaseOrders" [value]="po.id">
+              PO #{{po.id}} (Limit: ₹{{po.totalAmount}})
+            </option>
+          </select>
         </div>
+
+        <div class="form-field-medium">
+          <label class="label-style">Invoice Amount (₹)</label>
+          <input class="pine-input full-width" type="number" placeholder="Amount" [(ngModel)]="newAmount">
+        </div>
+
+        <button class="pine-btn pine-btn-primary" style="height: 42px; min-width: 150px;" (click)="addInvoice()">
+          ➕ Add Invoice
+        </button>
       </div>
     </div>
-    <div *ngIf="!trainersLoading && trainers.length === 0" class="no-data">No trainers found</div>
-  </div>
 
-  <!-- ADD INVOICE SECTION -->
-  <div class="pine-card mb-2rem">
-    <h2 class="gold-text" style="margin-bottom:1rem;">💰 Add Invoice</h2>
-    
-    <div *ngIf="poError" class="pine-badge pine-badge-error mb-1rem">
-      {{ poError }}
-    </div>
-
-    <div class="add-invoice-form">
-      <div class="form-field-large">
-        <label class="label-style">Select Purchase Order</label>
-        <select class="pine-input full-width" title="Select Purchase Order" [(ngModel)]="selectedPoId" (change)="onPoSelected()">
-          <option value="" disabled>Choose PO ID...</option>
-          <option *ngFor="let po of purchaseOrders" [value]="po.id">
-            PO #{{po.id}} (Limit: ₹{{po.totalAmount}})
-          </option>
-        </select>
+    <!-- INVOICES SECTION -->
+    <div class="pine-card">
+      <h2 style="margin-bottom:1rem;">📋 Invoice Management</h2>
+      <div *ngIf="invoicesLoading" class="loading">Loading invoices...</div>
+      <div *ngIf="!invoicesLoading">
+        <div *ngIf="invoices.length > 0" class="table-wrapper">
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>PO ID</th>
+                <th>From</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of invoices">
+                <td>#{{ invoice.id }}</td>
+                <td>{{ invoice.poId }}</td>
+                <td>{{ invoice.issuedBy }}</td>
+                <td><strong>₹{{ invoice.amount }}</strong></td>
+                <td>{{ invoice.invoiceDate | date:'MMM d, yyyy' }}</td>
+                <td>
+                  <span [ngClass]="'pine-badge ' + getStatusColor(invoice.status)">
+                    {{ invoice.status }}
+                  </span>
+                </td>
+                <td>
+                  <button *ngIf="invoice.status === 'PENDING'" class="pine-btn pine-btn-secondary"
+                    style="font-size:0.85rem; padding:0.4rem 0.8rem;" (click)="approveInvoice(invoice.id)">
+                    ✓ Approve
+                  </button>
+                  <button class="pine-btn pine-btn-outline" style="font-size:0.85rem; padding:0.4rem 0.8rem;"
+                    (click)="deleteInvoice(invoice.id)">
+                    🗑️ Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="invoices.length === 0" class="no-data">No invoices yet. Create one to get started!</div>
       </div>
-
-      <div class="form-field-medium">
-        <label class="label-style">Invoice Amount (₹)</label>
-        <input class="pine-input full-width" type="number" placeholder="Amount" [(ngModel)]="newAmount">
-      </div>
-
-      <button class="pine-btn pine-btn-primary" style="height: 42px; min-width: 150px;" (click)="addInvoice()">
-        ➕ Add Invoice
-      </button>
     </div>
-  </div>
-
-  <!-- INVOICES SECTION -->
-  <div class="pine-card">
-    <h2 style="margin-bottom:1rem;">📋 Invoice Management</h2>
-    <div *ngIf="invoicesLoading" class="loading">Loading invoices...</div>
-    <div *ngIf="!invoicesLoading">
-      <div *ngIf="invoices.length > 0" class="table-wrapper">
-        <table class="invoice-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>PO ID</th>
-              <th>From</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let invoice of invoices">
-              <td>#{{ invoice.id }}</td>
-              <td>{{ invoice.poId }}</td>
-              <td>{{ invoice.issuedBy }}</td>
-              <td><strong>₹{{ invoice.amount }}</strong></td>
-              <td>{{ invoice.invoiceDate | date:'MMM d, yyyy' }}</td>
-              <td>
-                <span [ngClass]="'pine-badge ' + getStatusColor(invoice.status)">
-                  {{ invoice.status }}
-                </span>
-              </td>
-              <td>
-                <button *ngIf="invoice.status === 'PENDING'" 
-                  class="pine-btn pine-btn-secondary" 
-                  style="font-size:0.85rem; padding:0.4rem 0.8rem;"
-                  (click)="approveInvoice(invoice.id)">
-                  ✓ Approve
-                </button>
-                <button class="pine-btn pine-btn-outline" 
-                  style="font-size:0.85rem; padding:0.4rem 0.8rem;"
-                  (click)="deleteInvoice(invoice.id)">
-                  🗑️ Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="invoices.length === 0" class="no-data">No invoices yet. Create one to get started!</div>
-    </div>
-  </div>
   </div>
 </div>

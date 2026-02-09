@@ -295,6 +295,16 @@
     padding: 1.5rem;
 }
 
+.company-name {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--admin-accent);
+    margin: 0 0 1.25rem 0;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
 .technology {
     font-size: 1.25rem;
     font-weight: 700;

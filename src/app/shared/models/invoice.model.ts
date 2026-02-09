@@ -12,9 +12,10 @@
  * PENDING → APPROVED → SENT → PAID
  */
 export interface Invoice {
-    id: number;
+    id: string;
 
-    poId: number; // References PurchaseOrder.id
+    poId: string; // References PurchaseOrder.id
+    trainerId?: string; // Direct link for simpler filtering
 
     issuedBy: 'ADMIN' | 'TRAINER';
 

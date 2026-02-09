@@ -1,78 +1,68 @@
-<div class="trainer-dashboard">
-  <!-- Navigation Section -->
-  <nav class="dashboard-nav">
-    <div class="nav-brand">
-      <h1>{{ welcomeMessage() }}</h1>
-    </div>
-    <div class="nav-links">
-      <a routerLink="/trainer/assigned-trainings" class="nav-link">
-        <span class="nav-icon">📚</span>
-        <span>Assigned Trainings</span>
-      </a>
-      <a routerLink="/trainer/po-details" class="nav-link">
-        <span class="nav-icon">📄</span>
-        <span>PO Details</span>
-      </a>
-      <a routerLink="/trainer/invoice-upload" class="nav-link">
-        <span class="nav-icon">📤</span>
-        <span>Raise Invoice</span>
-      </a>
-      <a routerLink="/trainer/payment-status" class="nav-link">
-        <span class="nav-icon">💳</span>
-        <span>Payment Status</span>
-      </a>
-      <a routerLink="/trainer/invoice-history" class="nav-link">
-        <span class="nav-icon">📊</span>
-        <span>Invoice History</span>
-      </a>
-    </div>
-    <div class="nav-actions">
-      <button class="logout-btn" (click)="logout()">
-        <span class="logout-icon">🚪</span>
-        <span>Logout</span>
-      </button>
-    </div>
-  </nav>
+<!-- Loading State -->
+<div *ngIf="isLoading()" class="loading-badge">
+  <h3>Loading Dashboard Data...</h3>
+</div>
 
-  <!-- Dashboard Summary Only -->
-  <div class="dashboard-content">
-    <div class="summary-section">
-      <h2>Training Summary</h2>
-      <div class="summary-grid">
-        <div class="summary-card">
-          <div class="card-icon">📚</div>
-          <div class="card-content">
-            <h3>{{ stats().totalTrainings }}</h3>
-            <p>Total Trainings</p>
-          </div>
+<!-- Error State -->
+<div *ngIf="error()" class="pine-badge pine-badge-error"
+  style="display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;">
+  <div>
+    <h3>Error</h3>
+    <p>{{ error() }}</p>
+  </div>
+  <button class="pine-btn pine-btn-secondary" (click)="logout()" style="border-color: white; color: white;">
+    Logout & Retry
+  </button>
+</div>
+
+<!-- Dashboard Content -->
+<div *ngIf="!isLoading() && !error()" class="dashboard-content">
+  <div class="summary-section">
+    <h2 style="margin-bottom: 2rem;">Overview</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">🚀</div>
-          <div class="card-content">
-            <h3>{{ stats().ongoingTrainings }}</h3>
-            <p>Ongoing Trainings</p>
-          </div>
+        <div class="card-content">
+          <h3>{{ stats().totalTrainings }}</h3>
+          <p>Total Trainings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">✅</div>
-          <div class="card-content">
-            <h3>{{ stats().completedTrainings }}</h3>
-            <p>Completed Trainings</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">💰</div>
-          <div class="card-content">
-            <h3>${{ stats().totalEarnings }}</h3>
-            <p>Total Earnings</p>
-          </div>
+        <div class="card-content">
+          <h3>{{ stats().ongoingTrainings }}</h3>
+          <p>Ongoing Trainings</p>
         </div>
-        <div class="summary-card">
-          <div class="card-icon">⏳</div>
-          <div class="card-content">
-            <h3>{{ stats().pendingInvoices }}</h3>
-            <p>Pending Invoices</p>
-          </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div class="card-content">
+          <h3>{{ stats().completedTrainings }}</h3>
+          <p>Completed Trainings</p>
+        </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <div class="card-content">
+          <h3>${{ stats().totalEarnings }}</h3>
+          <p>Total Earnings</p>
+        </div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <div class="card-content">
+          <h3>{{ stats().pendingInvoices }}</h3>
+          <p>Pending Invoices</p>
         </div>
       </div>
     </div>

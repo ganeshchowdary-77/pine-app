@@ -1,71 +1,89 @@
-<div class="payment-status">
-  <div class="page-header">
-    <h2>Payment Status</h2>
-    <p>Track your earnings and payment history</p>
-  </div>
-  
-  <div class="payment-summary">
-    <div class="summary-card">
-      <div class="summary-icon">💰</div>
-      <h3>Total Paid</h3>
-      <p class="amount paid">${{ paymentSummary().totalPaid }}</p>
+<div class="page-header mb-2rem">
+  <h2>Payment Status</h2>
+  <p class="text-muted">Track your earnings and payment history</p>
+</div>
+
+<!-- Summary Section -->
+<div class="summary-grid">
+  <div class="pine-card summary-card">
+    <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
     </div>
-    <div class="summary-card">
-      <div class="summary-icon">⏳</div>
-      <h3>Pending Payment</h3>
-      <p class="amount pending">${{ paymentSummary().totalPending }}</p>
-    </div>
-    <div class="summary-card">
-      <div class="summary-icon">📅</div>
-      <h3>Last Payment</h3>
-      <p class="date">{{ paymentSummary().lastPaymentDate || 'No payments yet' }}</p>
+    <div class="card-content">
+      <h3>${{ paymentSummary().totalPaid }}</h3>
+      <p class="amount paid">Total Paid</p>
     </div>
   </div>
-  
-  <div class="invoice-list" *ngIf="invoices().length > 0; else noInvoices">
-    <h3>Invoice Payment History</h3>
-    <div class="invoice-card" *ngFor="let invoice of invoices()">
-      <div class="invoice-header">
-        <div class="invoice-info">
-          <h4>Invoice #{{ invoice.id }}</h4>
-          <p class="invoice-date">{{ invoice.invoiceDate }}</p>
-        </div>
-        <div class="invoice-amount">
-          <p class="amount">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</p>
-          <span class="status {{ invoice.status.toLowerCase() }}">{{ invoice.status }}</span>
-        </div>
-      </div>
-      
-      <div class="invoice-details">
-        <div class="detail-row">
-          <span class="label">PO ID:</span>
-          <span class="value">#{{ invoice.poId }}</span>
-        </div>
-        <div class="detail-row">
-          <span class="label">Base Amount:</span>
-          <span class="value">${{ invoice.amount }}</span>
-        </div>
-        <div class="detail-row" *ngIf="invoice.tax">
-          <span class="label">Tax:</span>
-          <span class="value">${{ invoice.tax }}</span>
-        </div>
-        <div class="detail-row">
-          <span class="label">Total:</span>
-          <span class="value total">${{ (invoice.amount || 0) + (invoice.tax || 0) }}</span>
-        </div>
-      </div>
+  <div class="pine-card summary-card">
+    <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    </div>
+    <div class="card-content">
+      <h3>${{ paymentSummary().totalPending }}</h3>
+      <p class="amount pending">Pending Payment</p>
     </div>
   </div>
-  
-  <ng-template #noInvoices>
-    <div class="empty-state">
-      <div class="empty-icon">💳</div>
-      <h3>No Invoices Found</h3>
-      <p>You don't have any invoices yet.</p>
+  <div class="pine-card summary-card">
+    <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
     </div>
-  </ng-template>
-  
-  <div class="back-link">
-    <a routerLink="/trainer/dashboard" class="back-btn">← Back to Dashboard</a>
+    <div class="card-content">
+      <h3>{{ paymentSummary().lastPaymentDate ? (paymentSummary().lastPaymentDate | date) : 'No payments' }}</h3>
+      <p class="date">Last Payment</p>
+    </div>
   </div>
 </div>
+
+<!-- Invoice List -->
+<div class="invoice-list" *ngIf="invoices().length > 0; else noInvoicesTemplate">
+  <h3 class="mb-2rem">Invoice Payment History</h3>
+  <div class="summary-grid">
+    <div class="pine-card summary-card" *ngFor="let invoice of invoices()">
+      <div class="invoice-header mb-1rem" style="display:flex; justify-content:space-between; align-items: flex-start;">
+        <div class="invoice-info">
+          <h4 style="margin:0; color:var(--admin-text);">Invoice #{{ invoice.id }}</h4>
+          <p class="invoice-date text-muted" style="margin:0; font-size:0.85rem;">{{ invoice.invoiceDate | date }}</p>
+        </div>
+        <div class="invoice-amount" style="text-align:right;">
+          <p class="amount" style="margin:0; font-size:1.2rem; font-weight:bold; color:var(--admin-accent);">${{
+            (invoice.amount || 0) + (invoice.tax || 0) }}</p>
+          <span class="pine-badge {{ invoice.status === 'PAID' ? 'pine-badge-success' : 'pine-badge-warning' }}">{{
+            invoice.status }}</span>
+        </div>
+      </div>
+
+      <div class="invoice-details" style="font-size:0.9rem;">
+        <div class="detail-row"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">PO ID:</span>
+          <span class="value">#{{ invoice.poId }}</span>
+        </div>
+        <div class="detail-row"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">Base Amount:</span>
+          <span class="value">${{ invoice.amount }}</span>
+        </div>
+        <div class="detail-row" *ngIf="invoice.tax"
+          style="display:flex; justify-content:space-between; margin-bottom:0.5rem; border-bottom:1px solid var(--admin-border);">
+          <span class="label text-muted">Tax:</span>
+          <span class="value">${{ invoice.tax }}</span>
+        </div>
+        <div class="detail-row" style="display:flex; justify-content:space-between;">
+          <span class="label text-muted">Total:</span>
+          <span class="value total" style="color:var(--admin-accent);">${{ (invoice.amount || 0) + (invoice.tax || 0)
+            }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noInvoicesTemplate>
+  <div class="no-data pine-card">
+    <div class="empty-icon" style="font-size: 3rem; margin-bottom: 1rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+    </div>
+    <h3>No Invoices Found</h3>
+    <p>You don't have any invoices yet.</p>
+  </div>
+</ng-template>

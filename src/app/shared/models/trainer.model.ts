@@ -10,7 +10,7 @@
  * Used by: Both Admin and Trainer teams
  */
 export interface Trainer {
-    id: number;
+    id: string;
     name: string;
     email: string;
     technologies: string[]; // List of technologies they can teach
